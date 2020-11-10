@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec5f25f5-8075-4350-a6e7-acbcdf99439f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/_includes/read-time.html" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/read-time.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/jquery-1.12.0.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/jquery-1.12.0.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/jquery.dlmenu.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/jquery.dlmenu.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/jquery.fitvid.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/jquery.fitvid.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/jquery.goup.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/jquery.goup.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/jquery.magnific-popup.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/jquery.magnific-popup.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/modernizr-3.3.1.custom.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/modernizr-3.3.1.custom.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/wow.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/wow.min.js" afterDir="false" />
-    </list>
+    <list default="true" id="ec5f25f5-8075-4350-a6e7-acbcdf99439f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/_includes/read-time.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="5" column="29" lean-forward="true" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+              <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -196,6 +186,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="editor.config.ad.shown" value="true" />
@@ -226,12 +217,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1605006365540</updated>
-      <workItem from="1605006368271" duration="340000" />
+      <workItem from="1605006368271" duration="929000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="340000" />
+    <option name="totallyTimeSpent" value="929000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -355,7 +346,7 @@
     <entry file="file://$PROJECT_DIR$/_includes/read-time.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="5" column="29" lean-forward="true" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+          <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
         </state>
       </provider>
     </entry>
