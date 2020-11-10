@@ -1,5 +1,11 @@
 {% assign wpm = site.words_per_minute | append: '.0' %}
 {% assign readtime = content | strip_html | number_of_words | divided_by:wpm | round %}
 Reading time ~{% if readtime <= 1 %}1 minute{% else %}{{ readtime }} minutes{% endif %}
-{% assign readtime4 = content | strip_html | number_of_words  %}
-number_of_words:{{readtime4}}
+{% assign readtime1 = content | strip_html | number_of_words  %}
+{% assign readtime2 = content | strip_html | number_of_sentences  %}
+{% assign readtime3 = content | strip_html | number_of_paragraphs  %}
+{% assign readtime4 = content | strip_html | number_of_characters  %}
+number_of_words:{{readtime1}}
+number_of_sentences:{{readtime2}}
+number_of_paragraphs:{{readtime3}}
+number_of_characters:{{readtime4}}
