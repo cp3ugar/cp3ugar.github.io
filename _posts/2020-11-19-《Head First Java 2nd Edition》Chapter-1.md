@@ -11,19 +11,19 @@ comments: true
 
 The goal is to write one application and have it work on whatever device your friends have.
 
-- ![image-20201119152912819](img/image-20201119152912819.png)Create a source document. Use an established protocol.
-- ![image-20201119153005077](img/image-20201119153005077.png)Run your document through a source code compiler. The compiler checks for errors and won't let you compile until it's satisfied that everything will run correctly.
-- ![image-20201119152949336](img/image-20201119152949336.png)The compiler creates a new document,coded into Java **bytecode**. Any device capable of running Java will be able to interpret/translate this file into something it can run. The compiled bytecode is platform-independent.
-- ![image-20201119153018296](img/image-20201119153018296.png)Your friends don't have a physical Java Machine,but they all have a **virtual** Java machine running inside their electronic gadgets. The virtual machine reads and runs the bytecode.
+- ![image-20201119152912819](/assets/img/image-20201119152912819.png)Create a source document. Use an established protocol.
+- ![image-20201119153005077](/assets/img/image-20201119153005077.png)Run your document through a source code compiler. The compiler checks for errors and won't let you compile until it's satisfied that everything will run correctly.
+- ![image-20201119152949336](/assets/img/image-20201119152949336.png)The compiler creates a new document,coded into Java **bytecode**. Any device capable of running Java will be able to interpret/translate this file into something it can run. The compiled bytecode is platform-independent.
+- ![image-20201119153018296](/assets/img/image-20201119153018296.png)Your friends don't have a physical Java Machine,but they all have a **virtual** Java machine running inside their electronic gadgets. The virtual machine reads and runs the bytecode.
 
 # What you'll do in Java
 
 You'll type a source code file,compile it using the **javac** compiler,then run the compiled bytecode on a Java **virtual machine**.
 
-- ![image-20201119153038598](img/image-20201119153038598.png)Type your source code. Save as:**Party.java**
-- ![image-20201119153047552](img/image-20201119153047552.png)Compile the **Party.java** file by running javac. If you don't have errors,you'll get a second document named **Party.class**. The compiler-generated Party.class file is made up of bytecodes.
-- ![image-20201119153059540](img/image-20201119153059540.png)Compiled code:**Party.class**
-- ![image-20201119153109160](img/image-20201119153109160.png)Run the program by starting the Java Virtual Machine(JVM) with the **Party.class** file. The JVM translates the bytecode into something the underlying platform understands,and runs your program.
+- ![image-20201119153038598](/assets/img/image-20201119153038598.png)Type your source code. Save as:**Party.java**
+- ![image-20201119153047552](/assets/img/image-20201119153047552.png)Compile the **Party.java** file by running javac. If you don't have errors,you'll get a second document named **Party.class**. The compiler-generated Party.class file is made up of bytecodes.
+- ![image-20201119153059540](/assets/img/image-20201119153059540.png)Compiled code:**Party.class**
+- ![image-20201119153109160](/assets/img/image-20201119153109160.png)Run the program by starting the Java Virtual Machine(JVM) with the **Party.class** file. The JVM translates the bytecode into something the underlying platform understands,and runs your program.
 
 # A very brief history of Java
 
@@ -41,7 +41,7 @@ So,the original Java was versions 1.02 through 1.1 were just "Java". Versions 1.
 
 # Code structure in Java
 
-![image-20201119153127784](img/image-20201119153127784.png)
+![image-20201119153127784](/assets/img/image-20201119153127784.png)
 
 - Put a **class** in a source file
 - Put methods in a class
@@ -49,15 +49,15 @@ So,the original Java was versions 1.02 through 1.1 were just "Java". Versions 1.
 
 ### What goes in a **source** file?
 
-![image-20201119153141878](img/image-20201119153141878.png)A source code file holds one class definition. The class represents a piece of your program,although a very tiny application might need just a single class. The class must go within a pair of curly braces.
+![image-20201119153141878](/assets/img/image-20201119153141878.png)A source code file holds one class definition. The class represents a piece of your program,although a very tiny application might need just a single class. The class must go within a pair of curly braces.
 
 ### What goes in a **class**?
 
-![image-20201119153151641](img/image-20201119153151641.png)A class has one or more methods. In the Dog class,the bark method will hold instructions for how the Dog should bark. Your methods must be declared inside a class.
+![image-20201119153151641](/assets/img/image-20201119153151641.png)A class has one or more methods. In the Dog class,the bark method will hold instructions for how the Dog should bark. Your methods must be declared inside a class.
 
 ### What goes in a **method**?
 
-![image-20201119153206927](img/image-20201119153206927.png)Within the curly braces of a method,write your instructions for how that method should be performed. Method code is basically a set of statements,and for now you can think of a method kind of like a function or procedure.
+![image-20201119153206927](/assets/img/image-20201119153206927.png)Within the curly braces of a method,write your instructions for how that method should be performed. Method code is basically a set of statements,and for now you can think of a method kind of like a function or procedure.
 
 # Anatomy of a class
 
@@ -71,7 +71,7 @@ public static void main(String[] args){
 
 Next,the JVM runs everything between the curly braces {} of your main method. Every Java application has to have at lease one **class**,and at least one **main** method.
 
-![image-20201119153223792](img/image-20201119153223792.png)
+![image-20201119153223792](/assets/img/image-20201119153223792.png)
 
 # Writing a class with a main
 
@@ -85,7 +85,7 @@ The **main**() method is where your program starts running.
 
 No matter how big your program is,there's got to be a **main**() method to get the ball rolling.
 
-![image-20201119153239262](img/image-20201119153239262.png)
+![image-20201119153239262](/assets/img/image-20201119153239262.png)
 
 # What can you say in the main method?
 
@@ -227,7 +227,7 @@ class IfTest{
 }
 ```
 
-![image-20201119153257481](img/image-20201119153257481.png)
+![image-20201119153257481](/assets/img/image-20201119153257481.png)
 
 The code above executes the line that prints "x must be 3" only if the condition is true. Regardless of whether it's true,though,the line that prints,"This runs no matter what" will run. So depending on the value of x,either one statement or two will print out.
 
@@ -247,7 +247,7 @@ class IfTest2{
 }
 ```
 
-![image-20201119153309169](img/image-20201119153309169.png)
+![image-20201119153309169](/assets/img/image-20201119153309169.png)
 
 ### System.out.**print** vs. System.out.**println**
 
