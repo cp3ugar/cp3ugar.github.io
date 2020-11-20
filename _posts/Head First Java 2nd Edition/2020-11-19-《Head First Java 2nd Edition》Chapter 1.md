@@ -2,7 +2,7 @@
 layout: post
 title: "《Head First Java 2nd Edition》Chapter 1"
 date: 2020-11-19
-excerpt: "dive in A Quick Dip"
+excerpt: "Breaking the Surface"
 tags: [reading notes,Head First Java,Java]
 comments: true
 ---
