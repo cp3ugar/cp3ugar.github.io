@@ -16,8 +16,6 @@ comments: true
 
 ![image-20210420115628953](../../assets/img/image-20210420115628953.png)
 
-![image-20210420115645331](../../assets/img/image-20210420115645331.png)
-
 # Learning generics
 
 1. **Create instances of generified <u>classes</u>**
