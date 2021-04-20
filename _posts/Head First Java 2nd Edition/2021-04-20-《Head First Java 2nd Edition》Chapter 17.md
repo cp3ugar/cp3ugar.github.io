@@ -15,7 +15,7 @@ comments: true
 
 ### A Java program is a bunch of classes. That’s the output of your development. The real question is what to do with those classes when you’re done.
 
-![image-20210420111905900](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210420111905900.png)
+![image-20210420120011597](../assets/img/image-20210420120011597.png)
 
 1. **Local**
 
@@ -35,9 +35,9 @@ comments: true
 
 ### Compiling with the -d (directory) flag
 
-![image-20210420113911963](D:\Nicholas\Project\cp3ugar.github.io\assets\img\image-20210420113911963.png)
+![image-20210420115943574](../assets/img/image-20210420115943574.png)
 
-![image-20210420114011921](D:\Nicholas\Project\cp3ugar.github.io\assets\img\image-20210420114011921.png)
+![image-20210420115956471](../assets/img/image-20210420115956471.png)
 
 
 

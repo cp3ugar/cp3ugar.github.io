@@ -14,7 +14,9 @@ comments: true
 
 ### With generics,you create type-safe collections where more problems are caught at compile-time instead of runtime. Without generics,the compiler would happily let you put a Pumpkin into an ArrayList that was supposed to hold only Cat objects.
 
-![image-20210419182703955](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210419182703955.png)
+![image-20210420115628953](../../assets/img/image-20210420115628953.png)
+
+![image-20210420115645331](../../assets/img/image-20210420115645331.png)
 
 # Learning generics
 
