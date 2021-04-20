@@ -3,7 +3,7 @@ title:              'cp3ugar'
 bio:                "It's my blog site."
 description:        "Welcome!"
 reading_time:       true
-words_per_minute:   5
+words_per_minute:   150
 logo:               'assets/img/logo.png'
 background:         'assets/img/placeholder-big.jpg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
