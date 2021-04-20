@@ -15,11 +15,11 @@ comments: true
 
 ### The Server has to know about ALL the clients.
 
-![image-20210416162229942](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416162229942.png)
+![image-20210420114156660](../../assets/img/image-20210420114156660.png)
 
 ### How it works:
 
-![image-20210416162259306](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416162259306.png)
+![image-20210420114222689](../../assets/img/image-20210420114222689.png)
 
 # Connecting,Sending,and Receiving
 
@@ -31,71 +31,71 @@ The three things we have to learn to get the client working are:
 
 There’s a lot of low-level stuff that has to happen fort these things to work. But we’re lucky,because the Java API networking package makes it a piece of cake for programmers. You’ll see a lot more GUI code than networking and I/O code.
 
-![image-20210416162817129](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416162817129.png)
+![image-20210420114241993](../../assets/img/image-20210420114241993.png)
 
 # Make a network Socket connection
 
 ### To make a Socket connection,you need to know <u>two</u> things about the server:who it is,and which port it’s running on. In other words,==IP address and TCP port number==.
 
-![image-20210416163302802](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416163302802.png)
+![image-20210420114258002](../../assets/img/image-20210420114258002.png)
 
 # A TCP port is just a number. A 16-bit number that identifies a specific program on the server
 
-![image-20210416163807551](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416163807551.png)
+![image-20210420114326039](../../assets/img/image-20210420114326039.png)
 
-![image-20210416164102400](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416164102400.png)
+![image-20210420114342464](../../assets/img/image-20210420114342464.png)
 
 # To read data from a Socket,use a BufferReader
 
 1. **Make a <u>Socket</u> connection to the server**
 
-   ![image-20210416164234007](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416164234007.png)
+   ![image-20210420114356622](../../assets/img/image-20210420114356622.png)
 
 2. **Make an <u>InputStreamReader</u> chain to the Socket’s low-level (connection) input stream**
 
-   ![image-20210416164321640](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416164321640.png)
+   ![image-20210420114411523](../../assets/img/image-20210420114411523.png)
 
 3. **Make a <u>BufferedReader</u> and read!**
 
-   ![image-20210416164352094](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416164352094.png)
+   ![image-20210420114423726](../../assets/img/image-20210420114423726.png)
 
-![image-20210416164413366](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416164413366.png)
+   ![image-20210420114440647](../../assets/img/image-20210420114440647.png)
 
 # To write data to a Socket,use a PrintWriter
 
 1. **Make a <u>Socket</u> connetion to the server**
 
-   ![image-20210416164711503](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416164711503.png)
+   ![image-20210420114500743](../../assets/img/image-20210420114500743.png)
 
 2. **Make a <u>PrintWriter</u> chained to the Socket’s low-level (connection) output stream**
 
-   ![image-20210416164752560](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416164752560.png)
+   ![image-20210420114507375](../../assets/img/image-20210420114507375.png)
 
 3. **<u>Write</u> (print) something**
 
-   ![image-20210416164833886](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416164833886.png)
+   ![image-20210420114515166](../../assets/img/image-20210420114515166.png)
 
-![image-20210416164848790](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416164848790.png)
+   ![image-20210420114526862](../../assets/img/image-20210420114526862.png)
 
 # Java has multiple threads but only one Thread class
 
 ### A thread is a separate ‘thread of execution’. In other words,a separate call stack. A Thread is a Java class that represents a thread. To make a thread,make a Thread.
 
-![image-20210416173104560](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416173104560.png)
+![image-20210420114538234](../../assets/img/image-20210420114538234.png)
 
 # How to launch a new thread:
 
 1. **Make a Runnable object (the thread’s job)**
 
-   ![image-20210416173227805](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416173227805.png)
+   ![image-20210420114547047](../../assets/img/image-20210420114547047.png)
 
 2. **Make a Thread object (the worker) and give it a Runnable (the job)**
 
-   ![image-20210416173341364](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416173341364.png)
+   ![image-20210420114555158](../../assets/img/image-20210420114555158.png)
 
 3. **Start the Thread**
 
-   ![image-20210416173419525](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416173419525.png)
+   ![image-20210420114605686](../../assets/img/image-20210420114605686.png)
 
 # Every Thread needs a job to do. A method to put on the new thread stack.
 
@@ -105,17 +105,17 @@ There’s a lot of low-level stuff that has to happen fort these things to work.
 
 # The three states of a new thread
 
-![image-20210416174308492](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416174308492.png)
+![image-20210420114615362](../../assets/img/image-20210420114615362.png)
 
 ### But there’s more. Once the thread becomes runnable,it can move back and forth between runnable,running, and additional state:temporarily not runnable(also known as ‘blocked’).
 
 ### Typical runnable/running loop
 
-![image-20210416174833589](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416174833589.png)
+![image-20210420114624954](../../assets/img/image-20210420114624954.png)
 
 ### A thread can be made temporarily not-runnable
 
-![image-20210416174907886](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416174907886.png)
+![image-20210420114634531](../../assets/img/image-20210420114634531.png)
 
 # The Thread Scheduler
 
@@ -127,11 +127,11 @@ The thread scheduler makes all the decisions about who moves from runnable to ru
 
 ### Sometimes it runs like this:
 
-![image-20210416180509620](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416180509620.png)
+![image-20210420114651791](../../assets/img/image-20210420114651791.png)
 
 ### And sometiems it runs like this:
 
-![image-20210416180529004](C:\Users\雷霆世纪\AppData\Roaming\Typora\typora-user-images\image-20210416180529004.png)
+![image-20210420114646576](../../assets/img/image-20210420114646576.png)
 
 # Putting a thread to sleep
 
