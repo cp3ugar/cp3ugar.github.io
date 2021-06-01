@@ -1,0 +1,112 @@
+I"�<h1 id="generics-means-more-type-safety">Generics means more type-safety</h1>
+
+<h3 id="with-genericsyou-create-type-safe-collections-where-more-problems-are-caught-at-compile-time-instead-of-runtime-without-genericsthe-compiler-would-happily-let-you-put-a-pumpkin-into-an-arraylist-that-was-supposed-to-hold-only-cat-objects">With generics,you create type-safe collections where more problems are caught at compile-time instead of runtime. Without generics,the compiler would happily let you put a Pumpkin into an ArrayList that was supposed to hold only Cat objects.</h3>
+
+<p><img src="../../assets/img/image-20210420115628953.png" alt="image-20210420115628953" /></p>
+
+<h1 id="learning-generics">Learning generics</h1>
+
+<ol>
+  <li>
+    <p><strong>Create instances of generified <u>classes</u></strong></p>
+
+    <p>When you make an ArrayList,you have to tell it the type of objects you’ll allow in the list,just as you do with plain old arrays</p>
+  </li>
+  <li>
+    <p><strong>Declaring and assigning <u>variables</u> of generic types</strong></p>
+
+    <p>How does polumorphism really work with generic types? If you have an ArrayList<Animal> reference variable,can you assign an ArrayList<Dog> to it? What about a List<Animal> reference? Can you assign an ArrayList<Animal> to it?</Animal></Animal></Dog></Animal></p>
+  </li>
+  <li>
+    <p><strong>Declaring (and invokiong) <u>methods</u> that take generic types</strong></p>
+
+    <p>If you have a method that takes as a parameter,say,an ArrayList of Animal objects,what does that really mean? Can you also pass it an ArrayList of Dog objects? We’ll look at some subtle and tricky polymorphism issues that are very different from the way you write methods that take plain old arrays</p>
+  </li>
+</ol>
+
+<h1 id="revisiting-the-sort-method">Revisiting the sort() method</h1>
+
+<h3 id="the-sort-method-can-take-only-lists-of-comparable-objects">The sort() method can take only lists of Comparable objects.</h3>
+
+<p><img src="../../assets/img/image-20210420093044275.png" alt="image-20210420093044275" /></p>
+
+<h1 id="in-genericsextends-means-extends-or-implements">In generics,”extends” means “extends <u>or</u> implements”</h1>
+
+<h3 id="in-genericsthe-keyword-extends-really-means-is-aand-works-for-both-classes-and-interfaces">In generics,the keyword “extends” really means “is-a”,and works for BOTH classes and interfaces.</h3>
+
+<h1 id="we-need-a-set-instead-of-a-list">We need a <u>Set</u> instead of a <u>List</u></h1>
+
+<p><img src="../../assets/img/image-20210420101220642.png" alt="image-20210420101220642" /></p>
+
+<h1 id="the-collection-api">The Collection API</h1>
+
+<p><img src="../../assets/img/image-20210420101424613.png" alt="image-20210420101424613" /></p>
+
+<p><img src="../../assets/img/image-20210420101434692.png" alt="image-20210420101434692" /></p>
+
+<p><img src="../../assets/img/image-20210420101444098.png" alt="image-20210420101444098" /></p>
+
+<h1 id="what-makes-two-objects-equal">What makes two objects equal?</h1>
+
+<p>If two objects foo and bar are equals,foo.equals(bar) must be true,and both foo and bar must return the same value from hashCode(). For a Set to treat two objects as duplicates,you must override the hashCode() and equals() methods inherited from class Object,so that you can make two different objects be viewed as equals.</p>
+
+<ul>
+  <li>
+    <p><strong>Reference equality</strong></p>
+
+    <p>Two references,one object on the heap</p>
+  </li>
+</ul>
+
+<p><img src="../../assets/img/image-20210420101754250.png" alt="image-20210420101754250" /></p>
+
+<ul>
+  <li>
+    <p><strong>Object equality</strong></p>
+
+    <p><strong>Two references,two objects on the heap,but the objects are considered meaningfully equivalent</strong></p>
+
+    <p><img src="../../assets/img/image-20210420102027997.png" alt="image-20210420102027997" /></p>
+  </li>
+</ul>
+
+<h1 id="how-a-hashset-checks-for-duplicateshashcode-and-equals">How a HashSet checks for duplicates:hashCode() and equals()</h1>
+
+<p>When you put an object into a HashSet,it uses the object’s hashcode value to determine where to put the object in the Set. But  it also compares the object’s hashcode to the hashcode of all the other objects in the HashSet,and if there’s no matching hashcode,the HastSet assumes that this new object is not a duplicate.</p>
+
+<p>In other words,if the hashcodes are different,the HashSet assumes there’s no way the objects can be equals!</p>
+
+<p>So you must override hashCode() to make sure the objects have the same value.</p>
+
+<p>But two objects with the same hashCode()  might not be equal,so if the HashSet finds a matching hashcode for two objects——one you’re inserting and one already in the set——the HashSet will then call one of the object’s equals() methods to see if these hashcode-matched objects really are equal.</p>
+
+<p>And if they’re equal,the HashSet knows that the object you’re attempting to add is a duplicate of something in the Set,so the add doesn’t happen.</p>
+
+<p><img src="../../assets/img/image-20210420102913056.png" alt="image-20210420102913056" /></p>
+
+<h1 id="treeset-elements-must-be-comparable">TreeSet elements MUST be comparable</h1>
+
+<h3 id="to-use-a-treesetone-of-these-things-must-be-true">To use a TreeSet,one of these things must be true:</h3>
+
+<ul>
+  <li>The elements in the list must be of a type that implements Comparable</li>
+</ul>
+
+<h3 id="or">OR</h3>
+
+<ul>
+  <li>You use the TreeSet’s overloaded constructor that takes a Comarator</li>
+</ul>
+
+<h1 id="array-types-are-checked-again-at-runtimebut-collection-type-checks-happen-only-when-you-compile">Array types are checked again at <u>runtime</u>,but collection type checks happen only when you <u>compile</u></h1>
+
+<h1 id="wildcards-to-the-rescue">Wildcards to the rescue</h1>
+
+<p><img src="../../assets/img/image-20210420104505362.png" alt="image-20210420104505362" /></p>
+
+<p>When you use a wildcard in your method argument,the compiler will STOP you from doing anything that could hurt the list referenced by the method parameter.</p>
+
+<p>You can still invoke methods on the elements in the list,but you cannot <u>add</u> elements to the list.</p>
+
+<p>In other words,you can do things with the list elements,but you can’t put new things in the list. So you’re safe at runtime,because the compiler won’t let you do anything that might be horrible at runtime.</p>
+:ET

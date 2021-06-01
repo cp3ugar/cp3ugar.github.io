@@ -1,0 +1,355 @@
+I"_<h1 id="in-our-last-chapterwe-left-you-with-the-cliff-hanger-a-bug">In our last chapter,we left you with the cliff-hanger. A bug.</h1>
+
+<p>In the current version,once you get a hit,you can simply repeat that hit two more times for the kill!</p>
+
+<h1 id="so-what-happened">So what happened?</h1>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201141537543.png" alt="image-20201201141537543" /></p>
+
+<h1 id="how-do-we-fix-it">How do we fix it?</h1>
+
+<p>We need a way to know whether a cell has already been hit. Let’s run through some possibilities,but first,we’ll look at what we know so  far…</p>
+
+<p>We have a virtual row of 7 cells,and a DotCom will occupy three consecutive cells somewhere in that row. This virtual row shows a DotCom placed at cell locations 4,5 and 6.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201141834011.png" alt="image-20201201141834011" /></p>
+
+<p>The DotCom has an instance variable—an int array—that holds that DotCom object’s cell locations.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201141949796.png" alt="image-20201201141949796" /></p>
+
+<h3 id="option-one">Option one</h3>
+
+<p>We could make a second array,and each time the user makes a hit,we store that hit in the second array,and then check that array each time we get a hit,to see if that cell has been hit before.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201145151396.png" alt="image-20201201145151396" /></p>
+
+<h1 id="option-one-is-too-clunky">Option one is too clunky</h1>
+
+<p>Option one seems like more work than you’d expect. It means that each time the user makes a hit,you have to change the state of the second array(the ‘hitCells’ array),but first you have to CHECK the ‘hitCells’ array to see if that cell has already been hit anyway. It would work,but there’s got to be something better…</p>
+
+<h3 id="option-two">Option two</h3>
+
+<p>We could just keep the one original array,but change the value of any hit cell to -1. That way,we only have ONE array to check and manipulate.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201145859334.png" alt="image-20201201145859334" /></p>
+
+<h1 id="option-two-is-a-little-betterbut-still-pretty-clunky">Option two is a little better,but still pretty clunky</h1>
+
+<p>Option two is a little less clunky than option one,but it’s not very efficient. You’d still have to loop through all three slots in the array,even if one or more are already invalid because they’ve been ‘hit’. There has to be something better…</p>
+
+<h3 id="option-three">Option three</h3>
+
+<p>We delete each cell location as it gets hit,and then modify the array to be smaller. Except arrays can’t change their size,so we have to make a <strong>new</strong> array and copy the remaining cells from the old array into the new smaller array.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201150311657.png" alt="image-20201201150311657" /></p>
+
+<p><strong>Option three would be much better if the array could shrink,so that we wouldn’t have to make a new smaller array,copy the remaining value in,and reassign the reference.</strong></p>
+
+<h3 id="life-would-be-good-if-only-we-could-change-it-to">Life would be good if only we could change it to:</h3>
+
+<p><strong>REPEAT</strong> with each of the <strong>remaining</strong> location cells</p>
+
+<p>​		//COMPARE the user guess to the location cell</p>
+
+<p>​		<strong>IF</strong> the user guess matches</p>
+
+<p>​				<strong>REMOVE</strong> this cell from the array</p>
+
+<p>​				//FIND OUT if it was the last location cell:</p>
+
+<p>​				<strong>IF</strong> the array in now empty,<strong>RETURN</strong> “kill”</p>
+
+<p>​				<strong>ELSE</strong> it was not a kill,so <strong>RETURN</strong> “hit”</p>
+
+<p>​				END IF</p>
+
+<p>​		<strong>ELSE</strong> user guess did not match,so <strong>RETURN</strong> “miss”</p>
+
+<p>​		END IF</p>
+
+<p>END REPEAT</p>
+
+<h1 id="wake-up-and-smell-the-library">Wake up and smell the library</h1>
+
+<p><strong>As if by magic,there really is such a thing.</strong></p>
+
+<p><strong>But it’s not an array,it’s an ArrayList.</strong></p>
+
+<p><strong>A class in  the core Java library(the API).</strong></p>
+
+<p>The Java Standard Edition ships with hundreds of pre-built classes. Just like our Ready-Bake code except that these built-in classes are already compiled.</p>
+
+<p><strong>That means no typing.</strong></p>
+
+<p>Just use ‘em.</p>
+
+<h1 id="some-things-you-can-do-with-arraylist">Some things you can do with <u>ArrayList</u></h1>
+
+<ul>
+  <li>
+    <p>Make one</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201151836633.png" alt="image-20201201151836633" /></p>
+  </li>
+  <li>
+    <p>Put something in it</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201151947912.png" alt="image-20201201151947912" /></p>
+  </li>
+  <li>
+    <p>Put another thing in it</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201152021458.png" alt="image-20201201152021458" /></p>
+  </li>
+  <li>
+    <p>Find out how many things are in it</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201152056010.png" alt="image-20201201152056010" /></p>
+  </li>
+  <li>
+    <p>Find out if it contains something</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201152120857.png" alt="image-20201201152120857" /></p>
+  </li>
+  <li>
+    <p>Find out where something is</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201152150527.png" alt="image-20201201152150527" /></p>
+  </li>
+  <li>
+    <p>Find out if it’s empty</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201152333569.png" alt="image-20201201152333569" /></p>
+  </li>
+  <li>
+    <p>Remove something from it</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201152403751.png" alt="image-20201201152403751" /></p>
+  </li>
+</ul>
+
+<h1 id="qso-arraylist-is-coolbut-how-would-i-know-it-exists"><strong>Q</strong>:So ArrayList is cool,but how would I know it exists?</h1>
+
+<p><strong>A</strong>:The question is really,”How do I know what’s in the API?” and that’s the key to your success as a Java programmer. Not to mention your key to being as lazy as possible while still managing to build software. You might be amazed at how much time you can save when somebody else has already done most of the heavy lifting,and all you have to do is step in and create the fun part.</p>
+
+<p>But we digress… the short answer is that you spend some time learning what’s in the core API. The long answer is at the end of this chapter,where you’ll learn how to do that.</p>
+
+<h1 id="qbut-thats-a-pretty-big-issue-not-only-do-i-need-to-know-that-the-java-library-comes-with-arraylistbut-more-importantly-i-have-to-know-that-arraylist-is-the-thing-that-can-do-what-i-wantso-how-do-i-go-from-a-need-to-do-something-to-a-way-to-do-it-using-the-api"><strong>Q</strong>:But that’s a pretty big issue. Not only do I need to know that the Java library comes with ArrayList,but more importantly I have to know that ArrayList is the thing that can do what I want!So how do I go from a need-to-do-something to a-way-to-do-it using the API?</h1>
+
+<p><strong>A</strong>:Now you’ve really at the heart of it. By the time you’ve finished this book,you’ll have a good grasp of the language,and the rest of your learning curve really is about knowing how to get from a problem to a solution,with you writing the least amount of code. If you can be patient for a few more pages,we start talking about it at the end of this chapter.</p>
+
+<h1 id="comparing-arraylist-to-a-regular-array">Comparing ArrayList to a regular array</h1>
+
+<h3 id="a-plain-old-array-has-to-know-its-size-at-the-time-its-created">①A plain old array has to know its size at the time it’s created.</h3>
+
+<p>But for ArrayList,you just make an objects of type ArrayList. Every time. It never needs to know big it should be,because it grows and shrinks as objects are added or removed.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201172611080.png" alt="image-20201201172611080" /></p>
+
+<h3 id="to-put-an-object-in-a-regular-arrayyou-must-assign-it-to-a-specific-location">②To put an object in a regular array,you must assign it to a specific location.</h3>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201172655587.png" alt="image-20201201172655587" /></p>
+
+<p>If that index is outside the boundaries of the array,it blows up at runtime.</p>
+
+<p>With ArrayList,you can specify an index using the <em>add(anInt,anObject)</em> method,or you can just keep saying <em>add(anObject)</em> and the ArrayList will keep growing to make room for the new thing.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201172850655.png" alt="image-20201201172850655" /></p>
+
+<h3 id="arrays-use-array-syntax-thats-not-used-anywhere-else-in-java">③Arrays use array syntax that’s not used anywhere else in Java.</h3>
+
+<p>But ArrayLists are plain old Java objects,so they have no special syntax.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201173004463.png" alt="image-20201201173004463" /></p>
+
+<h3 id="arraylists-in-java-50-are-parameterized">④ArrayLists in Java 5.0 are parameterized.</h3>
+
+<p>We just said that unlike arrays,ArrayLists have no special syntax. But they do use something special that was added to Java 5.0—<strong><em>parameterized types</em></strong>.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201201173158028.png" alt="image-20201201173158028" /></p>
+
+<p>Prior to Java 5.0,there was no way to declare the type of things that would go in the ArrayList,so to the compiler,all ArrayLists were simply heterogenous collections of objects. But now,using the <typeGoesHere> syntax,we can declare and create an ArrayList that knows the types of objects it can hold.</typeGoesHere></p>
+
+<h1 id="super-powerful-boolean-expressions">Super Powerful Boolean Expressions</h1>
+
+<p>So far,when we’re used boolean expressions for our loops or if tests,they’re been pretty simple. We will be using more powerful boolean expressions in some of the Ready-Bake code you’re about to see,and even though we know you wouldn’t peek,we thought this would be a good time to discuss how to energize your expressions.</p>
+
+<h3 id="and-and-or-operators">‘And’ and ‘Or’ Operators(&amp;&amp;,||)</h3>
+
+<p>Let’s say you’re writing a chooseCamera() method,with lots of rules about which camera to select. Maybe you can choose cameras ranging from <code class="language-plaintext highlighter-rouge">$50</code> to <code class="language-plaintext highlighter-rouge">$1000</code>,but in some cases you want to limit the price range more precisely. You want to say something like:</p>
+
+<p>‘if the price range is between <code class="language-plaintext highlighter-rouge">$300</code> <strong>and</strong> <code class="language-plaintext highlighter-rouge">$400</code> then choose X.’</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">price</span> <span class="o">&gt;=</span> <span class="mi">300</span> <span class="o">&amp;&amp;</span> <span class="n">price</span> <span class="o">&lt;</span> <span class="mi">400</span><span class="o">){</span>
+	<span class="n">camera</span> <span class="o">=</span> <span class="s">"X"</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Let’s say that of the camera brands available,you have some logic that applies to only a few of the list:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">brand</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"A"</span><span class="o">)</span> <span class="o">||</span> <span class="n">brand</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"B"</span><span class="o">)){</span>
+	<span class="c1">//do stuff for only brand A or brand B</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Boolean expressions can get really big and complicated:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">((</span><span class="n">zoomType</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"optical"</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">zoomDegree</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="n">zoomDegree</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="o">))</span> <span class="o">||</span> <span class="o">(</span><span class="n">zoomType</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"digital"</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">zoomDegree</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="o">&amp;&amp;</span> <span class="n">zoomDegree</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="o">))){</span>  
+    <span class="c1">//do appropriate zoom stuff</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If you want to get really technical,you might wonder about the precedence of these operators. Instead of becoming an expert in the arcane world of precedence,we recommend that you <strong>use parentheses</strong> to make your code clear.</p>
+
+<h3 id="not-equals-and-">Not equals(!= and !)</h3>
+
+<p>Let’s say that you have a logic like,”of the ten available camera models,a certain thing is true for all but one.”</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">model</span> <span class="o">!=</span> <span class="mi">200</span><span class="o">){</span>
+    <span class="c1">//do nod-model 2000 stuff</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>or for comparing objects like strings…</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(!</span><span class="n">brand</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"X"</span><span class="o">)){</span>
+	<span class="c1">//do non-brand X stuff</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="short-circuit-operators">Short Circuit Operators(&amp;&amp;,||)</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>The operator we’ve looked at so far,&amp;&amp; and</td>
+      <td> </td>
+      <td>,are known as <strong>short circuit</strong> operators. In the case of &amp;&amp;,the expression will be true only if both side of the &amp;&amp; are true. So if the JVM sees that the left side of a &amp;&amp; expression is false,it stops right there! Doesn’t even bother to look at the right side.</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Similarly,with</td>
+      <td> </td>
+      <td>,the expression will be true if either side is true,so if the JVM sees that the left side is true,it declares the entire statement to be true and doesn’t bother to check the right side.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Why is this great?Let’s say that you have a reference variable and you’re not sure whether it’s been assigned to an object. If you try to call a method using this null reference variable,you’ll get a NullPointException. So try this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">refVar</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">refVar</span><span class="o">.</span><span class="na">isValidType</span><span class="o">()){</span>
+	<span class="c1">//fo 'got a valid type' stuff</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="non-short-circuit-operators">Non Short Circuit Operators(&amp;,|)</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>When used in boolean expressions,the &amp; and</td>
+      <td>operators act like their &amp;&amp; and</td>
+      <td> </td>
+      <td>counterparts,except that they force the JVM to always check both sides of the expression. Typically,&amp; and</td>
+      <td>are used in another context,for manipulating bits.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="using-the-librarythe-java-api">Using the Library(the Java API)</h1>
+
+<p>You made it all the way through the DotComBust game,thanks to the help of ArrayList. And now,as promised,it’s time to learn how to fool around in the Java library.</p>
+
+<h1 id="in-the-java-apiclasses-are-grouped-into-packages">In the Java API,classes are grouped into packages.</h1>
+
+<h3 id="to-use-a-class-in-the-apiyou-have-to-know-which-package-the-class-is-in">To use a class in the API,you have to know which <u>package</u> the class is in.</h3>
+
+<p>Every class in the Java library belongs to a package. The package has a name,like <strong>javax.swing</strong>. ArrayList is in the package called <strong>java.util</strong>,which surprise surprise,holds a pile of <em>utility</em> classes. You’ll learn a lot more about packages in chapter 16,including how to put your <em>own</em> classes into your <em>own</em> packages. For now though,we’re just looking to <em>use</em> some of the classes that come with Java.</p>
+
+<p>Using a class from the API,in your own code,is simple. You just treat the class as though you wrote it yourself…as though you compiled it,and there it sits,waiting for you to use it. With one big difference: somewhere in your code you have to indicate the <em>full</em> name of the library class you want to use,and that means package name+class name.</p>
+
+<p>Even if you didn’t know it,<strong><em>you’re already been using classes from a package.</em></strong> System,String,and Math,all belong to the <strong>java.lang</strong> package.</p>
+
+<h1 id="you-have-to-know-the-full-name-of-the-class-you-want-to-use-in-your-code">You have to know the <u>full</u> name of the class you want to use in your code.</h1>
+
+<p>ArrayList is not the <em>full</em> name of ArrayList,just as ‘Kathy’ isn’t a full name. The full name of ArrayList is actually:</p>
+
+<p><img src="../../assets/img/image-20201202145359515.png" alt="image-20201202145359515" /></p>
+
+<h3 id="you-have-to-tell-java-which-arraylist-you-want-to-use-you-have-two-options">You have to tell Java which ArrayList you want to use. You have two options:</h3>
+
+<ul>
+  <li>
+    <p><strong>IMPORT</strong></p>
+
+    <p>Put an import statement at the top of your source code file:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span><span class="o">{...}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>TYPE</strong></p>
+
+    <p>Type the full name everywhere in your code. Each time you use it. Anywhere you use it.</p>
+
+    <p>When you declare and/or instantiate it:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">java.util.ArrayList&lt;Dog&gt; list = new java.util.ArrayList&lt;Dog&gt;();</code></p>
+
+    <p>When you use it as an argument type:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">public void go(java.util.ArrayList&lt;Dog&gt; list){}</code></p>
+
+    <p>When you use it as a return type:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">public java.util.ArrayList&lt;Dog&gt; foo(){...}</code></p>
+  </li>
+</ul>
+
+<h3 id="qwhy-does-these-have-to-be-a-full-nameis-that-the-only-purpose-of-a-package"><strong>Q</strong>:Why does these have to be a full name?Is that the only purpose of a package?</h3>
+
+<p><strong>A</strong>:Packages are import for three main reasons. First,they help the overall organization of a project or library. Rather than just having one horrendously large pile of classes,they’re all grouped into packages for specific kinds of functionality.</p>
+
+<p>Second,packages give you a name-scoping,to help prevent collisions if you and 12 other programmers in your company all decide to make a class with the same name. If you have a class named Set and someone else has a class named Set,you need some way to tell the JVM which Set class you’re trying to use.</p>
+
+<p>Third,packages provide a level of security,because you can restrict the code you write so that only other classes in the same package can access it. You’ll learn all about that in chapter 16.</p>
+
+<h3 id="qokback-to-the-name-collision-thing-how-does-a-full-name-really-helpwhats-to-prevent-two-people-from-giving-a-class-the-same-package-name"><strong>Q</strong>:OK,back to the name collision thing. How does a full name really help?What’s to prevent two people from giving a class the same package name?</h3>
+
+<p><strong>A</strong>:Java has a naming convention that usually prevents this from happening,as long as developers adhere to it.</p>
+
+<h3 id="qdoes-import-make-my-class-biggerdoes-it-actually-compile-the-imported-class-or-package-into-my-code"><strong>Q</strong>:Does <strong>import</strong> make my class bigger?Does it actually compile the imported class or package into my code?</h3>
+
+<p><strong>A</strong>:Perhaps you’re a C programmer?An <strong>import</strong> is not the same as an <strong>include</strong>. So the answer is no and no. Repeat after me:”an <strong>import</strong> statement saves you from typing.” That’s really it. You don’t have to worry about your code becoming bloated,or slower,from too many imports. An <strong>import</strong> is simply the way you give Java the full name of a class.</p>
+
+<h3 id="qokhow-come-i-never-had-to-import-the-string-classor-system"><strong>Q</strong>:OK,how come I never had to import the String class?Or System?</h3>
+
+<p><strong>A</strong>:Remember,you get the java.lang package sort of “pre-imported” for free. Because the classes in java.lang are so fundamental,you don’t have to use the full name. There is only one java.lang.String class,and one java.lang.System class,and Java darn well knows where to find them.</p>
+
+<h3 id="qdo-i-have-to-put-my-own-classes-into-packageshow-do-i-do-thatcan-i-do-that"><strong>Q</strong>:Do I have to put my own classes into packages?How do I do that?Can I do that?</h3>
+
+<p><strong>A</strong>:In the real world,yes,you will want to put your classes into packages.</p>
+
+<h1 id="how-to-play-with-the-api">How to play with the API</h1>
+
+<p>Two things you want to know:</p>
+
+<ol>
+  <li>What classes are in the library?</li>
+  <li>Once you find a class,how do you know what it can do?</li>
+</ol>
+
+<h3 id="1browse-a-book">1.Browse a Book</h3>
+
+<p>Flipping through a reference book is the best way to find out what’s in the Java library. You can easily stumble on a class that looks useful,just by browsing pages.</p>
+
+<h3 id="2use-the-html-api-docs">2.Use the HTML API docs</h3>
+
+<p>Java coms with a fabulous set of online docs called,strangely,the Java API. The API docs are the best reference for getting more details about a class and its methods. Let’s say you were browsing through the reference book and found a class called Calendar,in java.util. The book tells you a little about it,enough to know that this is indeed what you want to use,but you still need to know more about the methods.</p>
+:ET

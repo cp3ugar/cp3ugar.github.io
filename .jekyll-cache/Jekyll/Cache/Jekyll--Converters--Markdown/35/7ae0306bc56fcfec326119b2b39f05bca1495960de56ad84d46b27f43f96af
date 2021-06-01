@@ -1,0 +1,242 @@
+I"�h<h1 id="some-classes-just-should-not-be-instantiated">Some classes just should <u>not</u> be instantiated!</h1>
+
+<p>It make sense to create a Wolf object or a Hippo object or a Tiger object,but what exactly <em>is</em> an Animal object? What shape is it? What color,size,number of legs…</p>
+
+<p>Trying to create an object of type Animal is like <strong>a nightmare Star Trek transporter accident.</strong> The one where somewhere in the beam-me-up process something bad happened to the buffer.</p>
+
+<p>But how do we deal with this? We <em>need</em> an Animal class,for inheritance and polymorphism. But we want programmers to instantiate only the less abstract <em>subclass</em> of class Animal,not Animal itself. We want Tiger objects and Lion objects,<strong><em>not Animal objects.</em></strong></p>
+
+<p>Fortunately,there’s a simple way to prevent a class from ever being instantiated. In other words,to stop anyone from saying “<strong>new</strong>” on that type. By marking the class as <strong>abstract</strong>,the compiler will stop any code,anywhere,from ever creating an instance of that type.</p>
+
+<p>You can still use that abstract type as a reference type. In fact,that’s a big part of why you have that abstract class in the first place.</p>
+
+<p>When you’re designing your class inheritance structure,you have to decide which classes are <em>abstract</em> and which are <em>concrete</em>. Concrete classes are those that are specific enough to be instantiated. A <em>concrete</em> class just means that it’s OK to make objects of that type.</p>
+
+<p>Making a class abstract is easy—put the keyword <strong>abstract</strong> before the class declaration:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Canine</span> <span class="kd">extends</span> <span class="nc">Animal</span><span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">roam</span><span class="o">(){}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="the-compiler-wont-let-you-instantiate-an-abstract-class">The compiler won’t let you instantiate an abstract class</h1>
+
+<p>An abstract class means that nobody can ever make a new instance of that class. You can still use that abstract class as a declared reference type,for the purpose of the polymorphism,but you don’t have to worry about somebody making objects of that type. The compiler <em>guarantees</em> it.</p>
+
+<p>An <strong>abstract class</strong> has virtually no use,no value,no purpose in life,unless it is <strong>extended</strong>.</p>
+
+<p>With an abstract class,the guys doing the work at runtime are <strong>instances of a subclass</strong> of your abstract class.</p>
+
+<h1 id="abstract-vs-concrete">Abstract vs. Concrete</h1>
+
+<p>A class that’s not abstract is called a <em>concrete</em> class. In the Animal inheritance tree,if we make Animal,Canine,and Feline abstract,that leaves Hippo,Wolf,Dog,Tiger,Lion,and Cat as the concrete subclass.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201216164547405.png" alt="image-20201216164547405" /></p>
+
+<h1 id="abstract-method">Abstract method</h1>
+
+<p>Besides classes,you can make <em>methods</em> abstract,too. An abstract class means the class must be <em>extended</em>;an abstract method means the method must be <em>overridden</em>. You might decide that some behaviors in an abstract class don’t make any sense unless they’re implemented by a more specific subclass. In other words,you can’t think of any generic method implementation that could possibly be useful for subclass. What would a generic eat() method look like?</p>
+
+<p><strong>An abstract method has no body!</strong></p>
+
+<p>Because you’ve already decided there isn’t any code that would make sense in the abstract method,you won’t put in a method body. So no curly braces—just end the declaration with a semicolon.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201216165316269.png" alt="image-20201216165316269" /></p>
+
+<p><strong>If you declare an abstract method,you MUST mark the class abstract as well. You can’t have an abstract method in a non-abstract class.</strong></p>
+
+<p>But you can mix both abstract and non-abstract methods in the abstract class.</p>
+
+<h3 id="qwhat-is-the-point-of-an-abstract-method-i-thought-the-whole-point-of-an-abstract-class-was-to-have-common-code-that-could-be-inherited-by-subclasses"><strong>Q</strong>:What is the point of an abstract method? I thought the whole point of an abstract class was to have common code that could be inherited by subclasses.</h3>
+
+<p><strong>A</strong>:Inheritable method implementations are A Good Thing to put in a superclass. When it makes sense. And in an abstract class,it often doesn’t make sense,because you can’t come up with any generic code that subclasses would find useful. The point of an abstract method is that even though you haven’t put in any actual method code,you’ve still defined part of the protocol for a group of subtypes.</p>
+
+<h3 id="qwhich-is-good-because"><strong>Q</strong>:Which is good because…</h3>
+
+<p><strong>A</strong>:Polymorphise! Remember,what you want is the ability to use a superclass type as a method argument,return type,or array type. That way,you get to add new subtypes to your program without having to rewrite new methods to deal with those new types. Imagine how you’d have to change the Vet class,if it didn’t use Animal as its argument type for methods. You’d have to have a separate method for every single Animal subclass! One that takes a Lion,one that takes a Wolf,one that takes a…you get the idea. So with an abstract method,you’re saying,”All subtypes of this type have THIS method.”for the benefit of polymorphism.</p>
+
+<h1 id="you-must-implement-all-abstract-methods">You MUST implement all abstract methods</h1>
+
+<p><strong>Implementing an abstract method is just like overriding a method.</strong></p>
+
+<p>Abstract methods don’t have a body;they exist solely for polymorphism. That means the first concrete class in the inheritance tree must implement all abstract methods.</p>
+
+<p>When we say “you must implement the abstract method”,that means you must provide a body. That means you must create a non-abstract method in your class with the same method signature and return type that is compatible with the declared return type of the abstract method. What you put in that method is up to you. All Java cares about is up to you. All Java cares is that the method is there,in your concrete subclass.</p>
+
+<h1 id="every-class-in-java-extends-class-object">Every class in Java extends class object</h1>
+
+<p>Class Object is the mother of all classes;it’s the superclass of <em>everything</em>.</p>
+
+<p>Even if you take advantage of polymorphism,you still have to create a class with methods that take and return <em>your</em> polymorphic type. Without a common superclass for everything in Java,there’d be no way for developers of Java to create classes with methods that could take <em>your</em> custom types…<em>types they never knew about when they wrote the ArrayList class.</em></p>
+
+<p>So you were making subclass of class Object from the very beginning and you didn’t even know it. <strong>Every class you write extends Object</strong>,without your ever having to say it. But you can think of it as though a class you write looks like this:</p>
+
+<p><code class="language-plaintext highlighter-rouge">public class Dog extends Object{}</code></p>
+
+<p><strong>Any class that doesn’t explicitly extend another class,implicitly extends Object.</strong></p>
+
+<h1 id="so-whats-in-this-ultra-super-megaclass-object">So what’s in this ultra-super-megaclass Object?</h1>
+
+<p><img src="../../assets/img/image-20201223145219919.png" alt="image-20201223145219919" /></p>
+
+<h3 id="qis-class-object-abstract"><strong>Q</strong>:Is class Object abstract?</h3>
+
+<p><strong>A</strong>:No. Well,not in formal Java sense anyway. Object is a non-abstract class because it’s got method implementation code that all classes can inherit and use out-of-the-box,without having to override the methods.</p>
+
+<h3 id="qthen-can-you-override-the-methods-in-object"><strong>Q</strong>:Then can you override the methods in Object?</h3>
+
+<p><strong>A</strong>:Some of them. But some of them are marked final,which means you can’t override them. You’re encouraged to override hashCode(),equals(),and toString() in your own classes. But some of the methods,like getClass(),do things that must work in a specific,guaranteed way.</p>
+
+<h3 id="qif-arraylist-methods-are-generic-enough-to-use-objectthen-what-does-it-mean-to-say-arraylist-i-thought-i-was-restricting-the-arraylist-to-hold-only-dotcom-objects"><strong>Q</strong>:If ArrayList methods are generic enough to use Object,then what does it mean to say ArrayList<DotCom>? I thought I was restricting the ArrayList to hold only DotCom objects?</DotCom></h3>
+
+<p><strong>A</strong>:You were restricting it. Prior to Java 5.0,ArrayLists couldn’t be restricted. They were all essentially what you get in Java 5.0 today if you write ArrayList<object>. In other words,<strong>an ArrayList restricted to anything that’s an Object,</strong>which means any object in Java,instantiated from any class type!</object></p>
+
+<h3 id="qhow-can-you-let-somebody-make-an-object-objectisnt-that-just-as-weird-as-making-an-animal-object"><strong>Q</strong>:How can you let somebody make an Object object?Isn’t that just as weird as making an Animal object?</h3>
+
+<p><strong>A</strong>:Why is it acceptable to make a new Object instance? Because sometimes you just want a generic object to use as,well,as an object. A lightweight object. By far,the most common use of an instance of type Object is for thread synchronization. On the back burner and assume that you will rarely make objects of type Object,even though you can.</p>
+
+<h3 id="qso-is-it-fair-to-say-that-the-main-purpose-for-type-object-is-so-that-you-can-use-it-for-a-polymorphic-argument-and-return-type-like-arraylist"><strong>Q</strong>:So is it fair to say that the main purpose for type Object is so that you can use it for a polymorphic argument and return type? Like ArrayList?</h3>
+
+<p><strong>A</strong>:The Object class serves two main purpose: to act as a polymorphic type for methods that need to work on any class that you or anyone else makes,and to provide real method code that all objects in Java need at runtime. Some of the most important methods in Object are related to threads.</p>
+
+<h3 id="qif-its-so-good-to-use-polymorphic-typeswhy-dont-you-just-make-all-your-methods-take-and-return-type-object"><strong>Q</strong>:If it’s so good to use polymorphic types,why don’t you just make ALL your methods take and return type Object?</h3>
+
+<p><strong>A</strong>:Ahhh…think about what would happen. For one thing,you would defeat the whole point of ‘type-safety’,one of Java’s greatest protection mechanisms for your code. With type-safety,Java guarantees that you won’t ask the wrong object to do something you meant to ask of another object type. But the truth is,you don’t have to worry about that fiery Ferrari scenario,even if you do use Object references for everything. Because when objects are referred to by an Object reference type,Java thinks it’s referring to an instance of type Object. And that means the only methods you’re allowed to call on that object are the ones declared in class Object! So if you were to say:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Object</span> <span class="n">o</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Ferrari</span><span class="o">();</span>
+
+<span class="n">o</span><span class="o">.</span><span class="na">goFast</span><span class="o">();</span>	<span class="c1">//Not legal!</span>
+</code></pre></div></div>
+
+<p>You wouldn’t even make it past the compiler.</p>
+
+<p>Because Java is a strong-typed language,the compiler checks to make sure that you’re calling a method on an object that’s actually capable of responding. In other words,you can call a method on an object reference only if the class of the reference type actually has the method.</p>
+
+<h1 id="using-polymorphic-reference-of-type-object-has-a-price">Using polymorphic reference of type Object has a price…</h1>
+
+<p>Before you run off and start using type Object for all your ultra-flexible argument and return types,you need to consider a little issue of using type Object as a reference. And keep in mind that we’re not talking about making instances of type Object;we’re talking about making instances of some other type,but using a references of type Object.</p>
+
+<p>When you put an object into an ArrayList<Dog>,it goes in as a Dog,and comes out as a Dog.</Dog></p>
+
+<p>But what happens when you declare it as ArrayList<object>? If you want to make an ArrayList that will literally take any kind of Object,you declare it like this:</object></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">&gt;</span> <span class="n">myDogArrayList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">&gt;();</span>
+<span class="nc">Dog</span> <span class="n">aDog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+<span class="n">myDogArrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">aDog</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>But what happens when you try to get the Dog object and assign it to a Dog reference?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Dog</span> <span class="n">d</span> <span class="o">=</span> <span class="n">myDogArrayList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="c1">//NO!!!Won't compile!!!When you use ArrayList&lt;Object&gt;,the get() method returns type Object. The compiler knows only that the object inherits from Object but it doesn't know it's a Dog!!</span>
+</code></pre></div></div>
+
+<p>**Everything comes out of an ArrayList<object> as a reference of type Object,regardless of what the actual object is,or what the reference type was when you added the object to the list.**</object></p>
+
+<h1 id="get-in-touch-with-your-inner-object">Get in touch with your inner Object!</h1>
+
+<p>An object contains <em>everything</em> it inherits from each of its superclass. That means <em>every</em> object—regardless of its actual class type—is also an instance of class Object. That means any object in Java can be treated not just as a Dog,Button,or Snowboard,but also as an Object. When you say <strong>new Snowboard()</strong>,you get a single object on the heap—a Snowboard object—but that Snowboard wraps itself around an inner representing the Object portion of itself.</p>
+
+<p><img src="../../assets/img/image-20201224164028303.png" alt="image-20201224164028303" /></p>
+
+<h1 id="polymorphism-means-many-forms">‘Polymorphism’ means ‘many forms’.</h1>
+
+<p><strong>You can treat a Snowboard a Snowboard as a Snowboard or as an Object.</strong></p>
+
+<p>If a reference is like a remote control,the remote control takes on more and more buttons as you move down the inheritance tree. A remote control of type Object has only a few buttons—the buttons for the exposed methods of class Object. But a remote control of type Snowboard includes all the buttons from class Object,plus any new buttons of class Snowboard. The more specific the class,the remote buttons it may have.</p>
+
+<p>Of course that’s not always true; a subclass might not add any new methods,but simply override the methods of its superclass. The key point is that even if the object is of type Snowboard,an Object <em>reference</em> to the Snowboard object can’t see the Snowboard-specific methods.</p>
+
+<p>**When you put an object in an ArrayList<object>,you can treat it only as an Object,regardless of the type it was when you put it in.**</object></p>
+
+<p>**When you get a reference from an ArrayList<object>,the reference is always of type Object.**</object></p>
+
+<p><strong>That means you get an Object remote control.</strong></p>
+
+<p><img src="../../assets/img/image-20201224164838722.png" alt="image-20201224164838722" /></p>
+
+<h1 id="casting-an-object-reference-back-to-its-real-type">Casting an object reference back to its real type.</h1>
+
+<p><img src="../../assets/img/image-20201224165040204.png" alt="image-20201224165040204" /></p>
+
+<p>It’s really still a Dog object,but if you want to call Dog-specific methods,you need a reference declared as type Dog. If you’re sure the object is really a Dog,you can make a new Dog reference to it by copying the Object reference,and forcing that copy to go into a Dog reference variable,using a cast (Dog). You can use the new Dog reference to call Dog methods.</p>
+
+<p><img src="../../assets/img/image-20201224165228942.png" alt="image-20201224165228942" /></p>
+
+<p>If you’re not sure it’s a Dog,you can use the <strong>instanceof</strong> operator to check. Because if you’re wrong when you do the cast,you’ll get a ClassCastException at runtime and come to a grinding halt.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">o</span> <span class="k">instanceof</span> <span class="nc">Dog</span><span class="o">){</span>
+	<span class="nc">Dog</span> <span class="n">d</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Dog</span><span class="o">)</span><span class="n">o</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="so-now-youve-seen-how-much-java-cares-about-the-methods-in-the-class-of-the-reference-variable">So now you’ve seen how much Java cares about the methods in the class of the <u>reference</u> variable.</h1>
+
+<p><strong>You can call a method on an object only if the class of the reference variable has that method.</strong></p>
+
+<p><strong>Think of the public methods in your class as your contract,your promise to the outside world about things you can do.</strong></p>
+
+<p>When you write a class,you almost always expose some of the methods to code outside the class. To expose a method means you make a method accessible,usually by making it public.</p>
+
+<p><strong>Just remember that the compiler checks the class of the reference variable,not the class of the actual object at the other end of the reference.</strong></p>
+
+<h1 id="its-called-multiple-inheritance-and-it-can-be-a-really-bad-thing">It’s called “multiple inheritance” and it can be a Really Bad Thing.</h1>
+
+<p>That is,if it were possible to do in Java.</p>
+
+<p>But it isn’t,because multiple inheritance has a problem known as The Deadly Diamond of Death.</p>
+
+<p><img src="../../assets/img/image-20201224185708517.png" alt="image-20201224185708517" /></p>
+
+<p>A language that allows the Deadly Diamond of Death can lead to some ugly complexities,because you have to have special rules to deal with the potential ambiguities. And extra rules means extra work for you both in learning those rules and watching out for those “special cases”. Java is supposed to be simple,with consistent rules that don’t blow up under some scenarios. So Java protects you from having to think about the Deadly Diamond of Death.</p>
+
+<h1 id="interface-to-the-rescue">Interface to the rescue!</h1>
+
+<p>Not a GUI interface,not the generic use of the word interface as in,”That’s the public interface for the Button class API,”but the Java <em>keyword</em> <strong>interface</strong>.</p>
+
+<p>A Java interface solves your multiple inheritance problem by giving you much of the polymorphic <em>benefits</em> of multiple inheritance without the pain and suffering from the Deadly Diamond of Death(DDD).</p>
+
+<p>The way in which interfaces side-step the DDD is surprisingly simple: <strong>make all the methods abstract!</strong> That way,the subclass <strong>must</strong> implement the methods,so at runtime the JVM isn’t confused about which of the two inherited versions it’s supposed to call.</p>
+
+<h3 id="to-define-an-interface">To <u>DEFINE</u> an interface:</h3>
+
+<p><img src="../../assets/img/image-20201224190835160.png" alt="image-20201224190835160" /></p>
+
+<h3 id="to-implement-an-interface">To <u>IMPLEMENT</u> an interface:</h3>
+
+<p><img src="../../assets/img/image-20201224190917095.png" alt="image-20201224190917095" /></p>
+
+<h3 id="qinterface-dont-really-give-you-multiple-inheritancebecause-you-cant-put-any-implementation-code-in-them-if-all-the-methods-are-abstractwhat-does-an-interface-really-buy-you"><strong>Q</strong>:Interface don’t really give you multiple inheritance,because you can’t put any implementation code in them. If all the methods are abstract,what does an interface really buy you?</h3>
+
+<p><strong>A</strong>:Polymorphism,polymorphism,polymorphism. Interfaces are the ultimate in flexibility,because if you use interfaces instead of concrete subclass as arguments and return types,you can pass anything that implements that interface. And think about it—with an interface,a class doesn’t have to come from just one inheritance tree. A class can extend one class,and implement an interface. But another class might implement the same interface,yet come from a completely different inheritance tree! So you get to treat an object by the role it plays,rather than by the class type from which it was instantiated. In fact,if you wrote your code to use interfaces,you wouldn’t even have to give anyone a superclass that they had to extend. You could just give them the interface and say,”Here,I don’t care what kind of class inheritance structure you come from,just implement this interface and you’ll be good to go.”</p>
+
+<p>The face that you can’t put in implementation code turns out not to be a problem for most good designs,because most interface methods wouldn’t make sense if implemented in a generic way. In other words,most interface methods would need to be override even if the methods weren’t forced to be abstract.</p>
+
+<p><strong>Better still,a class can implement multiple interfaces!</strong></p>
+
+<h3 id="how-do-you-know-whether-to-make-a-classa-subclassan-abstract-classor-an-interface">How do you know whether to make a class,a subclass,an abstract class,or an interface?</h3>
+
+<ul>
+  <li>Make a class that doesn’t extend anything when your new class doesn’t pass IS-A test for any other type.</li>
+  <li>Make a subclass only when you need to make a <strong>more specific</strong> version of a class and need to override or add new behaviors.</li>
+  <li>Use an abstract class when you want to define a <strong>template</strong> for a group of subclasses,and you have at least some implementation code that all subclasses could use. Make the class abstract when you want to guarantee that nobody can make objects of that type.</li>
+  <li>Use an interface when you want to define a <strong>role</strong> that other classes can play,regardless of where those classes are in the inheritance tree.</li>
+</ul>
+
+<h1 id="invoking-the-superclass-version-of-a-method">Invoking the superclass version of a method</h1>
+
+<h3 id="qwhat-if-you-make-a-concrete-subclass-and-you-need-to-override-a-methodbut-you-want-the-behavior-in-the-superclass-version-of-the-method-in-other-wordswhat-if-you-dont-need-to-replace-the-method-with-an-overridebut-you-just-want-to-add-to-it-with-some-additional-specific-code"><strong>Q</strong>:What if you make a concrete subclass and you need to override a method,but you want the behavior in the superclass version of the method? In other words,what if you don’t need to replace the method with an override,but you just want to add to it with some additional specific code.</h3>
+
+<p><strong>A</strong>:Think about the meaning of the word “extends”. One area of good OO design looks at how to design concrete code that’s meant to be overridden. In other words,you write method code in,say,an abstract class,that does work that’s generic enough to support typical concrete implementations. But,the concrete code isn’t enough to handle all of the subclass-specific work. So the subclass overrides the method and extends it by adding the rest of the code. The keyword super lets you invoke a superclass version of an overridden method,from within the subclass.</p>
+
+<p><img src="../../assets/img/image-20201224193949454.png" alt="image-20201224193949454" /></p>
+
+<p><img src="../../assets/img/image-20201224193958587.png" alt="image-20201224193958587" /></p>
+
+<h3 id="qhow-it-is-that-arraylist-gives-back-dog-references-that-dont-need-to-be-castyet-the-arraylist-class-uses-object-in-its-methodsnot-dog-whats-the-special-trick-going-on-when-you-say-arraylist"><strong>Q</strong>:How it is that ArrayList<Dog> gives back Dog references that don't need to be cast,yet the ArrayList class uses Object in its methods,not Dog. What's the special trick going on when you say ArrayList<Dog>?</Dog></Dog></h3>
+
+<p><strong>A</strong>:In face it is a special trick that ArrayList<Dog> gives back Dogs without you having to do any cast,since it looks like ArrayList methods don't know anything about Dogs,or any type besides Object.</Dog></p>
+
+<p>The short answer is that the compiler puts in the cast for you! When you say ArrayList<Dog>,there is no special class that has methods to take and return Dog objects,but instead the <Dog> is a signal to the compiler that you want the compiler to let you put ONLY Dog objects in and to stop you if you try to add any other type to the list. And since the compiler stops you from adding anything but Dogs to the ArrayList,the compiler also knows that its safe to cast anything that coms out of that ArrayList do a Dog reference. In other words,using ArrayList<Dog> saves you from having to cast the Dog you get back. But it's much more important than that...because remember,a cast can fail at runtime,and wouldn't you rather have your errors happen at compile time rather than,say,when you customer is using it for something critial?</Dog></Dog></Dog></p>
+
+:ET

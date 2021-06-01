@@ -1,0 +1,126 @@
+I"�$<h1 id="what-happens-when-a-method-you-want-to-call-probably-in-a-class-you-didnt-write-is-risky">What happens when a method you want to call (probably in a class you didn’t write) is risky?</h1>
+
+<ol>
+  <li>
+    <p>Let’s say you want to call a method in a class that you didn’t write</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210106105921876.png" alt="image-20210106105921876" /></p>
+  </li>
+  <li>
+    <p>That method does something risky,something that might not work at runtime</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210106105933568.png" alt="image-20210106105933568" /></p>
+  </li>
+  <li>
+    <p>You need to know that the method you’re calling is risky</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210106105950171.png" alt="image-20210106105950171" /></p>
+  </li>
+  <li>
+    <p>You then write code that can handle the failure if it does happen. You need to be prepared,just in case</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210106110001281.png" alt="image-20210106110001281" /></p>
+  </li>
+</ol>
+
+<h1 id="methods-in-java-use-exceptions-to-tell-the-calling-codesomething-bad-happened-i-failed">Methods in Java use exceptions to tell the calling code,”Something Bad Happened. I failed.”</h1>
+
+<p>Java’s exception-handing mechanism is a clean,well0lighted way to handle “exceptional situations” that pop up at runtime;it lets you put all your error-handing is risky,so that you can write code to deal with that possibility. If you know you might get an exception when you call a particular method,you can be prepared for—possibly even recover from—the problem that caused the exception.</p>
+
+<p>So,how do you know if a method throw an exception? You find a <strong>throws</strong> clause in the risky method’s declaration.</p>
+
+<h1 id="the-compiler-needs-to-know-that-you-know-youre-calling-a-risky-method">The compiler needs to know that YOU know you’re calling a risky method</h1>
+
+<p>If you wrap the risky code in something called a <strong>try/catch</strong>,the compiler will relax.</p>
+
+<p>A try/catch block tells the compiler that you know an exceptional thing could happen in the method you’re calling,and that you’re prepared to handle it. That compiler doesn’t care how you handle it;it cares only that you say you’re talking care of it.</p>
+
+<h1 id="an-exception-is-an-objectof-type-exception">An exception is an object…of type Exception</h1>
+
+<p>Which is fortunate,because it would be much harder to remember if exceptions were of type Broccoli.</p>
+
+<p>Remember from your polymorphism chapters that an object of type Exception can be an instance of any subclass of Exception.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210106111118079.png" alt="image-20210106111118079" /></p>
+
+<p>Because an Exception is an object,what you catch is an object. In the following code,the <strong>catch</strong> argument is declared as type Exception,and the parameter reference variable is ex.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210106111106459.png" alt="image-20210106111106459" /></p>
+
+<p>What you write in a catch block depends on the exception that was thrown. For example,if a server is down you might use the catch block to try another server. If the file isn’t there,you might ask the user for help finding it.</p>
+
+<h1 id="if-its-your-code-that-catches-the-exceptionthen-whose-code-throws-it">If it’s your code that <u>catches</u> the exception,then whose code <u>throws</u> it?</h1>
+
+<p>You’ll spend much more of your Java coding time <em>handling</em> exceptions than you’ll spend <em>creating</em> and <em>throwing</em> them yourself. For now,just know that when your code calls a risky method—a method that declares an exception—it’s the risky method that throws the exception back to you,the caller.<img src="../../assets/img/image-20210106111814833.png" alt="image-20210106111814833" /></p>
+
+<p>In reality,it might be you who wrote both classes. It really doesn’t matter who writes the code…what matters is knowing which method throws the exception and which method catches it. When somebody writes code that could throw an exception,they must declare the exception.</p>
+
+<ol>
+  <li>
+    <p>Risky,exception-throwing code:</p>
+
+    <p><img src="../../assets/img/image-20210106112108278.png" alt="image-20210106112108278" /></p>
+  </li>
+  <li>
+    <p>Your code that calls the risky method:</p>
+
+    <p><img src="../../assets/img/image-20210106112157523.png" alt="image-20210106112157523" /></p>
+  </li>
+</ol>
+
+<h3 id="one-method-will-catch-what-another-method-throws-an-exception-is-always-thrown-back-to-the-caller">One method will <u>catch</u> what another method <u>throws</u>. An exception is always thrown back to the caller.</h3>
+
+<h3 id="the-method-that-throws-has-to-declare-that-it-might-throw-the-exception">The method that throws has to <u>declare</u> that it might throw the exception.</h3>
+
+<h1 id="the-compiler-checks-for-everything-except-runtimeexceptions">The compiler checks for everything except RuntimeExceptions</h1>
+
+<h3 id="the-compiler-guarantees">The compiler guarantees:</h3>
+
+<ol>
+  <li>If you throw an exception in your code you must declare it using the <em>throws</em> keyword in your method declaration.</li>
+  <li>If you call a method that throws an exception,you must acknowledge that you’re aware of the exception possibility. One way to satisfy the compiler is to wrap the call in a try/catch.</li>
+</ol>
+
+<p><img src="../../assets/img/image-20210106112724956.png" alt="image-20210106112724956" /></p>
+
+<h3 id="qwhy-doesnt-the-compiler-care-about-those-runtime-exceptions-arent-they-just-as-likely-to-bring-the-whole-show-to-a-stop"><strong>Q</strong>:WHY doesn’t the compiler care about those runtime exceptions? Aren’t they just as likely to bring the whole show to a stop?</h3>
+
+<p><strong>A</strong>:Most RuntimeExceptions come from a problem in your code logic,rather than a condition that fails at runtime in ways that you cannot predict or prevent. You cannot guarantee the file is there. You cannot guarantee the server is up. But you can make sure your code doesn’t index off the end of an array. You WANT RuntimeExceptions to happen at development and testing time. You don’t want to code in a try/catch,for example,and have the overhead that goes with it,to catch something that shouldn’t happen in the first place.</p>
+
+<p>A try/catch is for handing exceptional situations,not flaws in your code. Use your catch blocks to try to recover from situations you can’t guarantee will succeed. Or at the very least,print out a message to the user and a stack trace,so somebody can figure out what happen.</p>
+
+<h1 id="finally-for-the-things-you-want-to-do-no-matter-what">Finally: for the things you want to do no matter what</h1>
+
+<p>If you try to cook something,you start by turning on the oven.</p>
+
+<p>If the thing you try is a complete <strong>failure,<em>you have to turn off the oven.</em></strong></p>
+
+<p>If the thing you try <strong>succeeds,<em>you have to turn off the oven.</em></strong></p>
+
+<p><strong>You have to turn off the oven no matter what!</strong></p>
+
+<h3 id="a-finally-block-is-where-you-put-code-that-must-run-regardless-of-an-exception">A finally block is where you put code that must run regardless of an exception.</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">{</span>
+	<span class="n">turnOvenOn</span><span class="o">();</span>
+	<span class="n">x</span><span class="o">.</span><span class="na">bake</span><span class="o">();</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">BakingException</span> <span class="n">ex</span><span class="o">){</span>
+	<span class="n">ex</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span><span class="k">finally</span><span class="o">{</span>
+	<span class="n">turnOvenOff</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="when-you-dont-want-to-handle-an-exception">When you don’t want to handle an exception…</h1>
+
+<h3 id="if-you-dont-want-to-handle-an-exceptionyou-can-duck-it-by-declaring-it">If you don’t want to handle an exception,you can <strong>duck</strong> it by <strong>declaring</strong> it.</h3>
+
+<p>When a method throws an exception,that method is popped off the stack immediately,and the exception is thrown to the next method down the stack—the <em>caller</em>. But if the <em>caller</em> is a <em>ducker</em>,then there’s no catch for it so the <em>caller</em> pops off the stack immediately,and the exception is thrown to the next method and so on..</p>
+
+<h1 id="ducking-by-declaring-only-delays-the-inevitable">Ducking (by declaring) only delays the inevitable</h1>
+
+<h3 id="sooner-or-latersomebody-has-to-deal-with-it-but-what-if-main-ducks-the-exception">Sooner or later,somebody has to deal with it. But what if main() ducks the exception?</h3>
+
+<p><img src="../../assets/img/image-20210118101229686.png" alt="image-20210118101229686" /></p>
+
+:ET

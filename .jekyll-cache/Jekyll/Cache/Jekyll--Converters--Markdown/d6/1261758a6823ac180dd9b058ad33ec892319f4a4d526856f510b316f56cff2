@@ -1,0 +1,303 @@
+I"(`<h1 id="the-way-java-works">The Way Java Works</h1>
+
+<p>The goal is to write one application and have it work on whatever device your friends have.</p>
+
+<ul>
+  <li><img src="/assets/img/image-20201119152912819.png" alt="image-20201119152912819" />Create a source document. Use an established protocol.</li>
+  <li><img src="/assets/img/image-20201119153005077.png" alt="image-20201119153005077" />Run your document through a source code compiler. The compiler checks for errors and won’t let you compile until it’s satisfied that everything will run correctly.</li>
+  <li><img src="/assets/img/image-20201119152949336.png" alt="image-20201119152949336" />The compiler creates a new document,coded into Java <strong>bytecode</strong>. Any device capable of running Java will be able to interpret/translate this file into something it can run. The compiled bytecode is platform-independent.</li>
+  <li><img src="/assets/img/image-20201119153018296.png" alt="image-20201119153018296" />Your friends don’t have a physical Java Machine,but they all have a <strong>virtual</strong> Java machine running inside their electronic gadgets. The virtual machine reads and runs the bytecode.</li>
+</ul>
+
+<h1 id="what-youll-do-in-java">What you’ll do in Java</h1>
+
+<p>You’ll type a source code file,compile it using the <strong>javac</strong> compiler,then run the compiled bytecode on a Java <strong>virtual machine</strong>.</p>
+
+<ul>
+  <li><img src="/assets/img/image-20201119153038598.png" alt="image-20201119153038598" />Type your source code. Save as:<strong>Party.java</strong></li>
+  <li><img src="/assets/img/image-20201119153047552.png" alt="image-20201119153047552" />Compile the <strong>Party.java</strong> file by running javac. If you don’t have errors,you’ll get a second document named <strong>Party.class</strong>. The compiler-generated Party.class file is made up of bytecodes.</li>
+  <li><img src="/assets/img/image-20201119153059540.png" alt="image-20201119153059540" />Compiled code:<strong>Party.class</strong></li>
+  <li><img src="/assets/img/image-20201119153109160.png" alt="image-20201119153109160" />Run the program by starting the Java Virtual Machine(JVM) with the <strong>Party.class</strong> file. The JVM translates the bytecode into something the underlying platform understands,and runs your program.</li>
+</ul>
+
+<h1 id="a-very-brief-history-of-java">A very brief history of Java</h1>
+
+<ul>
+  <li>Java 1.02</li>
+  <li>Java 1.1</li>
+  <li>Java 2
+    <ul>
+      <li>versions 1.2-1.4</li>
+    </ul>
+  </li>
+  <li>Java 5.0</li>
+</ul>
+
+<h3 id="qwas-there-a-java-3-and-4and-why-is-it-java-50-but-not-java-20"><strong>Q</strong>:Was there a Java 3 and 4?And why is it Java 5.0 but not Java 2.0?</h3>
+
+<p><strong>A</strong>:The joys of marketing…when the version of Java shifted from 1.1 to 1.2,the changes to Java were so dramatic that marketers decided we needed a whole new “name”,so they started calling it <strong>Java 2</strong>,even though the actual version of Java was 1.2. But versions 1.3 and 1.4 were still considered <strong>Java 2</strong>. There never was a Java 3 or 4. Beginning with Java version 1.5,the marketers decided once again that the changes were so dramatic that a new name was needed,so they looked at the options. The next number in the name sequence would be “3”,but calling Java 1.5 <strong>Java 3</strong> seemed more confusing,so they decided to name it <strong>Java 5</strong> to match the “5” in version “1.5”.</p>
+
+<p>So,the original Java was versions 1.02 through 1.1 were just “Java”. Versions 1.2,1.3,and 1.4 were “Java 2”. And beginning with version 1.5,Java is called “Java 5.0”. But you also see it called “Java 5” and “Tiger”. We have no idea what will happen with the next release…</p>
+
+<h1 id="code-structure-in-java">Code structure in Java</h1>
+
+<p><img src="/assets/img/image-20201119153127784.png" alt="image-20201119153127784" /></p>
+
+<ul>
+  <li>Put a <strong>class</strong> in a source file</li>
+  <li>Put methods in a class</li>
+  <li>Put <strong>statements</strong> in a method</li>
+</ul>
+
+<h3 id="what-goes-in-a-source-file">What goes in a <strong>source</strong> file?</h3>
+
+<p><img src="/assets/img/image-20201119153141878.png" alt="image-20201119153141878" />A source code file holds one class definition. The class represents a piece of your program,although a very tiny application might need just a single class. The class must go within a pair of curly braces.</p>
+
+<h3 id="what-goes-in-a-class">What goes in a <strong>class</strong>?</h3>
+
+<p><img src="/assets/img/image-20201119153151641.png" alt="image-20201119153151641" />A class has one or more methods. In the Dog class,the bark method will hold instructions for how the Dog should bark. Your methods must be declared inside a class.</p>
+
+<h3 id="what-goes-in-a-method">What goes in a <strong>method</strong>?</h3>
+
+<p><img src="/assets/img/image-20201119153206927.png" alt="image-20201119153206927" />Within the curly braces of a method,write your instructions for how that method should be performed. Method code is basically a set of statements,and for now you can think of a method kind of like a function or procedure.</p>
+
+<h1 id="anatomy-of-a-class">Anatomy of a class</h1>
+
+<p>When the JVM starts running,it looks for the class you give it at the command line. Then it starts looking for a specially-written method that looks exactly like:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+	<span class="c1">//your code goes here</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Next,the JVM runs everything between the curly braces {} of your main method. Every Java application has to have at lease one <strong>class</strong>,and at least one <strong>main</strong> method.</p>
+
+<p><img src="/assets/img/image-20201119153223792.png" alt="image-20201119153223792" /></p>
+
+<h1 id="writing-a-class-with-a-main">Writing a class with a main</h1>
+
+<p>In Java,everything goes in a <strong>class</strong>. You’ll type your source code file,then compile it into a new file. When you run your program,you’re really running a class.</p>
+
+<p>Running a program means telling the Java Virtual Machine(JVM) to “Load the <strong>Hello</strong> class,then start executing its <strong>main()</strong> method. Keep running ‘til all the code in main is finished.”</p>
+
+<p><strong>How do I WRITE Java code so that it will run?</strong>It all begins with <strong>main()</strong>.</p>
+
+<p>The <strong>main</strong>() method is where your program starts running.</p>
+
+<p>No matter how big your program is,there’s got to be a <strong>main</strong>() method to get the ball rolling.</p>
+
+<p><img src="/assets/img/image-20201119153239262.png" alt="image-20201119153239262" /></p>
+
+<h1 id="what-can-you-say-in-the-main-method">What can you say in the main method?</h1>
+
+<p>Your code can tell the JVM to:</p>
+
+<h3 id="do-something">do something</h3>
+
+<p><strong>Statements</strong>: declarations,assignments,method calls,etc.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"Dirk"</span><span class="o">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">17</span><span class="o">;</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"x is "</span> <span class="o">+</span> <span class="n">x</span><span class="o">);</span>
+<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">random</span><span class="o">();</span>
+<span class="c1">//this is a comment</span>
+</code></pre></div></div>
+
+<h3 id="do-something-again-and-again">do something again and again</h3>
+
+<p><strong>Loops</strong>: for and while</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span><span class="o">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="o">){</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="o">){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"x is now "</span><span class="o">+</span> <span class="n">x</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="do-something-under-this-condition">do something under this condition</h3>
+
+<p><strong>Branching</strong>: if/else tests</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">10</span><span class="o">){</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"x must be 10"</span><span class="o">);</span>
+<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"x isn't 10"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">if</span><span class="o">((</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">)</span> <span class="o">&amp;</span> <span class="o">(</span><span class="n">name</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"Dirk"</span><span class="o">))){</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Gently"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"this line runs no matter what"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h1 id="syntax">Syntax</h1>
+
+<ul>
+  <li>
+    <p>Each statement must end in a semicolon</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>A single-line comment begins with two forward slashes</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="mi">22</span><span class="o">;</span>
+<span class="c1">//this line disturbes me</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Most white space doesn’t matter</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span>	<span class="o">=</span>	<span class="mi">3</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Variables are declared with a <strong>name</strong> and <strong>type</strong></p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">weight</span><span class="o">;</span>
+<span class="c1">//type:int, name:weight</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Classes and methods must be defined within a pair of curly</p>
+
+    <p>braces</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">go</span><span class="o">(){</span>
+	<span class="c1">//amazing code here</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="looping-and-looping-and-">Looping and looping and …</h1>
+
+<p>Java has three standard looping constructs: <em>while</em>,<em>do-while</em>,and <em>for</em>. Let’s do <em>while</em> for now.</p>
+
+<p>The syntax is so simple you’re probably asleep already. As long as some condition is true,you do everything inside the loop <em>block</em>. The loop block is bounded by a pair of curly braces,so whatever you want to repeat needs to be inside that block.</p>
+
+<p>The key to a loop is the <em>conditional test</em>. In Java,a conditional test is an expression that results in a <em>boolean</em> value—in other words,something that is either <em>true</em> or <em>false</em>.</p>
+
+<p>If you say something like,”While <em>iceCreamInTheTub is true</em>, keep scooping”,you have a clear boolean test. There either <em>is</em> ice cream in the tub or there <em>isn’t</em>. But if you were to say,”While Bob keep scooping”,you don’t have a real test. To make that work,you’d have to change it to something like,”While Bob is snoring…” or “While Bob is not wearing plaid…”</p>
+
+<h3 id="simple-boolean-tests">Simple boolean tests</h3>
+
+<p>You can do a simple boolean test by checking the value of a variable,using a <em>comparison operator</em> including:</p>
+
+<p><strong>&lt;</strong> (less than)
+<strong>&gt;</strong> (greater than)
+<strong>==</strong> (equality)</p>
+
+<p>Notice the difference between the <em>assignment</em> operator and the <em>equals</em> operator. Lots of programmers accidentally type = when they <em>want</em> ==.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span><span class="c1">//assign 4 to x</span>
+<span class="k">while</span><span class="o">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="o">){</span>
+    <span class="c1">//loop code will run because x is greater than 3</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span><span class="c1">//or we'd  loop forever</span>
+<span class="o">}</span>
+<span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">27</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="n">z</span> <span class="o">==</span> <span class="mi">17</span><span class="o">){</span>
+    <span class="c1">//loop code will not run because z is not equal to 17</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="qwhy-does-everything-have-to-be-in-class"><strong>Q</strong>:Why does everything have to be in class?</h3>
+
+<p><strong>A</strong>:Java is an object-oriented language. It’s not like old days when you had stream-driven compilers and wrote one monolithic source file with a pile of procedures. A class is  a blueprint for an object,and that nearly everything in Java is an object.</p>
+
+<h3 id="qdo-i-have-to-put-a-main-in-every-class-i-write"><strong>Q</strong>:Do I have to put a main in every class I write?</h3>
+
+<p><strong>A</strong>:Nope. A Java program might use dozens of classes,but you might only have <em>one</em> with a main method—the one that starts the program running. You might write test classes,though,that have main methods for testing your other classes.</p>
+
+<h1 id="conditional-branching">Conditional branching</h1>
+
+<p>In Java,an <em>if</em>  test is basically the same as the boolean test in a <em>while</em> loop—except instead of saying,”<strong>while</strong> there’s still beer…“,you’ll say,”<strong>if</strong> there’s still beer…”</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">IfTest</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="o">){</span>
+           <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"x must be 3"</span><span class="o">);</span> 
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This runs no matter what"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/image-20201119153257481.png" alt="image-20201119153257481" /></p>
+
+<p>The code above executes the line that prints “x must be 3” only if the condition is true. Regardless of whether it’s true,though,the line that prints,”This runs no matter what” will run. So depending on the value of x,either one statement or two will print out.</p>
+
+<p>But we can add an <em>else</em> to the condition,so that we can say something like,”If there’s still beer,keep coding,else get more beer,and then continue on…”</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">IfTest2</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="o">){</span>
+           <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"x must be 3"</span><span class="o">);</span> 
+        <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+        	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"x is NOT 3"</span><span class="o">);</span> 
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This runs no matter what"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/image-20201119153309169.png" alt="image-20201119153309169" /></p>
+
+<h3 id="systemoutprint-vs-systemoutprintln">System.out.<strong>print</strong> vs. System.out.<strong>println</strong></h3>
+
+<p>System.out.<strong>println</strong> inserts a newline while System.out.<strong>print</strong> keeps printing to the same line. If you want each thing you print out to be its own line,use print<strong>ln</strong>. If you want everything to sick together on one line,user print.</p>
+
+<h1 id="the-compiler-and-the-jvm-battle-over-the-questionwhos-more-important">The compiler and the JVM battle over the question,”Who’s more important?”</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">The Java Virtual Machine</th>
+      <th>The Compiler</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">I’m the guy who actually makes a program <em>run</em>. The compiler just gives you a file which doesn’t do anything unless I’m there to run it.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td>But without me,what exactly would you run?There’s reason Java was designed to use a bytecode compiler. If Java were a purely interpreted language,where—at runtime—the virtual machine had to translate straight-from-a-text-editor source code,a Java program would run at a ludicrously glacial pace. Java’s had a challenging enough time convincing people that it’s finally fast and powerful enough for most jobs.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">If a programmer could just write bytecode by hand,you might be out of a job soon.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td>That’s quite an ignorant perspective. A programmer writing bytecode by hand like doing your word processing by writing raw postscript. And Java is a strongly-typed language,and that means I can’t allow variables to hold data of the wrong type. This is a crucial safety feature,and I’m able to stop the vast majority of violations before they ever get to you.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">But some still get through! I can throw ClassCastExceptions and sometimes I get people trying to put the wrong type of thing in an array that was declared to hold something else.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td>There are some datatype exceptions that can emerge at runtime,but some of those have to be allowed to support one of Java’s other important features—dynamic binding. At runtime,a Java program can include new objects that weren’t even known to the original programmer,so I have to allow a certain amount of flexibility. But my job is to stop anything that would never succeed at runtime. Usually I can tell when something won’t work,I would detect that and thus protect him from causing harm at runtime.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td>I am the first line of defense,as they say. The datatype violations I previously described could wreak havoc in a program if they were allowed to manifest. I am also the one who prevents access violations,such as code trying to invoke a private method,or change a method that—for security reasons—must never be changed. I stop people from touching code they’re not meant to see,including code trying to access another class’ critical data.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">I have to do that same stuff too,though,just to make sure nobody snuck in after you and changed the bytecode before running it.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td>If I didn’t prevent what amounts to perhaps 99% of the potential problems,you would grind to a halt. And it looks like we’re out of time,so we’ll have to revisit this in a later chat.</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

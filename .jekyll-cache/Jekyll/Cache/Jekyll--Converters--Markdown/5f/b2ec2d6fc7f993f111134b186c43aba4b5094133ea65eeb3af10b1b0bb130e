@@ -1,0 +1,463 @@
+I"�Y<h1 id="declaring-a-variable">Declaring a variable</h1>
+
+<p><strong>Java cares about type.</strong> It won’t let you do something bizarre and dangerous like stuff a Giraffe reference into a Rabbit variable——what happens when someone tries to ask the so-called Rabbit to hop()?And it won’t let you put a floating point number into an integer variable,unless you <em>acknowledge to the compiler</em> that you know you might lose precision.</p>
+
+<p>The compiler can spot most problems:</p>
+
+<p><strong>Rabbit hopper = new Giraffe();</strong></p>
+
+<p>Don’t expect that to compile.</p>
+
+<p>For all this type-safety to work,you must declare the type of your variable. Is it an integer?a Dog?A single character?Variables come in two flavors: <em>primitive</em> and <em>object reference</em>. Primitives hold fundamental values including integers,booleans,and floating point numbers. Object references hold,well,<em>references</em> to <em>objects</em>.</p>
+
+<p>We’ll look at primitives first and then move on to what an object reference really means. But regardless of the type,you must follow two declaration rules:</p>
+
+<hr />
+
+<h3 id="variables-must-have-a-type"><center>variables must have a **type**</center></h3>
+
+<hr />
+
+<p>Besides a type,variable needs a name,so that you can use that name in code.</p>
+
+<hr />
+
+<h3 id="variables-must-have-name"><center>variables must have **name**</center></h3>
+
+<hr />
+
+<p><img src="../../assets/img/image-20201120141738253.png" alt="image-20201120141738253" /></p>
+
+<h1 id="id-like-a-double-mochanomake-it-an-int">“I’d like a double mocha,no,make it an int.”</h1>
+
+<p>When you think of Java variables,think of cups. Coffee cups,tea cups,giant cups that hold lots and lots of beer,those big cups the popcorn comes in at the movies,cups with curvy,sexy handles,and cups with metallic trim that you learned can never,ever go in the microwave.</p>
+
+<p><strong>A variable is just a cup. A container. It holds something.</strong></p>
+
+<p>It has a size,and a type. In this chapter,we’re going to look first at the variables that hold <strong>primitives</strong>,then a little later we’ll look at cups that hold <em>references to objects</em>. Stay with us here on the whole cup analogy—as simple as it is right now,it’ll give us a common way to look at things when the discussion gets more complex. And that’ll happen soon.</p>
+
+<p>Primitives are like the cups they have at the coffeehouse. If you’re been to a Starbucks,you know what we’re talking about here. They come in different sizes,and each has a name like ‘short’,’tall’.,and,”I’d like a ‘grande’ mocha half-caff with extra whipped cream”.</p>
+
+<p>You might see the cups displayed on the counter,so you can order appropriately:</p>
+
+<p><img src="../../assets/img/image-20201120142749174.png" alt="image-20201120142749174" /></p>
+
+<p>And in Java,primitives come in different sizes,and those sizes have names. When you declare a variable in Java,you must declare it with a specific type. The four containers here are for the four integer primitives in Java.</p>
+
+<p><img src="../../assets/img/image-20201120143001680.png" alt="image-20201120143001680" /></p>
+
+<p>Each cup holds a value,so for Java primitives,rather than saying,”I’d like a tall french roast”,you say to the compiler,”I’d like an int variable with the number 90 please.” Except for one tiny difference…in Java you also have to give your cup a name. So it’s actually,”I’d like an int please,with the value of 2486,and name the variable <em>height</em>.” Each primitive variable has a fixed number of bits. The sizes of the six numeric primitives in Java are shown below:</p>
+
+<p><img src="../../assets/img/image-20201120143409998.png" alt="image-20201120143409998" style="zoom:50%;" /><img src="../../assets/img/image-20201120143421606.png" alt="image-20201120143421606" style="zoom:50%;" /></p>
+
+<h1 id="primitive-types">Primitive Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Bit Depth</th>
+      <th>Value Range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>boolean and char</strong></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td>JVM-specific</td>
+      <td><strong>true</strong> or <strong>false</strong></td>
+    </tr>
+    <tr>
+      <td>char</td>
+      <td>16 bits</td>
+      <td>0 to 65535</td>
+    </tr>
+    <tr>
+      <td><strong>numeric(all are signed)</strong></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong>integer</strong></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>byte</td>
+      <td>8 bits</td>
+      <td>-128 to 127</td>
+    </tr>
+    <tr>
+      <td>short</td>
+      <td>16 bits</td>
+      <td>-32768 to 32767</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td>32 bits</td>
+      <td>-2147483648 to 2147483647</td>
+    </tr>
+    <tr>
+      <td>long</td>
+      <td>64 bits</td>
+      <td>-huge to huge</td>
+    </tr>
+    <tr>
+      <td><strong>floating point</strong></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td>32 bits</td>
+      <td>varies</td>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>64 bits</td>
+      <td>varies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Gotta have “f” with a float,because Java thinks anything with a floating point is a double,unless you use “f”.</p>
+
+<h1 id="you-really-dont-want-to-spill-that">You really don’t want to spill that…</h1>
+
+<p><strong>Be sure the value can fit into the variable.</strong></p>
+
+<p>You can’t put a large value into a small cup.</p>
+
+<p>The compiler tries to help prevent <em>spillage</em> if it can tell from your code that something’s not going to fit in the container you’re using.</p>
+
+<p>Why doesn’t this work? After all,the value of x is 24,and 24 is definitely small enough to fit into a byte. You know that,and we know that,but all compiler cares about is that you’re trying to put a big thing into a small thing,and there’s the possibility of spilling. Don’t expect the compiler to know what the value of x is,even if you happen to be able to see it literally in your code.</p>
+
+<p><strong>You can assign a value to a variable in one of several ways including:</strong></p>
+
+<ul>
+  <li>type a literal value after the equals sign</li>
+  <li>assign the value of one variable to another</li>
+  <li>use an expression combining the two</li>
+</ul>
+
+<h1 id="back-away-from-that-keyword">Back away from that keyword!</h1>
+
+<p>You know you need a name and a type for your variables.</p>
+
+<p><strong>But what can you use as names?</strong>The rules are simple. You can name a class,method,or variable according to the following rules:</p>
+
+<ul>
+  <li><strong>It must start with a letter,underscore,or dollar sign. You can’t start a name with a number.</strong></li>
+  <li><strong>After the first character,you can use numbers as well. Just don’t start it with a number.</strong></li>
+  <li>**It can be anything you like,subject to those two rules,just so long as it isn’t one of Java’s reserved words,are keywords that the compiler recognizes. **</li>
+</ul>
+
+<p>And if you really want to play confuse-compiler,then just try using a reserved word as a name.</p>
+
+<h1 id="controlling-your-dog-object">Controlling your Dog object</h1>
+
+<p>You know how to declare a primitive variable and assign it a value. But now what about non-primitive variables?In other words,what about objects?</p>
+
+<hr />
+
+<ul>
+  <li>
+    <h3 id="there-is-actually-no-such-thing-as-an-object-variable">There is actually no such thing as an <strong>Object</strong> variable.</h3>
+  </li>
+  <li>
+    <h3 id="theres-only-an-object-reference-variable">There’s only an object <strong>reference</strong> variable.</h3>
+  </li>
+  <li>
+    <h3 id="an-object-reference-variable-holds-bits-that-represent-a-way-to-access-an-object">An object reference variable holds bits that represent a way to access an object.</h3>
+  </li>
+  <li>
+    <h4 id="it-doesnt-hold-the-object-itselfbut-it-holds-something-like-a-pointer-or-an-address-exceptin-java-we-dont-really-know-what-is-inside-a-reference-variable-we-do-know-that-whatever-it-isit-represents-one-and-only-one-object-and-the-jvm-knows-how-to-use-the-reference-to-get-to-the-object">It doesn’t hold the object itself,but it holds something like a pointer. Or an address. Except,in Java we don’t really know what is inside a reference variable. We do know that whatever it is,it represents one and only one object. And the JVM knows how to use the reference to get to the object.</h4>
+  </li>
+</ul>
+
+<hr />
+
+<p>You can’t stuff an object into a variable. We often think of it that way…we say things like,”I passed the String to the System.out.println() method.” Or,”The method returns a Dog”,or,”I put a new Foo object into variable named myFoo.”</p>
+
+<p>But that’s not what happens. There aren’t giant expandable cups that can grow to the size of any object. Objects live in one place and one place only—the garbage collectible heap!</p>
+
+<p>Although a primitive variable is full of bits representing the actual <strong>value</strong> of the variable,an object reference variable is full of bits representing <strong>a way to get to the object</strong>.</p>
+
+<p>You use the dot operator on a reference variable to say,”user the thing before the dot to get me the thing after the dot.”For example:</p>
+
+<p><code class="language-plaintext highlighter-rouge">myDog.bark();</code></p>
+
+<p>means,”use the object referenced by the variable myDog to invoke the bark() method.” When you use the dot operator on an object reference variable,think of it like pressing a button on the remote control for that object.</p>
+
+<p><img src="../../assets/img/image-20201120152107332.png" alt="image-20201120152107332" /></p>
+
+<p><img src="../../assets/img/image-20201120152152327.png" alt="image-20201120152152327" style="zoom:50%;" /></p>
+
+<h1 id="an-object-reference-is-just-another-variable-value">An object reference is just another variable value.</h1>
+
+<h3 id="something-that-goes-in-a-cup">Something that goes in a cup.</h3>
+
+<h3 id="only-this-timethe-value-is-a-remote-control">Only this time,the value is a remote control.</h3>
+
+<hr />
+
+<p><strong>Primitive Variable</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">byte x = 7;</code></p>
+
+<p>The bits representing 7 go into the variable.</p>
+
+<p><img src="../../assets/img/image-20201120152352500.png" alt="image-20201120152352500" style="zoom:50%;" /></p>
+
+<hr />
+
+<p><strong>Reference Variable</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">Dog myDog = new Dog();</code></p>
+
+<p>The bits representing a way to get to the Dog object go into the variable.</p>
+
+<p><strong>The Dog object itself does not go into the variable!</strong></p>
+
+<p><img src="../../assets/img/image-20201120152601249.png" alt="image-20201120152601249" style="zoom:50%;" /></p>
+
+<h1 id="the-3-steps-of-object-declarationcreation-and-assignment">The 3 steps of object declaration,creation and assignment</h1>
+
+<p><img src="../../assets/img/image-20201120152804759.png" alt="image-20201120152804759" style="zoom:50%;" /></p>
+
+<h3 id="declare-a-reference-variable">Declare a reference variable</h3>
+
+<p><strong>Dog myDog</strong> = new Dog();</p>
+
+<p>Tells the JVM to allocate space for a reference variable,and names that variable myDog. The reference variable is,forever,of type Dog. In other words,a remote control that has buttons to control a Dog,but not a Car or a Button or a Socket.</p>
+
+<p><img src="../../assets/img/image-20201120153131920.png" alt="image-20201120153131920" style="zoom:50%;" /></p>
+
+<h3 id="create-an-object">Create an object</h3>
+
+<p>Dog myDog = <strong>new Dog();</strong></p>
+
+<p>Tells the JVM to allocate space for a new Dog object on the heap.</p>
+
+<p><img src="../../assets/img/image-20201120153356233.png" alt="image-20201120153356233" style="zoom:50%;" /></p>
+
+<h3 id="link-the-object-and-the-reference">Link the object and the reference</h3>
+
+<p>Dog myDog <strong>=</strong> new Dog();</p>
+
+<p>Assigns the new Dog to the reference variable myDog. In other words,<strong>programs the remote control.</strong></p>
+
+<p><img src="../../assets/img/image-20201120153516502.png" alt="image-20201120153516502" style="zoom: 25%;" /></p>
+
+<h3 id="qhow-big-is-a-reference-variable"><strong>Q</strong>:How big is a reference variable?</h3>
+
+<p><strong>A</strong>:You don’t know. Unless you’re cozy with someone on the JVM’s development team,you don’t know how a reference is represented. There are pointers in there somewhere,but you can’t access them. You won’t need to. But when you’re talking about memory allocation issues,your Big Concern should be about how many objects you’re creating,and how big they really are.</p>
+
+<h3 id="qsodoes-that-mean-that-all-object-references-are-the-same-sizeregardless-of-the-size-of-the-actual-objects-to-which-they-refer"><strong>Q</strong>:So,does that mean that all object references are the same size,regardless of the size of the actual objects to which they refer?</h3>
+
+<p><strong>A</strong>:Yep. All references for a given JVM will be the same size regardless of the objects they reference,but each JVM might have a different way of representing references,so references on one JVM may be smaller or larger than references on another JVM.</p>
+
+<h3 id="qcan-i-do-arithmetic-on-a-reference-variableincrement-ityou-know-c-stuff"><strong>Q</strong>:Can I do arithmetic on a reference variable,increment it,you know-C stuff?</h3>
+
+<p><strong>A</strong>:Nope. Say it with me again,”Java is not C”.</p>
+
+<h1 id="life-on-the-garbage-collectible-heap">Life on the garbage-collectible heap</h1>
+
+<p><code class="language-plaintext highlighter-rouge">Book b = new Book();</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">Book c = new Book();</code></p>
+
+<p>Declare two Book reference variables. Create two new Book objects. Assign the Book objects to the reference variable.</p>
+
+<p>The two Book objects are now living on the heap.</p>
+
+<p>References:2</p>
+
+<p>Objects:2</p>
+
+<p><img src="../../assets/img/image-20201120165745468.png" alt="image-20201120165745468" style="zoom:50%;" /></p>
+
+<hr />
+
+<p><code class="language-plaintext highlighter-rouge">Book d = c;</code></p>
+
+<p>Declare a new Book reference variable. Rather than creating a new,third Book object,assign the value of variable c to variable d. But what does this mean? It’s like saying,”Take the bits in c,make a copy of them,and stick that copy into d.”</p>
+
+<p><strong>Both c and d refer to the same object.</strong></p>
+
+<p><strong>The c and d variables hold two different copies of the same value. Two remotes programmed to one TV.</strong></p>
+
+<p>References:3</p>
+
+<p>Objects:2</p>
+
+<p><img src="../../assets/img/image-20201120170041474.png" alt="image-20201120170041474" style="zoom:50%;" /></p>
+
+<hr />
+
+<p><code class="language-plaintext highlighter-rouge">c = b;</code></p>
+
+<p>Assign the value of variable b to variable c. By now you know what this means. The bits inside variable b are copied,and that new copy is stuffed into variable c.</p>
+
+<p><strong>Both b and c refer to the same object.</strong></p>
+
+<p>References:3</p>
+
+<p>Objects:2</p>
+
+<p><img src="../../assets/img/image-20201120170257537.png" alt="image-20201120170257537" style="zoom:50%;" /></p>
+
+<h1 id="life-and-death-on-the-heap">Life and death on the heap</h1>
+
+<p><code class="language-plaintext highlighter-rouge">Book b = new Book();</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">Book c = new Book();</code></p>
+
+<p>Active References:2</p>
+
+<p>Reachable Objects:2</p>
+
+<p><img src="../../assets/img/image-20201120170718282.png" alt="image-20201120170718282" style="zoom:50%;" /></p>
+
+<hr />
+
+<p><code class="language-plaintext highlighter-rouge">b = c;</code></p>
+
+<p><strong>Object 1 is abandoned and eligible for Garbage Collection(GC).</strong></p>
+
+<p>Active References:2</p>
+
+<p>Reachable Objects:1</p>
+
+<p>Abandoned Objects:1</p>
+
+<p>The first object that b referenced,Object 1,has no more references, It’s unreachable.</p>
+
+<p><img src="../../assets/img/image-20201120170706312.png" alt="image-20201120170706312" style="zoom:50%;" /></p>
+
+<hr />
+
+<p><code class="language-plaintext highlighter-rouge">c = null;</code></p>
+
+<p>Assign the value <em>null</em> to variable c. This makes c a null reference,meaning it doesn’t refer to anything. But it’s still a reference variable,and another Book object can still be assigned to it.</p>
+
+<p><strong>Object 2 still has an active reference(b),and as long as it does,the object is not eligible for GC.</strong></p>
+
+<p>Active References:1</p>
+
+<p>null References:1</p>
+
+<p>Reachable Objects:1</p>
+
+<p>Abandoned Objects:1</p>
+
+<p><img src="../../assets/img/image-20201120171018244.png" alt="image-20201120171018244" style="zoom:50%;" /></p>
+
+<h1 id="an-array-is-like-a-tray-of-cups">An array is like a tray of cups</h1>
+
+<h3 id="declare-an-int-array-variable-an-array-variable-is-a-remote-control-to-an-array-object">Declare an int array variable. An array variable is a remote control to an array object.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">int[] nums;</code></p>
+
+<h3 id="create-a-new-int-array-with-a-length-of-7and-assign-it-to-the-previously-declared-int-variable-nums">Create a new int array with a length of 7,and assign it to the previously-declared <em>int[]</em> variable <em>nums</em>.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">nums = new int[7];</code></p>
+
+<h3 id="give-each-element-in-the-array-an-int-value-rememberelements-in-an-int-array-are-just-int-variables">Give each element in the array an int value. Remember,elements in an int array are just int variables.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">nums[0] = 6;</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[1] = 19;</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[2] = 44;</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[3] = 42;</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[4] = 10;</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[5] = 20;</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[6] = 1;</code></p>
+
+<p><img src="../../assets/img/image-20201120171443941.png" alt="image-20201120171443941" style="zoom:50%;" /></p>
+
+<h1 id="arrays-are-objects-too">Arrays are objects too</h1>
+
+<p>Every element in an array is just a variable. In other words,one of the eight primitive variable types or a reference variable. Anything you would put in a variable of that type can be assigned to an array element of that type.</p>
+
+<p><strong>Arrays are always objects,whether they’re declared to hold primitives or object references.</strong> But you can have an array object that’s declared to hold primitive values. In other words,the array object can have element which are primitives,but the array itself is never a primitive. Regardless of what the array holds,the array itself always an object!</p>
+
+<h1 id="make-an-array-of-dogs">Make an array of Dogs</h1>
+
+<h3 id="declare-a-dog-array-variable">Declare a Dog array variable</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Dog[] pets;</code></p>
+
+<h3 id="create-a-new-dog-array-with-a-length-of-7and-assign-it-to-the-previously-declared-dog-variable-pets">Create a new Dog array with a length of 7,and assign it to the previously-declared <em>Dog[]</em> variable <em>pets</em></h3>
+
+<p><code class="language-plaintext highlighter-rouge">pets = new Dog[7];</code></p>
+
+<p><img src="../../assets/img/image-20201120172522357.png" alt="image-20201120172522357" style="zoom:50%;" /></p>
+
+<hr />
+
+<h3 id="create-new-dog-objectsand-assign-them-to-the-array-elements">Create new Dog objects,and assign them to the array elements.</h3>
+
+<p><strong>Remember,elements in a Dog array are just Dog reference variables. We still need Dogs!</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">pets[0] = new Dog();</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">pets[1] = new Dog();</code></p>
+
+<p><img src="../../assets/img/image-20201120172721676.png" alt="image-20201120172721676" style="zoom:50%;" /></p>
+
+<h1 id="control-your-dogwith-a-reference-variable">Control your Dog(with a reference variable)</h1>
+
+<p><code class="language-plaintext highlighter-rouge">Dog fido = new Dog();</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">fido.name = "Fido";</code></p>
+
+<p>We declare a Dog object and used the dot operator on the reference variable fido to access the name variable.</p>
+
+<p>We can usre the fido reference to get the dog to bark() or eat() or chaseCat().</p>
+
+<p><code class="language-plaintext highlighter-rouge">fido.bark();</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">fido.chaseCat();</code></p>
+
+<p><img src="../../assets/img/image-20201120173008557.png" alt="image-20201120173008557" style="zoom:50%;" /></p>
+
+<h1 id="what-happens-if-the-dog-is-in-a-dog-array">What happens if the Dog is in a Dog array?</h1>
+
+<p>We know we can access the Dog’s instance variables and methods using the dot operator,but on what?</p>
+
+<p>When the Dog is in an array,we don’t have an actual variable name. Instead we use array notation and push the remote control button on an object at a particular index in the array:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Dog[] myDogs = new Dog[3];</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">myDogs[0] = new Dog();</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">myDogs[0].name = "Fido";</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">myDogs[0].bark();</code></p>
+
+<h3 id="java-cares-about-type">Java cares about type.</h3>
+
+<p><strong>Once you’ve declared an array,you can’t put anything in it except things that are of the declared array type.</strong></p>
+
+<h1 id="bullet-points">Bullet Points</h1>
+
+<ul>
+  <li>Variable come in two flavors: primitive and reference</li>
+  <li>Variable must always be declared with a name and a type</li>
+  <li>A primitive variable value is the bits representing the value</li>
+  <li>A reference variable value is the bits representing a way to get to an object on the heap</li>
+  <li>A reference variable is like a remote control. Using the dot operator on a reference variable is like pressing a button on the remote control to access a method or instance variable</li>
+  <li>A reference variable has a value of null when it is not referencing any object</li>
+  <li>An array is always an object,even if the array is declared to hold primitives. There is no such thing as a primitive array,only an array that holds primitives.</li>
+</ul>
+:ET

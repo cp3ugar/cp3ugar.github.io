@@ -1,0 +1,131 @@
+I"�*<h1 id="意图">意图</h1>
+
+<p><strong>工厂方法模式</strong>是一种创建型设计模式，其在父类中提供一个创建对象的方法，允许子类决定实例化对象的类型。</p>
+
+<p><img src="../../assets/img/image-20210525174853947.png" alt="image-20210525174853947" /></p>
+
+<h1 id="问题">问题</h1>
+
+<p>假设你正在开发一款物流管理应用。最初版本只能处理卡车运输，因此绝大部分代码都在位于名为<code class="language-plaintext highlighter-rouge">卡车</code>的类中。</p>
+
+<p>一段时间后，这款应用变得极受欢迎。你每天都能收到十几次来自海运公司的请求，希望应用能够支持海上物流功能。</p>
+
+<p><img src="../../assets/img/image-20210525175123731.png" alt="image-20210525175123731" /></p>
+
+<p>代码问题该如何处理呢？目前，大部分代码都与<code class="language-plaintext highlighter-rouge">卡车</code>类相关。在程序中添加<code class="language-plaintext highlighter-rouge">轮船</code>类需要修改全部代码。更糟糕的是，如果以后需要在程序中支持另外一种运输方式，很可能需要再次对这些代码进行大幅修改。</p>
+
+<p>最后，你将不得不编写繁复的代码，根据不同的运输对象类，在应用中进行不同的处理。</p>
+
+<h1 id="解决方案">解决方案</h1>
+
+<p>工厂方法模式建议使用特殊的工厂方法代替对于对象构造函数的直接调用。对象仍将通过<code class="language-plaintext highlighter-rouge">new</code>运算符创建，只是该运算符改在工厂方法中调用罢了。工厂方法返回的对象通常被称为“产品”。</p>
+
+<p><img src="../../assets/img/image-20210525175646738.png" alt="image-20210525175646738" /></p>
+
+<p>乍看之下，这种更改可能毫无意义：我们只是改变了程序中调用构造函数的位置而已。但是，仔细想一下，现在你可以在子类中重写工厂方法，从而改变其创建产品的类型。</p>
+
+<p>但是有一点需要注意：仅当这些产品具有共同的基类或者接口时，子类才能返回不同类型的产品，同时基类中的工厂方法还应将其返回类型声明为这一共有接口。</p>
+
+<p><img src="../../assets/img/image-20210525180002898.png" alt="image-20210525180002898" /></p>
+
+<p>举例来说，<code class="language-plaintext highlighter-rouge">卡车Truck</code>和<code class="language-plaintext highlighter-rouge">轮船Ship</code>类都必须实现<code class="language-plaintext highlighter-rouge">运输Transport</code>接口，该接口声明了一个名为<code class="language-plaintext highlighter-rouge">deliver交付</code>的方法。每个类都将以不同的方法实现该方法：卡车走陆路交付货物，轮船走海路交付货物。<code class="language-plaintext highlighter-rouge">陆路运输RoadLogistics</code>类中的工厂方法返回卡车对象，而<code class="language-plaintext highlighter-rouge">海路运输SeaLogistics</code>类则返回轮船对象。</p>
+
+<p><img src="../../assets/img/image-20210525180226755.png" alt="image-20210525180226755" /></p>
+
+<p>调用工厂方法的代码（通常被称为客户端代码）无需了解不同子类返回实际对象之间的差别。客户端将所有产品视为抽象的<code class="language-plaintext highlighter-rouge">运输</code>。客户端知道所有运输对象都提供<code class="language-plaintext highlighter-rouge">交付</code>方法，但是并不关心其具体实现方式。</p>
+
+<h1 id="工厂方法模式结构">工厂方法模式结构</h1>
+
+<p><img src="../../assets/img/image-20210525180503637.png" alt="image-20210525180503637" /></p>
+
+<h1 id="工厂方法模式适合应用场景">工厂方法模式适合应用场景</h1>
+
+<h3 id="当你在编写代码的过程中如果无法预知对象确切类别及其依赖关系时可使用工厂方法">当你在编写代码的过程中，如果无法预知对象确切类别及其依赖关系时，可使用工厂方法。</h3>
+
+<p>工厂方法将创建产品的代码与实际使用产品的代码分离，从而能在不影响其他代码的情况下扩展产品创建部分代码。</p>
+
+<p>例如，如果需要向应用中添加一种新产品，你只需要开发新的创建者子类，然后重写其工厂方法即可。</p>
+
+<h3 id="如果你希望用户能扩展软件库或框架的内部组件可使用工厂方法">如果你希望用户能扩展软件库或框架的内部组件，可使用工厂方法。</h3>
+
+<p>继承可能是扩展软件库或框架默认行为的最简单方法。但是当你使用子类替代标准组件时，框架如何辨识出该子类？</p>
+
+<p>解决方案是将各框架中构造组件的代码集中到单个工厂方法中，并在继承该组件之外允许任何人对该方法进行重写。</p>
+
+<h3 id="如果你希望复用现有对象来节省系统资源而不是每次都重新创建对象可使用工厂方法">如果你希望复用现有对象来节省系统资源，而不是每次都重新创建对象，可使用工厂方法。</h3>
+
+<p>在处理大型资源密集型对象（如数据库连接、文件系统和网络资源）时，你会经常碰到这种资源需求。</p>
+
+<p>让我们思考复用现有对象的方法：</p>
+
+<ol>
+  <li>首先，你需要创建存储空间来存放所有以创建的对象</li>
+  <li>当他人请求一个对象时，程序将在对象池中搜索可用对象</li>
+  <li>然后将其返回给客户端代码</li>
+  <li>如果没有可用对象，程序则创建一个新对象（并将其添加到对象池中）</li>
+</ol>
+
+<p>这些代码必不可少！而且它们必须位于同一处，这样才能确保重复代码不会污染程序。</p>
+
+<p>可能这是最显而易见，也是最方便的方式，就是将这些代码放置在我们试图重用的对象类的构造函数中。但是从定义上来讲，构造函数始终返回的是<strong>新对象</strong>，其无法返回现有实例。</p>
+
+<p>因此，你需要有一个既能够创建新对象，又可以重用现有对象的普通方法。这听起来和工厂方法非常相像。</p>
+
+<h1 id="实现方式">实现方式</h1>
+
+<ol>
+  <li>
+    <p>让所有产品都遵循同一接口。该接口必须声明对所有产品都有意义的方法。</p>
+  </li>
+  <li>
+    <p>在创建类中添加一个空的工厂方法。该方法的返回类型必须遵循通用的产品接口。</p>
+  </li>
+  <li>
+    <p>在创建者代码中找到对于产品构造函数的所有引用。将它们依次替换为对于工厂方法的调用，同时将创建产品的代码移入工厂方法。你可能需要在工厂方法中添加临时参数来控制返回的产品类型。</p>
+
+    <p>工厂方法的代码看上去可能非常糟糕。其中可能会有复杂的<code class="language-plaintext highlighter-rouge">switch分支</code>运算符，用于选择各种需要实例化的产品类。但是不要担心，我们很快就会修复这个问题。</p>
+  </li>
+  <li>
+    <p>现在，为工厂方法中的每种产品编写一个创建者子类，然后在子类中重写工厂方法，并将基本方法中的相关创建代码移动到工厂方法中。</p>
+  </li>
+  <li>
+    <p>如果应用中的产品类型太多，那么为每个产品创建子类并无太大必要，这时你也可以在子类中复用基类中的控制参数。</p>
+
+    <p>例如，设想你有以下一些层次结构的类。基类<code class="language-plaintext highlighter-rouge">邮件</code>及其子类<code class="language-plaintext highlighter-rouge">航空邮件</code>和<code class="language-plaintext highlighter-rouge">陆路邮件</code>；<code class="language-plaintext highlighter-rouge">运输</code>及其子类<code class="language-plaintext highlighter-rouge">飞机</code>，<code class="language-plaintext highlighter-rouge">卡车</code>和<code class="language-plaintext highlighter-rouge">火车</code>。<code class="language-plaintext highlighter-rouge">航空邮件</code>仅使用<code class="language-plaintext highlighter-rouge">飞机</code>对象，而<code class="language-plaintext highlighter-rouge">陆路邮件</code>则会同时使用<code class="language-plaintext highlighter-rouge">卡车</code>和<code class="language-plaintext highlighter-rouge">火车</code>对象。你可以编写一个新的子类（例如<code class="language-plaintext highlighter-rouge">火车邮件</code>）来处理这两种情况，但是还有可选的方法。客户端代码可以给<code class="language-plaintext highlighter-rouge">陆路邮件</code>类传递一个参数，用于控制其希望获得的产品。</p>
+  </li>
+  <li>
+    <p>如果代码经过上述移动后，基础工厂方法中已经没有任何代码，你可以将其转变为抽象类。如果基础工厂方法中还有其他语句，你可以将其设置为该方法的默认行为。</p>
+  </li>
+</ol>
+
+<h1 id="工厂方法模式优缺点">工厂方法模式优缺点</h1>
+
+<p>优点：</p>
+
+<ul>
+  <li>可以避免创建者和具体产品之间的紧密耦合</li>
+  <li>单一职责原则。你可以将产品创建代码放在程序的单一位置，从而使得代码更容易维护</li>
+  <li>开闭原则。无需更改现有客户端代码，你就可以在程序中引入新的产品类型</li>
+</ul>
+
+<p>缺点：</p>
+
+<ul>
+  <li>应用工厂方法模式需要引入许多新的子类，代码可能会因此变得复杂。最好的情况是将该模式引入创建者类的现有层次结构中</li>
+</ul>
+
+<h1 id="与其他模式的关系">与其他模式的关系</h1>
+
+<ul>
+  <li>在许多设计工作的初期都会使用<strong><u>工厂方法模式</u></strong>，随后演化为使用<strong><u>抽象工厂模式</u></strong>、<strong><u>原型模式</u></strong>或<strong><u>生成器模式</u></strong>。</li>
+  <li><strong><u>抽象工厂模式</u></strong>通常基于一组<strong><u>工厂方法</u></strong>，但你也可以使用<strong><u>原型模式</u></strong>来生成这些类的方法。</li>
+  <li>你可以同时使用<strong><u>工厂方法</u></strong>和<strong><u>迭代器模式</u></strong>来让子类集合返回不同类型的迭代器，并使得迭代器与集合相匹配。</li>
+  <li><strong><u>原型</u></strong>并不基于继承，因此没有继承的缺点。另一方面，原型需要对被复制对象进行复杂的初始化。<strong><u>工厂方法</u></strong>基于继承，但是不需要初始化步骤。</li>
+  <li><strong><u>工厂方法</u></strong>是<strong><u>模板方法模式</u></strong>的一种特殊形式。同时，工厂方法可以作为一个大型模板方法中的一个步骤。</li>
+</ul>
+
+<blockquote>
+  <p><a href="https://refactoringguru.cn/design-patterns/factory-method">摘自REFACTORING GURU</a></p>
+</blockquote>
+
+:ET

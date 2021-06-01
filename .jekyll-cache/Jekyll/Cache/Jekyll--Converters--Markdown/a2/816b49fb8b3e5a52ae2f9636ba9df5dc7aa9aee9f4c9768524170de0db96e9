@@ -1,0 +1,268 @@
+I"9S<h1 id="bit-manipulation">Bit Manipulation</h1>
+
+<h3 id="bitwise-not-operator">Bitwise Not Operator:<code class="language-plaintext highlighter-rouge">~</code></h3>
+
+<p>This operator ‘flips all the bits’ of a promitive</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>	<span class="c1">//bits are 00001010</span>
+<span class="n">x</span> <span class="o">=</span> <span class="o">~</span><span class="n">x</span><span class="o">;</span>	<span class="c1">//bits are now 11110101</span>
+</code></pre></div></div>
+
+<p>The next three operators compare two primitives on a bit by bit basis,and return a result based on comparing these bits. We’ll use the following example for the next three operators:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>	<span class="c1">//bits are 00001010</span>
+<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">6</span><span class="o">;</span>	<span class="c1">//bits are 00000110</span>
+</code></pre></div></div>
+
+<h3 id="bitwise-and-operator">Bitwise AND Operator:<code class="language-plaintext highlighter-rouge">&amp;</code></h3>
+
+<p>This operator returns a value whose bits are turned on only if <strong>both</strong> original bits are turned on:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">y</span><span class="o">;</span>	<span class="c1">//bits are 00000010</span>
+</code></pre></div></div>
+
+<h3 id="bitwise-or-operator">Bitwise OR Operator:<code class="language-plaintext highlighter-rouge">|</code></h3>
+
+<p>This operator returns a value whose bits are turned on only if <strong>either</strong> of the original bits are turned on:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">x</span> <span class="o">|</span> <span class="n">y</span><span class="o">;</span>	<span class="c1">//bits are 00001110</span>
+</code></pre></div></div>
+
+<h3 id="bitwise-xor-operator">Bitwise XOR Operator:<code class="language-plaintext highlighter-rouge">^</code></h3>
+
+<p>This operator returns a value whose bits are turned on only if <strong>exactly one</strong> of the original bits are turned on:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">x</span> <span class="o">^</span> <span class="n">y</span><span class="o">;</span>	<span class="c1">//bits are 00001100</span>
+</code></pre></div></div>
+
+<h3 id="the-shift-operator">The Shift Operator</h3>
+
+<p>These operators takes a single integer primitive and shift all of its bits in one direction or another. If you want to dust off your binary math skills,you might realize that shifting bits <em>left</em> effectively <em>multiplies</em> a number by a power of two,and shift bits <em>right</em> effectively <em>divides</em> a number by a power of two.</p>
+
+<p>We’ll use the following example for the next three operators:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">11</span><span class="o">;</span>	<span class="c1">//bits are 11110101</span>
+</code></pre></div></div>
+
+<p>The leftmost bit of an intefer number is called the <strong>sign bit</strong>. A negative integer number in Java always has its sign bit turned on. A positive integer number always has its sign bit turned off. Java use the two’s complement formula to store negative numbers. To change a number’s sign using two’s complement,flip all the bits,then add 1.</p>
+
+<h3 id="right-shift-operator">Right Shift Operator:<code class="language-plaintext highlighter-rouge">&gt;&gt;</code></h3>
+
+<p>This operator shifts all of a number’s bits right by a certain number,and fills all of the bits on the left side with whatever the original leftmost bit was. <strong>The sign bit does not change:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="o">;</span>	<span class="c1">//bits are 11111101</span>
+</code></pre></div></div>
+
+<h3 id="unsigned-right-shift-operator">Unsigned Right Shift Operator:<code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code></h3>
+
+<p>Just like the right shift operator BUT it ALWAYS fills the leftmost bits with zeros.<strong>The sogn bit might change:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">;</span>	<span class="c1">//bits are 001111101</span>
+</code></pre></div></div>
+
+<h3 id="left-shift-operator">Left Shift Operator:<code class="language-plaintext highlighter-rouge">&lt;&lt;</code></h3>
+
+<p>Just like the unsigned right shift operator,but in the other direction;the rightmost bits are filled with zeros.<strong>The sign bit might change:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="o">;</span>	<span class="c1">//bits are 11010100</span>
+</code></pre></div></div>
+
+<h1 id="immutability">Immutability</h1>
+
+<h3 id="why-do-you-care-that-string-are-immutable">Why do you care that <u>String</u> are Immutable?</h3>
+
+<p>What this means is that when you say:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"0"</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span><span class="n">x</span><span class="o">++){</span>
+	<span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">x</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What’s actually happening is that you’re creating ten String objects. In the end s is referring to the String with the value “0123456789”,but at this point there are ten String in existence!</p>
+
+<p>Whenever you make a new String,the JVM puts it into a special part of memory called the ‘String Pool’. If there is already a String in the String Pool with the same value,the JVM doesn’t create a duplicate,it simply refers your reference variable to the existing entry. The JVM can get away with this because Strings are immutable;one reference variable can’t change a String’s value out from under another reference variable referring to the same String.</p>
+
+<p>The other issue with the String pool is that the Garbage Collector doesn’t go there.</p>
+
+<h3 id="how-does-this-save-memory">How does this save memory?</h3>
+
+<p>If you understand how String immutability works,than you can sometimes take advantage of it to save memory. If you have to do a lot of String manipulations,however,there is another class StringBuilder,better suitted for that purpose.</p>
+
+<h3 id="why-do-you-care-that-wrappers-are-immutable">Why do you care that <u>Wrappers</u> are Immutable?</h3>
+
+<p>In the Math chapter we talked about the two main uses of the wrapper classes:</p>
+
+<ul>
+  <li>Wrapping a primitive so it can pretend to be an object</li>
+  <li>Using the static utility methods</li>
+</ul>
+
+<p>It’s important to remember that when you create a wrapper object like:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Integer</span> <span class="n">iWrap</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Integer</span><span class="o">(</span><span class="mi">42</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>That’s it for that wrapper object. Its value will always be 42. <strong><em>There is no setter method for a wrapper object.</em></strong> You can,of course,refer iWrap to a different wrapper object,but then you’ll have two objects. Once you create a wrapper object,there’s no way to change the value of that object!</p>
+
+<h1 id="assertions">Assertions</h1>
+
+<p>Assertions are like System.out.println() statements on steroids. Add them to your code as you would println statements. The Java 5.0 compler assumes you’ll be compiling source files that are 5.0 compatible,so as of Java 5.0,compiling with assertions is enabled by default.</p>
+
+<h3 id="how-to-make-assertions-work">How to make Assertions work</h3>
+
+<p>Add assertion statements to your code wherever you believe that something must be true.For instance:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">assert</span><span class="o">(</span><span class="n">height</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">);</span>
+<span class="c1">//if true,program continues normally</span>
+<span class="c1">//if false,throw an AssertionError</span>
+</code></pre></div></div>
+
+<p>You can add a little more information to the stack trace by saying:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">assert</span> <span class="o">(</span><span class="n">height</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">):</span><span class="s">"height = "</span> <span class="o">+</span> <span class="n">height</span> <span class="o">+</span> <span class="s">" weight = "</span> <span class="o">+</span> <span class="n">weight</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>The expression after the colon can be any legal Java expression <strong><em>that resolves to a non-null value.</em></strong> But whatever you do,<strong><em>don’t create assertions that cahnge an object’s state!</em></strong> If you do,enabling assertions at runtime might change how your program performs.</p>
+
+<h3 id="compiling-and-running-with-assertions">Compiling and running with Assertions</h3>
+
+<p>To compile with assertions:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac TestDriveGame.java
+</code></pre></div></div>
+
+<p>To run with assertions:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -ea TestDriveGame
+</code></pre></div></div>
+
+<h1 id="block-scope">Block Scope</h1>
+
+<p>Let’s look at an example:</p>
+
+<p><img src="../../assets/img/image-20210426162921290.png" alt="image-20210426162921290" /></p>
+
+<p>In the example,y was a block variable,declared inside a block,and y went out of scope as soon as the for loop ended. Your Java programs will be more debuggable and expandable if you use local variables instead of instance variables,and block variables instead of local variables,whenever possible. The compiler will make sure that you don’t try to use a variable that’s gone out of scope,so you don’t have to worry about runtime meltdowns.</p>
+
+<h1 id="linked-invocations">Linked Invocations</h1>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">StringBuffer</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuffer</span><span class="o">(</span><span class="s">"spring"</span><span class="o">);</span>
+<span class="n">sb</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">6</span><span class="o">).</span><span class="na">insert</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="s">"umme"</span><span class="o">).</span><span class="na">deleteCharAt</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"sb = "</span> <span class="o">+</span> <span class="n">sb</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>What in the world is happening i nthe second line of the scope? Admittedly,this is a contrived example,but you need to learn how to decipher these.</p>
+
+<ol>
+  <li>
+    <p>Work from left to right</p>
+  </li>
+  <li>
+    <p>Find the result of the leftmost method call,in this case <code class="language-plaintext highlighter-rouge">sb.delete(3, 6)</code>. If you lookup StringBuffer in the API docs,you’ll see that the <code class="language-plaintext highlighter-rouge">delete()</code> method returns a StringBuffer object. The result of running the <code class="language-plaintext highlighter-rouge">delete()</code> method is a StrignBuffer object with the value ‘spr’</p>
+  </li>
+  <li>
+    <p>The next leftmost method (<code class="language-plaintext highlighter-rouge">insert()</code>) is called on the newly created StringBuffer object ‘spr’. The result of that method call,is also a StringBuffer object,adn so it goes,the returned object is used to call the next method to the right. In theory,you can link as many methods as you want in a single statement. Without linking,the second line of code from above would be more readable,and look something like this:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sb</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">6</span><span class="o">);</span>
+<span class="n">sb</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="s">"umme"</span><span class="o">);</span>
+<span class="n">sb</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">deleteCharAt</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h1 id="anonymous-and-static-nested-classes">Anonymous and Static Nested Classes</h1>
+
+<h3 id="static-nested-classes">Static nested classes</h3>
+
+<p>A static nested class looks like the non-static classes we used for event listeners,except they’re marked with the kwyword static.</p>
+
+<p><img src="../../assets/img/image-20210426165143714.png" alt="image-20210426165143714" /></p>
+
+<p>Static nested classes are more like regular non-nested classes in that they don’t enjoy a special relationship with an enclosing outer object. But because static nested classes are still considered a member of the enclosing/outer class,theyt still get access to any private members of the outer class…but only the ones that are also static.Since the static nested class isn’t connected to an instance of the outer class,it doesn’t have any special way to access the non-static variables and methods.</p>
+
+<h3 id="the-difference-between-nested-and-inner">The difference between nested and inner</h3>
+
+<p>Any Java class that’s defined within the scope of another class is known as a <strong><em>nested</em></strong> class. It deosn’t matter if it’s anonymous,static,normal,whatever. If it’s inside another class,it’s technically considered a nested class. But non-static nested classes are often referred to as inner classes,which is what we called them earlier in the book. The bottom line:all inner classes are nested classes,but non all nested classes are inner classes.</p>
+
+<h3 id="anonymous-inner-classes">Anonymous inner classes</h3>
+
+<p>Imagine you’re writing some GUI code,and you need an instance of a class that implements ActionListener. You have two choices:</p>
+
+<ol>
+  <li>
+    <p>Write an inner class in your code</p>
+
+    <p>OR</p>
+  </li>
+  <li>
+    <p>Create an anonymous inner class and instantiate it,right there,just-in-time.<strong><em>Literally right where you are at the point you need the listener object.</em></strong>That’s right,you create the class and the instance in the place where you’d normally be supplying just the instance. Think about that for a moment——it means you pass the entire class where you’d normally pass only an instance into a method argument!</p>
+  </li>
+</ol>
+
+<p><img src="../../assets/img/image-20210426170643292.png" alt="image-20210426170643292" /></p>
+
+<h1 id="access-levels-and-access-modifierswho-sees-what">Access Levels and Access Modifiers(Who Sees What)</h1>
+
+<h3 id="access-levels">Access Levels</h3>
+
+<p><img src="../../assets/img/image-20210427163640052.png" alt="image-20210427163640052" /></p>
+
+<h3 id="access-modifiers">Access modifiers</h3>
+
+<ul>
+  <li>public</li>
+  <li>protected</li>
+  <li>private</li>
+</ul>
+
+<h3 id="public">public</h3>
+
+<p>Use public for classes,constants(static final variable),and methods that you’re exposing to other code and most constructors.</p>
+
+<h3 id="private">private</h3>
+
+<p>Use private for virtually all instance variables,and for methods that you don’t want outside code to call.</p>
+
+<h3 id="default">default</h3>
+
+<p>It means that only code <em>within the same pakage</em> can access code with default access.</p>
+
+<p>But what does it really mean to access a class? Code that does not have access to a class is not allowed to even think about the class. And by think,we mean use the class in code.</p>
+
+<h3 id="protected">protected</h3>
+
+<p>Protected access is almost identical to default access,with one exception:it allows subclass to inherit the protected thing,even if those subclasses are outside the pavkage of the superclass they extend.</p>
+
+<h1 id="string-and-stringbufferstringbuilder-methods">String and StringBuffer/StringBuilder Methods</h1>
+
+<p>Strings are immutable,so a StringBuffer/StringBuilder can be a lot more efficient if you’re manipulating a String. As of Java 5.0 you should use the String<strong>Builder</strong> class instead of String<strong>Buffer</strong>,unless your String manipulations need to be thread-safe,which is not common.</p>
+
+<h1 id="multidimensional-arrays">Multidimensional Arrays</h1>
+
+<p>In Java,a two dimensional array is simply an array of arrays.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[][]</span> <span class="n">a2d</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">4</span><span class="o">][</span><span class="mi">2</span><span class="o">];</span>
+</code></pre></div></div>
+
+<p>The JVM creates an array with 4 elements. Each of these four elements is actually a reference variable refering to a (newly created),int array with 2 elements.</p>
+
+<p><img src="../../assets/img/image-20210427165719321.png" alt="image-20210427165719321" /></p>
+
+<h1 id="enumerations">Enumerations</h1>
+
+<p><strong>A new,offical ‘enum’</strong>:</p>
+
+<p><img src="../../assets/img/image-20210427171456616.png" alt="image-20210427171456616" /></p>
+
+<h3 id="your-enum-extends-javalangenum">Your enum extends java.lang.Enum</h3>
+
+<p>When you create an enum,you’re creating a new class,and <strong><em>you’re implicitly extending java.lang.Enum.</em></strong> You can declare an enum as its own standalone class,in its own source file,or as a menber of another class.</p>
+
+<h3 id="using-if-and-switch-with-enums">Using ‘if’ and ‘switch’ with Enums</h3>
+
+<p>Using the enum we just created,we can perform branches in our code using either the if or switch statement. Also notice that we compare enum instances using either == or the .equals() method. Usually == is considered better style.</p>
+
+<p><img src="../../assets/img/image-20210427171941905.png" alt="image-20210427171941905" /></p>
+
+:ET

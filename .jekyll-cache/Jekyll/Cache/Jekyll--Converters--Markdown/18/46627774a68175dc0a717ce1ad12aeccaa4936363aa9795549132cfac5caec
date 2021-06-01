@@ -1,0 +1,25 @@
+I"�<h1 id="swing-components">Swing components</h1>
+
+<h3 id="a-widget-is-technically-a-swing-component-almost-every-thing-you-can-stick-in-a-gui-extends-from-javaxswingjcomponent">A widget is technically a Swing <u>Component</u>. Almost every thing you can stick in a GUI extends from javax.swing.JComponent.</h3>
+
+<h1 id="the-big-three-layout-managers-borderflowand-box">The Big Three layout managers: border,flow,and box</h1>
+
+<h3 id="borderlayout">BorderLayout</h3>
+
+<p>A BorderLayout manager divides a background component into five regions. You can add only one component into five regions. You can add only one component per region to a background controlled by a BorderLayout manager. Components laid out by this manager usually don’t get to have their preferred size. <strong>BorderLayout is the default layout manager for a frame!</strong></p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210127144458182.png" alt="image-20210127144458182" /></p>
+
+<h3 id="flowlayout">FlowLayout</h3>
+
+<p>A FlowLayout manager acts kinds of like a word processor,except with components instead of words. Each component is the size it wants to be,and they’re laid out left to right in the order that they’re added,with “word-wrap” turned on. So when a component won;t fit horizontally,it drops to the next “line” in the layout. <strong>FlowLayout is the default layout manager for a panel!</strong></p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210127144707249.png" alt="image-20210127144707249" /></p>
+
+<h3 id="boxlayout">BoxLayout</h3>
+
+<p>A BoxLayout manager is like FlowLayout in that each component gets to have its own size,and the components are placed in the order in which they’re added. But,unlike FlowLayout,a BoxLayout manager can stack the components vertically. It’s like a FlowLayout but instead of having automatic ‘component wrapping’,you can insert a sort of ‘component return key’ and <strong><u>force</u></strong> the components to start a new line.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210127144953518.png" alt="image-20210127144953518" /></p>
+
+:ET

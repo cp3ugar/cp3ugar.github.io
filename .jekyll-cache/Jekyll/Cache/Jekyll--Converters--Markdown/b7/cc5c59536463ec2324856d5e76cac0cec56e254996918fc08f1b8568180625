@@ -1,0 +1,215 @@
+I"�9<h1 id="capture-the-beat">Capture the Beat</h1>
+
+<h3 id="if-your-data-will-be-used-by-only-the-java-program-that-generated-it">If your data will be used by only the Java program that generated it:</h3>
+
+<ul>
+  <li>
+    <p><strong>Use <u>serialization</u></strong></p>
+
+    <p>Write a file that holds flattened(serialized) objects. Then have your program read the serialized objects from the file and inflate them back into living,breathing,heap-inhabiting objects.</p>
+  </li>
+</ul>
+
+<h3 id="if-your-data-will-be-used-by-other-programs">If your data will be used by other programs:</h3>
+
+<ul>
+  <li>
+    <p><strong>Write a <u>plain text</u> file</strong></p>
+
+    <p>Write a file,with delimiters that other programs can parse. For example,a tab-delimited file that a spreadsheet or database application can use.</p>
+  </li>
+</ul>
+
+<h1 id="saving-state">Saving State</h1>
+
+<ul>
+  <li>
+    <p><strong>Write the three serialized character objects to a file</strong></p>
+
+    <p>Create a file and write three serialized character objects. The file won’t make sense if you try to read it as text.</p>
+  </li>
+  <li>
+    <p><strong>Write a plain text file</strong></p>
+
+    <p>Create a file and write three lines of text,one per character,separating the pieces of state with commas.</p>
+  </li>
+</ul>
+
+<h1 id="write-a-serialized-object-to-a-file">Write a serialized object to a file</h1>
+
+<p>Here are the steps for serializing(saving) an object.</p>
+
+<ol>
+  <li>
+    <p><strong>Make a <u>FileOutputStream</u></strong></p>
+
+    <p><img src="../../assets/img/image-20210415164658436.png" alt="image-20210415164658436" /></p>
+  </li>
+  <li>
+    <p><strong>Make an <u>ObjectOutputStream</u></strong></p>
+
+    <p><img src="../../assets/img/image-20210415164726638.png" alt="image-20210415164726638" /></p>
+  </li>
+  <li>
+    <p><strong><u>Write</u> the object</strong></p>
+
+    <p><img src="../../assets/img/image-20210415164746333.png" alt="image-20210415164746333" /></p>
+  </li>
+  <li>
+    <p><strong><u>Close</u> the ObjectOutputStream</strong></p>
+
+    <p><img src="../../assets/img/image-20210415164813925.png" alt="image-20210415164813925" /></p>
+  </li>
+</ol>
+
+<h1 id="data-moves-in-streams-from-one-place-to-another">Data moves in streams from one place to another</h1>
+
+<h3 id="connection-streams-represent-a-connection-to-a-source-or-destination-while-chain-streams-cant-connect-on-their-own-and-must-be-chained-to-a-connection-stream"><strong><u>Connection</u> streams represent a connection to a source or destination while <u>chain</u> streams can’t connect on their own and must be chained to a connection stream.</strong></h3>
+
+<p>The Java I/O API has <strong><em>connection</em></strong> streams,that represent connections to destinations and sources such as files or network sockects,and <strong><em>chain</em></strong> streams that work only if chained to other streams.</p>
+
+<p>Often,it takes at least two streams hooked together to do something useful—one to represent the connection and <em>anohter</em> to call methods on. Why two? Because <em>connection</em> streams are usually too low-level. FileOutputStream,for example,has methods for writing <em>bytes</em>. But we don’t want to write <em>bytes</em>! We want to write <em>objects</em>,so we need a higher-level <em>chain</em> stream.</p>
+
+<p>Then why not have just a songle stream that does <em>exactly</em> what you want? Once that lets you write objects but underneath converts them to bytes? Think good OO. Each class does <em>one</em> thing well.</p>
+
+<p><img src="../../assets/img/image-20210415170228396.png" alt="image-20210415170228396" /></p>
+
+<h1 id="what-really-happens-to-an-object-when-its-serialized">What really happens to an object when it’s serialized?</h1>
+
+<p><img src="../../assets/img/image-20210415170330320.png" alt="image-20210415170330320" /></p>
+
+<p><img src="../../assets/img/image-20210415170342645.png" alt="image-20210415170342645" /></p>
+
+<h1 id="but-what-exactly-is-an-objects-state-what-needs-to-be-saved">But what exactly <u>IS</u> an object’s state? What needs to be saved?</h1>
+
+<p>Easy enough to save the <em>primitive</em> values 37 and 70. But what if an object has an instance variable that’s an object <em>reference</em>? What about an object that has five instance variables that are object references? What if those object instance variables themselves have instance variables?</p>
+
+<h1 id="when-an-object-is-seriabledall-the-objects-it-refers-to-from-instance-variables-are-also-seriabled-and-all-the-objects-those-objects-refer-to-are-seriabled-and-all-the-objects-those-objects-refer-to-are-seriabledand-the-best-part-isit-happens-automatically">When an object is seriabled,all the objects it refers to from instance variables are also seriabled. And all the objects those objects refer to are seriabled. And all the objects those objects refer to are seriabled…and the best part is,it happens automatically!</h1>
+
+<p>This Kennel object has a reference to a Dog[] array object. The Dog[] holds references to two Dog objects. Each Dog object holds a reference to a String and a Collar object. The String objects have a collection of characters and the Collar objects have an int.</p>
+
+<h3 id="when-you-save-the-kennelall-of--this-is-saved"><strong>When you save the Kennel,<u>all</u> of  this is saved!</strong></h3>
+
+<p><img src="../../assets/img/image-20210415171256848.png" alt="image-20210415171256848" /></p>
+
+<h3 id="serialization-saves-the-entire-object-graph-all-objects-referenced-by-instance-variablesstarting-with-the-object-being-serialized">Serialization saves the entire <strong>object graph</strong>. All objects referenced by instance variables,starting with the object being serialized.</h3>
+
+<h1 id="if-you-want-your-class-to-be-serializableimplement-serializable">If you want your class to be serializable,implement <u>Serializable</u></h1>
+
+<p>The Serializable interface is known as a <em>marker</em> or tag interface,because the interface doesn’t have any methods to implement. Its sole purpose is to announce that the class implementing it is,well,<em>serializable</em>. In other words,objects of that type are savable through the serialization mechanism. If any superclass of a class is serializable,the subclass is automatically serializable even if the subclass doesn’t explicitly declare implements <em>Serializable</em>.</p>
+
+<p><img src="../../assets/img/image-20210415171932155.png" alt="image-20210415171932155" /></p>
+
+<h1 id="serialization-is-all-or-nothing">Serialization is all or nothing.</h1>
+
+<h3 id="can-you-imageine-what-would-happen-if-some-of-the-objects-state-didnt-save-correctly">Can you imageine what would happen if some of the object’s state didn’t save correctly?</h3>
+
+<h3 id="either-the-entire-object-graph-is-serialized-correctly-or-serialization-fails">Either the entire object graph is serialized correctly or serialization fails.</h3>
+
+<h3 id="you-cant-serialize-a-pone-object-if-its-duck-instance-variable-refuses-to-be-serialized">You can’t serialize a Pone object if its Duck instance variable refuses to be serialized.</h3>
+
+<h3 id="mark-an-instance-variable-as-transient-if-it-cant-or-shouldnt-be-saved">Mark an instance variable as <u>transient</u> if it can’t (or shouldn’t) be saved.</h3>
+
+<p>If you want an instance variable to be skipped by the serialization process,mark the variable with the <strong>transient</strong> keyword.</p>
+
+<p><img src="../../assets/img/image-20210415172417735.png" alt="image-20210415172417735" /></p>
+
+<h3 id="q-if-serialization-is-so-importantwhy-isnt-it-the-default-for-all-classes-why-doesnt-class-object-implement-serializableand-then-all-subclasses-will-be-automatically-serializable"><strong>Q: If serialization is so important,why isn’t it the default for all classes? Why doesn’t class Object implement Serializable,and then all subclasses will be automatically Serializable.</strong></h3>
+
+<p><strong>A:</strong>Even though most classes will,and should,implement Serializable,you always have a choice. And you must make a conscious decision on a class-by-class basis,for each class you design,to ‘enable’ serialization by implementing Serialiable. First of all,if serialization were the default,how would you turn if off? Interfaces indicate functionality,not a lack of functionality,so the model of polymorphism wouldn’t work correctly if you had ro say,’implements NonSerializable’ to tell the world that you cannot be saved.</p>
+
+<h1 id="deserialization-restoring-an-object">Deserialization: restoring an object</h1>
+
+<p>The whole point of serializing an object is so that you can restore it back to its original state at some later date,in a different ‘run’ of the JVM.</p>
+
+<ol>
+  <li>
+    <p><strong>Make a <u>FileInputStream</u></strong></p>
+
+    <p><img src="../../assets/img/image-20210415174543085.png" alt="image-20210415174543085" /></p>
+  </li>
+  <li>
+    <p><strong>Make an <u>ObjectInputStream</u></strong></p>
+
+    <p><img src="../../assets/img/image-20210415174609292.png" alt="image-20210415174609292" /></p>
+  </li>
+  <li>
+    <p><strong><u>read</u> the objects</strong></p>
+
+    <p><img src="../../assets/img/image-20210415174634675.png" alt="image-20210415174634675" /></p>
+  </li>
+  <li>
+    <p><strong><u>Cast</u> the objects</strong></p>
+
+    <p><img src="../../assets/img/image-20210415174714851.png" alt="image-20210415174714851" /></p>
+  </li>
+  <li>
+    <p><strong><u>Close</u> the ObjectInputStream</strong></p>
+
+    <p><img src="../../assets/img/image-20210415174752012.png" alt="image-20210415174752012" /></p>
+  </li>
+</ol>
+
+<h1 id="what-happens-during-deserialization">What happens during deserialization?</h1>
+
+<p><img src="../../assets/img/image-20210415175008173.png" alt="image-20210415175008173" /></p>
+
+<ol>
+  <li>The object is <strong>read</strong> from the stream</li>
+  <li>The JVM determines the object’s <strong>class type</strong></li>
+  <li>The JVM attempts to <strong>find and load</strong> the object’s <strong>class</strong>. If the JVM can’t find and/or load the class,the JVM throws an exception and the deserialization fails</li>
+  <li>A new object is given space on the heap,but the <strong>serialized object’s constructor does NOT run</strong>! Obviously,if the constructor ran,it would restore the state of the object back to its original ‘new’ state,and that’s not what we want. We want the object to be restored to the state it had when it was serialized,not when it was first created</li>
+  <li>If the object has a non-serializable class somewhere up its inheritance tree,the <strong>constructor for that non-serializable class will run</strong> along with any constructors above that. Once the constructor chaining begins,you can’t stop it,which means all superclasses,begining with the first non-serializable one,will reinitialize their state</li>
+  <li>The object’s <strong>instance variables are given the values from the serialized state</strong>. Transient variables are given a value of null for object reference and default for primitive</li>
+</ol>
+
+<h1 id="writing-a-string-to-a-text-file">Writing a String to a Text File</h1>
+
+<p>Writing text data is similar to writing an object,except you write a String instead of an object,and you use a FileWriter instead of a FileOutputStream.</p>
+
+<h3 id="to-write-a-serialized-object">To write a serialized object:</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">objectOutputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">someObject</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>To write a String:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fileWriter</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"My first String to save"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="../../assets/img/image-20210415181928559.png" alt="image-20210415181928559" /></p>
+
+<h1 id="the-javaiofile-class">The <u>java.io.File</u> class</h1>
+
+<h3 id="a-file-object-represents-the-name-and-path-of-a-file-or-directory-on-disk-but-it-does-not-representor-give-you-access-tothe-data-in-the-file">A File object represents the name and path of a file or directory on disk. But it does NOT represent,or give you access to,the data in the file!</h3>
+
+<p><img src="../../assets/img/image-20210416153323872.png" alt="image-20210416153323872" /></p>
+
+<h1 id="the-beauty-of-buffers">The beauty of buffers</h1>
+
+<h3 id="if-there-were-no-buffersit-would-be-like-shopping-without-a-cart-youd-have-to-carry-each-thing-out-to-your-carone-soup-can-or-toilet-paper-roll-at-a-time">If there were no buffers,it would be like shopping without a cart. You’d have to carry each thing out to your car,one soup can or toilet paper roll at a time.</h3>
+
+<p><img src="../../assets/img/image-20210416153534787.png" alt="image-20210416153534787" /></p>
+
+<h1 id="reading-from-a-text-file">Reading from a Text File</h1>
+
+<p><img src="../../assets/img/image-20210416154000974.png" alt="image-20210416154000974" /></p>
+
+<h1 id="parse-with-string-split">Parse with String split()</h1>
+
+<h3 id="the-split-method-saysgive-me-a-separatorand-ill-break-out-all-the-pieces-of-this-string-for-you-and-put-them-in-a-string-array">The split() method says,”give me a separator,and I’ll break out all the pieces of this String for you and put them in a String array.”</h3>
+
+<p><img src="../../assets/img/image-20210416154150598.png" alt="image-20210416154150598" /></p>
+
+<h1 id="version-id-a-big-serialization-gotcha">Version ID: A Big Serialization Gotcha</h1>
+
+<h3 id="version-control-is-crucial">Version Control is crucial!</h3>
+
+<p>If you serialize an object,you must have the class in order to deserialize and use the object. OK,tha’s obvious. But what might be less obvious is what happens if you <strong><em>change the class</em></strong> in the meantime? Imagines trying to bring back a Dog object when one of its instance variables has changed from a double to a String. That violates Java’s type-safe sensibilities in a Big Way. But that’s not the only change that might hurt compatibility.</p>
+
+<p><img src="../../assets/img/image-20210416155400767.png" alt="image-20210416155400767" /></p>
+
+<h1 id="using-the-serialversionuid">Using the serialVersionUID</h1>
+
+<h3 id="if-you-think-there-is-any-possibility-that-your-class-might-evolveput-a-serial-version-id-in-your-class">If you think there is ANY possibility that your class might evolve,put a serial version ID in your class.</h3>
+:ET

@@ -1,0 +1,202 @@
+I"-,<h1 id="method-calls-are-always-between-two-objects-on-the-same-heap">Method calls are always between two objects on the <u>same</u> heap</h1>
+
+<p>The JVM is respinsible for stuffing bits into the reference varible that represent <em>how to get to an object on the heap</em>. The JVM always knows where each object is,and how to get to it. But the JVM can know about references on only its own heap! You can’t,for example,have a JVM running on one machine knowing about the heap space of a JVM running on a different machine. In face,a JVM running on one machine can’t know anything about a difference JVM running on the same machine. It makes no difference if the JVMs are on the same or dofferent physical machines;it matters only that the two JVMs are,well,two different invocatins of the JVM.</p>
+
+<p><img src="../../assets/img/image-20210425152358454.png" alt="image-20210425152358454" /></p>
+
+<h1 id="what-if-you-want-to-invoke-a-method-on-an-object-running-on-another-machine">What if you want to invoke a method on an object running on another machine?</h1>
+
+<p>We know how to get information from one machine to another——with Sockets and I/O. But what if we actually want to <em>call a method</em> on something running in another machine…anonther JVM? Of course we should always build our own pretocol,and when you send data to a ServerSocket the server could parse it,figure out what you meant,do the work,and send back the result on another stream. What a pain,though. Think how much nicer it would be to just get a reference to the object on the other machine,and call a method.</p>
+
+<p><img src="../../assets/img/image-20210425152900620.png" alt="image-20210425152900620" /></p>
+
+<h3 id="object-arunning-on-littlewants-to-call-a-method-on-object-brunning-on-big">Object A,running on Little,wants to call a method on Object B,running on Big.</h3>
+
+<p>The question is,how do we get an object on one machine to call a method on another machine?</p>
+
+<p><img src="../../assets/img/image-20210425153045720.png" alt="image-20210425153045720" /></p>
+
+<h3 id="a-design-for-remote-method-calls">A design for remote method calls</h3>
+
+<p><strong>Create four things:sever,client,server helper,client helper</strong></p>
+
+<ol>
+  <li>
+    <p>Create client and server apps. The server app is the <strong>remote service</strong> that has an object with the method that the client wants to invoke</p>
+
+    <p><img src="../../assets/img/image-20210425153416057.png" alt="image-20210425153416057" /></p>
+  </li>
+  <li>
+    <p>Create client and server ‘helpers’. They’ll handle all the low-level networking and I/O details so that your client and service can pretend like they’re in the same heap</p>
+
+    <p><img src="../../assets/img/image-20210425153523872.png" alt="image-20210425153523872" /></p>
+  </li>
+</ol>
+
+<h3 id="the-role-of-the-helpers">The role of the ‘helpers’</h3>
+
+<p>The ‘helpers’ are the objects that actually do the communicating. The client calls a method on the client helper,<em>as if the client helper were the actual service. The client helper is a proxy for the Real Thing.</em></p>
+
+<p>In other words,the client object thinks it’s calling a method on the remote service,because the client helper is pretending to be the service object.<strong>Pretending to be the thing with the method the client want to call!</strong></p>
+
+<h3 id="your-client-object-gets-to-act-like-its-making-remote-method-calls-but-what-its-really-doing-is-calling-methods-on-a-heap-local-proxy-object-that-handles-al-the-low-level-detail-of-sockets-and-streams">Your client object gets to act like it’s making remote method calls. But what it’s <u>really</u> doing is calling methods on a heap-local ‘proxy’ object that handles al the low-level detail of Sockets and streams.</h3>
+
+<p><img src="../../assets/img/image-20210425154352177.png" alt="image-20210425154352177" /></p>
+
+<h3 id="how-the-method-call-happens">How the method call happens</h3>
+
+<ol>
+  <li>
+    <p>Client object calls doBigThing() on the client helper object</p>
+
+    <p><img src="../../assets/img/image-20210425154517536.png" alt="image-20210425154517536" /></p>
+  </li>
+  <li>
+    <p>Client helper packages up information(arguments,method name,etc.) about the call and ship it over the network to the service helper</p>
+
+    <p><img src="../../assets/img/image-20210425154601472.png" alt="image-20210425154601472" /></p>
+  </li>
+  <li>
+    <p>Service helper unpacks the information from the client helper,finds out which method to call (and on which object) and invokes the <u>real</u> method on the <u>real</u> service object</p>
+
+    <p><img src="../../assets/img/image-20210425154722393.png" alt="image-20210425154722393" /></p>
+  </li>
+</ol>
+
+<h1 id="java-rmi-gives-you-the-client-and-service-helper-objects">Java RMI gives you the client and service helper objects!</h1>
+
+<p>In Java,RMI builds the client and service helper objects for you,and it even knows how to make the client helper look like the Real Service. In other words,RMI knows how to give the client helper object the same methods you want to call on the remote service.</p>
+
+<p><strong>In RMI,the client helper is a ‘stub’ and the server helper is a ‘skeleton’.</strong><img src="../../assets/img/image-20210425155357095.png" alt="image-20210425155357095" /></p>
+
+<h3 id="making-the-remote-service">Making the Remote Service</h3>
+
+<ol>
+  <li>
+    <p>Make a <strong>Remote interface</strong></p>
+
+    <p><img src="../../assets/img/image-20210425155607760.png" alt="image-20210425155607760" /></p>
+  </li>
+  <li>
+    <p>Make a <strong>Remote Implementation</strong></p>
+
+    <p><img src="../../assets/img/image-20210425155626871.png" alt="image-20210425155626871" /></p>
+  </li>
+  <li>
+    <p>Generate the <strong>stubs</strong> and <strong>skeletons</strong> using rmic</p>
+
+    <p><img src="../../assets/img/image-20210425155724919.png" alt="image-20210425155724919" /></p>
+  </li>
+  <li>
+    <p>Start the <strong>RMI registry</strong></p>
+
+    <p><img src="../../assets/img/image-20210425155805743.png" alt="image-20210425155805743" /></p>
+  </li>
+  <li>
+    <p>Start the <strong>remote service</strong></p>
+
+    <p><img src="../../assets/img/image-20210425155835087.png" alt="image-20210425155835087" /></p>
+  </li>
+</ol>
+
+<h3 id="how-does-the-client-get-the-stub-object">How does the client get the stub <u>object</u>?</h3>
+
+<p><img src="../../assets/img/image-20210426113419882.png" alt="image-20210426113419882" /></p>
+
+<p><img src="../../assets/img/image-20210426113431860.png" alt="image-20210426113431860" /></p>
+
+<h3 id="how-does-the-client-get-the-stub-class">How does the client get the stub <u>class</u>?</h3>
+
+<p>With dynamic class downloading,a stub object is ‘stamped’ with a URL that tells the RMI system on the client where to find the class file for that object. Then,in the process of deserializing an object,if RMI can’t find the class locally,it uses that URL to do an HTTP  Get to retrieve the class file.</p>
+
+<h1 id="what-about-servlets">What about Servlets?</h1>
+
+<p>Servlets are Java programs that run on (and with) an HTTP web server.</p>
+
+<p><img src="../../assets/img/image-20210426114842145.png" alt="image-20210426114842145" /></p>
+
+<h3 id="step-for-making-and-running-a-servlet">Step for making and running a servlet</h3>
+
+<ol>
+  <li>
+    <p><strong>Find out where your servlets need to be placed</strong></p>
+
+    <p><img src="../../assets/img/image-20210426115037424.png" alt="image-20210426115037424" /></p>
+  </li>
+  <li>
+    <p><strong>Get the servlets.jar and add it to your classpath</strong></p>
+
+    <p><img src="../../assets/img/image-20210426115102663.png" alt="image-20210426115102663" /></p>
+  </li>
+  <li>
+    <p><strong>Write a servlet class by extending HttpServlet</strong></p>
+
+    <p><img src="../../assets/img/image-20210426115204135.png" alt="image-20210426115204135" /></p>
+  </li>
+  <li>
+    <p><strong>Write an HTML page that invoke your servlet</strong></p>
+
+    <p><img src="../../assets/img/image-20210426115223272.png" alt="image-20210426115223272" /></p>
+  </li>
+  <li>
+    <p><strong>Make your servlet and HTML page available to your server</strong></p>
+
+    <p><img src="../../assets/img/image-20210426115304425.png" alt="image-20210426115304425" /></p>
+  </li>
+</ol>
+
+<h1 id="enterprise-javabean-rmi-on-steroids">Enterprise JavaBean: RMI on steroids</h1>
+
+<h3 id="an-ejb-server-adds-a-bunch-of-services-that-you-dont-get-with-straight-rmi-things-like-transactionssecurityconcurrencydatabase-managementand-networking-an-ejb-server-steps-into-middle-of-an-rmi-call-and-layers-in-all-of-the-services">An EJB server adds a bunch of services that you don’t get with straight RMI. Things like transactions,security,concurrency,database management,and networking. An EJB server steps into middle of an RMI call and layers in all of the services.</h3>
+
+<p><img src="../../assets/img/image-20210426134205482.png" alt="image-20210426134205482" /></p>
+
+<h3 id="for-our-final-tricka-little-jini">For our final trick…a little Jini</h3>
+
+<p>Jini uses RMI(although other protocols can be involved),but gives you a few key features including:</p>
+
+<p><strong>Adaptive discovery</strong></p>
+
+<p><strong>Self-healing networks</strong></p>
+
+<h3 id="adaptive-discovery-in-action">Adaptive discovery in action</h3>
+
+<ol>
+  <li>
+    <p>Jini lookup service is launched somewhere on the network,and announces itself using IP multicast</p>
+
+    <p><img src="../../assets/img/image-20210426134850375.png" alt="image-20210426134850375" /></p>
+  </li>
+  <li>
+    <p>An already-running Jini service on another machine asks to be registered with this newly-announced lookup service. It registers by capability,rather than by name. In ohter words,it registers as the service interface it implements. It sends a serialized object to be placed in the lookup service.</p>
+
+    <p><img src="../../assets/img/image-20210426135043399.png" alt="image-20210426135043399" /></p>
+  </li>
+  <li>
+    <p>A client on the network wants something that implements the ScientificCalculator interface. It has no idea where that thing exists,so it takes  the loopup service.</p>
+
+    <p><img src="../../assets/img/image-20210426135148719.png" alt="image-20210426135148719" /></p>
+  </li>
+  <li>
+    <p>The lookup service responds,since it does have something registered as a ScientificCalculator interface.</p>
+
+    <p><img src="../../assets/img/image-20210426135232862.png" alt="image-20210426135232862" /></p>
+  </li>
+</ol>
+
+<h3 id="self-healing-network-in-action">Self-healing network in action</h3>
+
+<ol>
+  <li>
+    <p>A Jini Service has asked to register with the lookup service. The lookup service responds with a ‘lease’. The newly-registered services must keep renewing the lease,or the lookup service wants always to present an accurate picture to the rest of the network about which services are available.</p>
+
+    <p><img src="../../assets/img/image-20210426135743765.png" alt="image-20210426135743765" /></p>
+  </li>
+  <li>
+    <p>The service goes offline (somebody shuts it down),so it fails to renew its lease with the lookup service. The lookup service drops it.</p>
+
+    <p><img src="../../assets/img/image-20210426135839037.png" alt="image-20210426135839037" /></p>
+  </li>
+</ol>
+
+:ET

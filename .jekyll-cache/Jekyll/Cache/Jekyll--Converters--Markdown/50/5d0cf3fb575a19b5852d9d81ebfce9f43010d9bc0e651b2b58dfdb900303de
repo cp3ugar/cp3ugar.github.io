@@ -1,0 +1,159 @@
+I"�$<h1 id="chat-program-overview">Chat Program Overview</h1>
+
+<h3 id="the-client-has-to-know-about-the-server">The client has to know about the Server.</h3>
+
+<h3 id="the-server-has-to-know-about-all-the-clients">The Server has to know about ALL the clients.</h3>
+
+<p><img src="../../assets/img/image-20210420114156660.png" alt="image-20210420114156660" /></p>
+
+<h3 id="how-it-works">How it works:</h3>
+
+<p><img src="../../assets/img/image-20210420114222689.png" alt="image-20210420114222689" /></p>
+
+<h1 id="connectingsendingand-receiving">Connecting,Sending,and Receiving</h1>
+
+<p>The three things we have to learn to get the client working are:</p>
+
+<ol>
+  <li>How to establish the initial <strong>connection</strong> between the client and server</li>
+  <li>How to <strong>send</strong> messages to the server</li>
+  <li>How to <strong>receive</strong> messages from the server</li>
+</ol>
+
+<p>There’s a lot of low-level stuff that has to happen fort these things to work. But we’re lucky,because the Java API networking package makes it a piece of cake for programmers. You’ll see a lot more GUI code than networking and I/O code.</p>
+
+<p><img src="../../assets/img/image-20210420114241993.png" alt="image-20210420114241993" /></p>
+
+<h1 id="make-a-network-socket-connection">Make a network Socket connection</h1>
+
+<h3 id="to-make-a-socket-connectionyou-need-to-know-two-things-about-the-serverwho-it-isand-which-port-its-running-on-in-other-wordsip-address-and-tcp-port-number">To make a Socket connection,you need to know <u>two</u> things about the server:who it is,and which port it’s running on. In other words,==IP address and TCP port number==.</h3>
+
+<p><img src="../../assets/img/image-20210420114258002.png" alt="image-20210420114258002" /></p>
+
+<h1 id="a-tcp-port-is-just-a-number-a-16-bit-number-that-identifies-a-specific-program-on-the-server">A TCP port is just a number. A 16-bit number that identifies a specific program on the server</h1>
+
+<p><img src="../../assets/img/image-20210420114326039.png" alt="image-20210420114326039" /></p>
+
+<p><img src="../../assets/img/image-20210420114342464.png" alt="image-20210420114342464" /></p>
+
+<h1 id="to-read-data-from-a-socketuse-a-bufferreader">To read data from a Socket,use a BufferReader</h1>
+
+<ol>
+  <li>
+    <p><strong>Make a <u>Socket</u> connection to the server</strong></p>
+
+    <p><img src="../../assets/img/image-20210420114356622.png" alt="image-20210420114356622" /></p>
+  </li>
+  <li>
+    <p><strong>Make an <u>InputStreamReader</u> chain to the Socket’s low-level (connection) input stream</strong></p>
+
+    <p><img src="../../assets/img/image-20210420114411523.png" alt="image-20210420114411523" /></p>
+  </li>
+  <li>
+    <p><strong>Make a <u>BufferedReader</u> and read!</strong></p>
+
+    <p><img src="../../assets/img/image-20210420114423726.png" alt="image-20210420114423726" /></p>
+
+    <p><img src="../../assets/img/image-20210420114440647.png" alt="image-20210420114440647" /></p>
+  </li>
+</ol>
+
+<h1 id="to-write-data-to-a-socketuse-a-printwriter">To write data to a Socket,use a PrintWriter</h1>
+
+<ol>
+  <li>
+    <p><strong>Make a <u>Socket</u> connetion to the server</strong></p>
+
+    <p><img src="../../assets/img/image-20210420114500743.png" alt="image-20210420114500743" /></p>
+  </li>
+  <li>
+    <p><strong>Make a <u>PrintWriter</u> chained to the Socket’s low-level (connection) output stream</strong></p>
+
+    <p><img src="../../assets/img/image-20210420114507375.png" alt="image-20210420114507375" /></p>
+  </li>
+  <li>
+    <p><strong><u>Write</u> (print) something</strong></p>
+
+    <p><img src="../../assets/img/image-20210420114515166.png" alt="image-20210420114515166" /></p>
+
+    <p><img src="../../assets/img/image-20210420114526862.png" alt="image-20210420114526862" /></p>
+  </li>
+</ol>
+
+<h1 id="java-has-multiple-threads-but-only-one-thread-class">Java has multiple threads but only one Thread class</h1>
+
+<h3 id="a-thread-is-a-separate-thread-of-execution-in-other-wordsa-separate-call-stack-a-thread-is-a-java-class-that-represents-a-thread-to-make-a-threadmake-a-thread">A thread is a separate ‘thread of execution’. In other words,a separate call stack. A Thread is a Java class that represents a thread. To make a thread,make a Thread.</h3>
+
+<p><img src="../../assets/img/image-20210420114538234.png" alt="image-20210420114538234" /></p>
+
+<h1 id="how-to-launch-a-new-thread">How to launch a new thread:</h1>
+
+<ol>
+  <li>
+    <p><strong>Make a Runnable object (the thread’s job)</strong></p>
+
+    <p><img src="../../assets/img/image-20210420114547047.png" alt="image-20210420114547047" /></p>
+  </li>
+  <li>
+    <p><strong>Make a Thread object (the worker) and give it a Runnable (the job)</strong></p>
+
+    <p><img src="../../assets/img/image-20210420114555158.png" alt="image-20210420114555158" /></p>
+  </li>
+  <li>
+    <p><strong>Start the Thread</strong></p>
+
+    <p><img src="../../assets/img/image-20210420114605686.png" alt="image-20210420114605686" /></p>
+  </li>
+</ol>
+
+<h1 id="every-thread-needs-a-job-to-do-a-method-to-put-on-the-new-thread-stack">Every Thread needs a job to do. A method to put on the new thread stack.</h1>
+
+<h3 id="runnable-is-to-a-thread-what-a-job-is-to-a-worker-a-runnable-is-the-job-a-thread-is-supposed-to-run">Runnable is to a Thread what a job is to a worker. A Runnable is the job a thread is supposed to run.</h3>
+
+<h3 id="a-runnable-holds-the-method-that-goes-on-the-bottom-of-the-new-threads-stackrun">A Runnable holds the method that goes on the bottom of the new thread’s stack:run().</h3>
+
+<h1 id="the-three-states-of-a-new-thread">The three states of a new thread</h1>
+
+<p><img src="../../assets/img/image-20210420114615362.png" alt="image-20210420114615362" /></p>
+
+<h3 id="but-theres-more-once-the-thread-becomes-runnableit-can-move-back-and-forth-between-runnablerunning-and-additional-statetemporarily-not-runnablealso-known-as-blocked">But there’s more. Once the thread becomes runnable,it can move back and forth between runnable,running, and additional state:temporarily not runnable(also known as ‘blocked’).</h3>
+
+<h3 id="typical-runnablerunning-loop">Typical runnable/running loop</h3>
+
+<p><img src="../../assets/img/image-20210420114624954.png" alt="image-20210420114624954" /></p>
+
+<h3 id="a-thread-can-be-made-temporarily-not-runnable">A thread can be made temporarily not-runnable</h3>
+
+<p><img src="../../assets/img/image-20210420114634531.png" alt="image-20210420114634531" /></p>
+
+<h1 id="the-thread-scheduler">The Thread Scheduler</h1>
+
+<p>The thread scheduler makes all the decisions about who moves from runnable to running,and about when a thread leaves the running state. The scheduler decides who runs,and for how long,and where the threads go when the scheduler decides to kick them out of the currently-running state.</p>
+
+<h3 id="the-thread-scheduler-makes-all-the-decisions-about-who-runs-and-who-doesnt-he-usually-makes-the-threads-take-turnsnicely-but-theres-no-guarantee-about-that-he-might-let-one-therad-run-to-its-hearts-content-while-the-ohter-threads-starve">The thread scheduler makes all the decisions about who runs and who doesn’t. He usually makes the threads take turns,nicely. But there’s no guarantee about that. He might let one therad run to its heart’s content while the ohter threads ‘starve’.</h3>
+
+<h1 id="how-did-we-end-up-with-different-results">How did we end up with different results?</h1>
+
+<h3 id="sometimes-it-runs-like-this">Sometimes it runs like this:</h3>
+
+<p><img src="../../assets/img/image-20210420114651791.png" alt="image-20210420114651791" /></p>
+
+<h3 id="and-sometiems-it-runs-like-this">And sometiems it runs like this:</h3>
+
+<p><img src="../../assets/img/image-20210420114646576.png" alt="image-20210420114646576" /></p>
+
+<h1 id="putting-a-thread-to-sleep">Putting a thread to sleep</h1>
+
+<h3 id="put-your-thread-t-o-sleep-if-you-want-to-be-sure-that-other-threads-get-a-chance-to-run-when-the-thread-wakes-upit-always-goes-back-to-the-runnable-state-and-waits-for-the-thread-scheduler-to-choose-it-to-run-again">Put your thread t o sleep if you want to be sure that other threads get a chance to run. When the thread wakes up,it always goes back to the runnable state and waits for the thread scheduler to choose it to run again.</h3>
+
+<h1 id="using-an-objects-lock">Using an object’s lock</h1>
+
+<h3 id="every-java-object-has-a-lock-a-lock-has-only-one-key-most-of-the-timethe-lock-is-unlocked-and-nobody-cares-but-if-an-object-has-synchronized-methodsa-thread-can-enter-one-of--the-synchronized-methods-only-if-the-key-for-the-objects-lock-is-available-in-other-wordsonly-if-another-thread-hasnt-already-grabbed-the-one-key">Every Java object has a lock. A lock has only one key. Most of the time,the lock is unlocked and nobody cares. But if an object has synchronized methods,a thread can enter one of  the synchronized methods ONLY if the key for the object’s lock is available. In other words,only if another thread hasn’t already grabbed the one key.</h3>
+
+<h1 id="the-deadly-side-of-synchronization">The deadly side of synchronization</h1>
+
+<p>Thread deadlock happens when you have two threads,both of which are holding a key the other thread wants. There’s no way out of this scenario,so the two threads will simply sit and wait. And wait. And wait.</p>
+
+<p><img src="../../assets/img/image-20210419155408400.png" alt="image-20210419155408400" /></p>
+
+:ET

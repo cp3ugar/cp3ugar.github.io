@@ -1,0 +1,137 @@
+I"K+<h1 id="when-you-design-a-classthink-about-the-objects-that-will-be-created-from-that-class-type-think-about">When you design a class,think about the objects that will be created from that class type. Think about:</h1>
+
+<ul>
+  <li>
+    <p>things the object <strong>knows</strong></p>
+  </li>
+  <li>
+    <p>things the object <strong>does</strong></p>
+
+    <p><img src="../../assets/img/image-20201120100218517.png" alt="image-20201120100218517" /></p>
+  </li>
+</ul>
+
+<h3 id="things-an-object--knows-about-itself-are-called">Things an object  knows about itself are called</h3>
+
+<ul>
+  <li>instance variables</li>
+</ul>
+
+<h3 id="things-an-object-can-do-are-called">Things an object can do are called</h3>
+
+<ul>
+  <li>
+    <p>methods</p>
+
+    <p><img src="../../assets/img/image-20201120100349814.png" alt="image-20201120100349814" /></p>
+  </li>
+</ul>
+
+<p>Things an object <em>knows</em> about itself are called <strong>instance variables</strong>. They represent an object’s state,and can have unique values for each object of that type.</p>
+
+<p>Think of <strong>instance</strong> as another way of saying <strong>Object</strong>.</p>
+
+<p>Things an object can <em>do</em> are called <strong>methods</strong>. When you design a class,you think about the data an object will need to know about itself,and you also design the methods that operate on that data. It’s common for an object to have methods that read or write the values of the instance variables. For example,Alarm objects have an instance variable to hold the alarmTime,and two methods for getting and setting the alarmTime.</p>
+
+<p>So objects have instance variables and methods,but those instance variables and methods are designed as part of the class.</p>
+
+<h1 id="whats-the-difference-between-a-class-and-an-object">What’s the difference between a <strong>class</strong> and an <strong>object</strong>?</h1>
+
+<h3 id="a-class-is-not-an-objectbut-its-used-to-construct-them">A class is not an object.(but it’s used to construct them)</h3>
+
+<p><strong>A class is a blueprint for an object</strong>. It tells the virtual machine <em>how</em> to make an object of that particular type. Each object made from that class can have its own values for the instance variables of that class. For example,you might use the Button class to make dozens of different buttons,and each button might have its own color,size,shape,label,and so on.</p>
+
+<p><strong>An object is like one entry in your address book.</strong></p>
+
+<p>One analogy for objects is a packet of unused Rolodex cards. Each card has the same blank fields. When you fill out a card you are creating an instance,and the entries you make on that card represent its state.</p>
+
+<p>The methods of the class are the things you do to a particular card;getName(),changeName(),setName() could all be methods for class Rolodex.</p>
+
+<p>So,each card can do the same things,but each card <em>knows</em> things unique to that particular card.</p>
+
+<p><img src="../../assets/img/image-20201120101709241.png" alt="image-20201120101709241" /></p>
+
+<h1 id="making-your-first-object">Making your first object</h1>
+
+<p>So what does it take to create and use an object? You need <em>two</em> classes. One class for the type of object you want to use and another class to <em>test</em> your new class. The <em>tester</em> class is where you put the main method,and in that main() method you create and access objects of your new class type. The tester class has only one job: to <em>try out</em> the methods and variables of your new object class type.</p>
+
+<ul>
+  <li>
+    <h3 id="write-your-class">Write your class</h3>
+
+    <p><img src="../../assets/img/image-20201120102149507.png" alt="image-20201120102149507" /></p>
+  </li>
+  <li>
+    <h3 id="write-a-tester-testdrive-class">Write a tester (TestDrive) class</h3>
+
+    <p><img src="../../assets/img/image-20201120102233349.png" alt="image-20201120102233349" /></p>
+  </li>
+  <li>
+    <p>In your tester,make an object and access the object’s variables and methods</p>
+
+    <p><img src="../../assets/img/image-20201120102316761.png" alt="image-20201120102316761" /></p>
+  </li>
+</ul>
+
+<h1 id="the-dot-operator-">The Dot Operator (.)</h1>
+
+<h3 id="the-dot-operator-gives-you-access-to-an-objects-state-and-behavior-instance-variables-and-methods">The dot operator gives you access to an object’s state and behavior (instance variables and methods).</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//make a new object</span>
+<span class="nc">Dog</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+
+<span class="c1">//tell it bark bu using the dot operator on the variable d to call bark()</span>
+<span class="n">d</span><span class="o">.</span><span class="na">bark</span><span class="o">();</span>
+
+<span class="c1">//set its size using the dor operator</span>
+<span class="n">d</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="mi">40</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h1 id="quickget-out-of-main">Quick!Get out of main!</h1>
+
+<p>As long as you’re in main(),you’re not really in Objectville. It’s fine for a  test program to run within the main method,but in a true a OO application,you need objects talking to another objects,as opposed to a static main() method creating and testing objects.</p>
+
+<h3 id="the-two-uses-of-main">The two uses of main:</h3>
+
+<ul>
+  <li>to <strong>test</strong> your real class</li>
+  <li>to <strong>launch/start</strong> your Java <strong>application</strong></li>
+</ul>
+
+<p>A real Java application is nothing but objects talking to other objects. In this case,<em>talking</em> means objects calling methods on one another.</p>
+
+<h1 id="java-takes-out-the-garbage">Java takes out the Garbage</h1>
+
+<p>Each time an object is created in Java,it goes into an area of memory knows as <strong>The Heap</strong>. All objects—no matter when,where,or how they’re created—live on the heap. But it’s not just any old memory heap;the Java heap is actually called the <strong>Garbage-Collectible Heap</strong>. When you create an object,Java allocates memory space on the heap according to how much that particular object needs. An object with,say,15 instance variables,will probably need more space than an object with only two instance variables. But what happens when you need to reclaim that space? How do you get an object out of the heap when you’re done with it? Java manages that memory for you! When the JVM can ‘see’ that an object can never be used again,that object becomes eligible for garbage collection. And if you’re running low on memory,the Garbage Collector will run,throw out the unreachable objects,and free up the space,so that the space can be reused.</p>
+
+<h3 id="qwhat-if-i-need-global-variables-and-methodshow-do-i-do-that-if-everything-has-to-go-in-a-class"><strong>Q</strong>:What if I need global variables and methods?How do I do that if everything has to go in a class?</h3>
+
+<p><strong>A</strong>:There isn’t  a concept of “global” variables and methods in a Java OO program. In practical use,however,there are times when you want a method to be available to any code running in any part of your program. Think of the <em>random()</em> method;it’s a method that should be callable from anywhere. Or what about a constant like pi? You’ll learn that marking a method as <em>public</em> and <em>static</em> makes it behave much like a “global”. Any code,in any class of your application,can access a public static method. And if you mark a variable as <em>public</em>,<em>static</em>,and <em>final</em> - you have essentially made a globally-available constant.</p>
+
+<h3 id="qthen-how-is-this-object-oriented-if-you-can-still-make-global-functions-and-global-data"><strong>Q</strong>:Then how is this object-oriented if you can still make global functions and global data?</h3>
+
+<p><strong>A</strong>:First of all,everything in Java goes in a class. So the constant for pi and the method for <em>random()</em>,although both public and static,are defined within the <em>Math</em> class. And you must keep in mind that these static things are the exception rather than rule in Java. They represent a very special case,where you don’t have multiple instances/objects.</p>
+
+<h3 id="qwhat-is-a-java-programwhat-do-you-actually-deliver"><strong>Q</strong>:What is a Java program?What do you actually deliver?</h3>
+
+<p><strong>A</strong>:A Java program is a pile of classes. In a Java application,one of the classes must have a main method,used to start-up the program. So as a programmer,you write one or more classes. And those classes are what you deliver. If the end-user doesn’t have a JVM,then you’ll also need to include that with your application’s classes,so that they can run your program. There are a number of installer programs that let you bundle your classes with a variety of JVM’s,and put it all on a CD-ROM. Then the end-user can install the correct version of the JVM.</p>
+
+<h3 id="qwhat-if-i-have-a-hundred-classesor-a-thousandisnt-that-a-big-pain-to-deliver-all-those-individual-filescan-i-bundle-them-into-one-application-thing"><strong>Q</strong>:What if I have a hundred classes?Or a thousand?Isn’t that a big pain to deliver all those individual files?Can I bundle them into one Application Thing?</h3>
+
+<p><strong>A</strong>:Yes,it would be a big pain to deliver a huge bunch of individual files to your end-users,but you won’t have to. You can put all of your application files into a Java Archive - a.jar file - that’s based on the pkzip format. In the jar file,you can include a simple text file formatted as something called a manifest,that defines which class in that jar holds the main() method that should run.</p>
+
+<h1 id="bullet-points">BULLET POINTS</h1>
+
+<ul>
+  <li>Object-oriented programming lets you extend a program without having to touch previously-tested,working code.</li>
+  <li>All Java code is defined in a class.</li>
+  <li>A class describes how to make an object of that class type. <strong>A class is like a blueprint.</strong></li>
+  <li>An object can take care of itself;you don’t have to know or care how the object does it.</li>
+  <li>An object <strong>knows</strong> things and <strong>does</strong> things.</li>
+  <li>Things an object knows about itself are called <strong>instance variables</strong>. They represent the state of an object.</li>
+  <li>Things an object does are called <strong>methods</strong>. They represent the behavior of an object.</li>
+  <li>When you create a class,you may also want to create a separate test class which you’ll use to create objects of your new class type.</li>
+  <li>A class can <strong>inherit</strong> instance variables and methods from a more abstract <strong>superclass</strong>.</li>
+  <li>At runtime,a Java program is nothing more than objects “talking” to other objects.</li>
+</ul>
+:ET

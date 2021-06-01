@@ -1,0 +1,184 @@
+I"�L<h1 id="understanding-inheritance">Understanding Inheritance</h1>
+
+<p>When you design with inheritance,you put common code in a class and then tell other more specific classes that the common class is their superclass. When one class inherits from another,<strong>the subclass inherits from the superclass.</strong></p>
+
+<p>In Java,we say that the <strong>subclass <em>extends</em> the superclass.</strong> An inheritance relationship means that the subclass inherits the <strong>members</strong> of the superclass. When we say “members of a class” we mean the instance variables and methods.</p>
+
+<p>For example,if PantherMan is a subclass of SuperHero,the PantherMan class automatically inherits the instance variables and methods common to all superheroes including suit,tights,specialPower,useSpecialPower() and so on. But the PantherMan <strong>subclass can add new methods and instance variables</strong> of its own,and it <strong>can override the method it inherits from the superclass</strong> SuperHero.</p>
+
+<p><img src="../../assets/img/image-20201214155709719.png" alt="image-20201214155709719" /></p>
+
+<p>FriedEggMan doesn’t need any behavior tat’s unique,so he doesn’t override any methods. The methods and instance variables in SuperHero are sufficient.</p>
+
+<p>PantherMan,though,has specific requirements for his suit and special powers,so useSpecialPower() and putOnSuit() are both overridden in the PantherMan class.</p>
+
+<p><strong>Instance variables are not overridden</strong> because they don’t need to be. They don’t define any special behavior,so a subclass can give an inherited instance variable any value it chooses. PantherMan can set hie inherited tights to purple,while FriedEggMan sets his to white.</p>
+
+<h1 id="which-method-is-called">Which method is called?</h1>
+
+<p>The Wolf class has four methods. One inherited from Animal,one inherited from Canine,and two overridden in the Wolf class. When you create a Wolf object and assign it to a variable,you can use the dot operator on that reference variable to invoke all four methods. But which <em>version</em> of those methods gets called?</p>
+
+<p><img src="../../assets/img/image-20201214161821412.png" alt="image-20201214161821412" /></p>
+
+<p>When you call a method on an object reference,you’re calling the most specific versions of the method for that object type. In other words,<strong><em>the lowest one wins!</em></strong> “Lowest” meaning lowest on the inheritance tree. Canine is lower than Animal,and Wolf is lower than Canine,so invoking a method on a reference to a Wolf object means the JVM starts looking first in the Wolf class. If the JVM doesn’t find a version of the method in the Wolf class,it starts walking back up the inheritance hierarchy until it finds a match.</p>
+
+<h3 id="qyou-said-that-the-jvm-starts-walking-at-the-class-type-you-invoked-the-method-but-what-happens-if-the-jvm-doesnt-ever-find-a-match"><strong>Q</strong>:You said that the JVM starts walking at the class type you invoked the method. But what happens if the JVM doesn’t ever find a match?</h3>
+
+<p><strong>A</strong>:The compiler guarantees that a particular method is callable for a specific reference type,but it doesn’t say from which class that method actually comes from at runtime. With the Wolf example,the compiler checks for a sleep() is actually defined in class Animal. Remember that if a class inherits a method,it has the method. Where the inherited method is defined makes no difference to the compiler. But at runtime,<strong>the JVM will always pick the right one.</strong> And the right one means,<strong>the most specific version for that particular object.</strong></p>
+
+<h1 id="using-is-a-and-has-a">Using IS-A and HAS-A</h1>
+
+<p>Remember that when one class inherits from another,we say that the subclass <em>extends</em> the superclass. When you want to know if one thing should extend another,apply the IS-A test.</p>
+
+<p>To know if you’ve designed your types correctly,ask,”Does it make sense to say type X IS-A type Y?” If it doesn’t,you know there’s something wrong with the design.</p>
+
+<p>Tub and Bathroom <em>are</em> related,but not through inheritance. Tub and Bathroom are joined by a HAS-A relationship. Does it make sense to say “Bathroom HAS-A Tub”?If yes,then it means that Bathroom has a Tub instance variable. In other words,Bathroom has a <em>reference</em> to a Tub,but Bathroom does not <em>extend</em> Tub and vice-versa.</p>
+
+<h1 id="but-waittheres-more">But wait!There’s more!</h1>
+
+<p>The IS-A works <em>anywhere</em> in the inheritance tree. If your inheritance tree is well-designed,the IS-A test should make sense when you ask any subclass if it IS-A any of its supertypes.</p>
+
+<p><strong>If class B extends class A,class B IS-A class A. This is true anywhere in the inheritance tree. If class C extends class B,class C passes the IS-A test for both B and A.</strong></p>
+
+<h1 id="how-do-you-know-if-youve-got-your-inheritance-right">How do you know if you’ve got your inheritance right?</h1>
+
+<p><strong>Keep in mind that the inheritance IS-A relationship works in only one direction!</strong></p>
+
+<h3 id="qso-we-see-how-a-subclass-gets-to-inherit-a-superclass-methodbut-what-if-the-superclass-wants-to-use-the-subclass-version-of-the-method"><strong>Q</strong>:So we see how a subclass gets to inherit a superclass method,but what if the superclass wants to use the subclass version of the method?</h3>
+
+<p><strong>A</strong>:A superclass won’t necessarily know about any of its subclass. You might write a class and much later someone else comes along and extends it. But even if the superclass creator does know about a subclass version of a method,there’s no sort of reverse or backwards inheritance. Think about it,children inherit from parents,not the other way around.</p>
+
+<h3 id="qin-a-subclasswhat-if-i-want-to-use-both-the-superclass-version-and-my-overriding-subclass-version-of-a-methodin-other-wordsi-dont-want-to-completely-replace-the-superclass-versioni-just-want-to-add-more-stuff-to-it"><strong>Q</strong>:In a subclass,what if I want to use BOTH the superclass version and my overriding subclass version of a method?In other words,I don’t want to completely replace the superclass version,I just want to add more stuff to it.</h3>
+
+<p><strong>A</strong>:You can do this! And it’s an important design feature. Think of the word “extends” as meaning,”I want to extend the functionality of the superclass”.</p>
+
+<p><img src="../../assets/img/image-20201215154224042.png" alt="image-20201215154224042" /></p>
+
+<p>You can design your superclass methods in such a way that they contain method implementations that will work for any subclass,even though the subclass may still need to ‘append’ more code. In your subclass overriding method,you can call the superclass version using the keyword <strong>super</strong>. It’s like saying,”first go run the superclass version,then come back and finish with my own code…”</p>
+
+<h1 id="who-gets-the-porschewho-gets-the-porcelainhow-to-know-what-a-subclass-can-inherit-from-its-superclass">Who gets the Porsche,who gets the porcelain?(how to know what a subclass can inherit from its superclass)</h1>
+
+<p>A subclass inherits members of the superclass. Members include instance variables and methods. A superclass can choose whether or not it wants a subclass to inherit a particular member by the level of access the particular member in given.</p>
+
+<p>There are four access levels that we’ll cover in this book. Moving from most restrictive to least,the four access levels are:</p>
+
+<p><img src="../../assets/img/image-20201215154916154.png" alt="image-20201215154916154" /></p>
+
+<p><strong>Access levels control <em>who sees what</em></strong>,and are crucial to having well-designed,robust Java code.</p>
+
+<p><strong>public members <u>are</u> inherited</strong></p>
+
+<p><strong>private members are <u>not</u> inherited</strong></p>
+
+<p>When a subclass inherits a member,it is <strong>as if the subclass defined the member itself.</strong> In the Shape example,Square inherited the rotate() and playSound() methods and to the outside world the Square class simply has a rotate and playSound() method.</p>
+
+<p>The members of a class include the variables and methods defined in the class plus anything inherited from a superclass.</p>
+
+<h1 id="when-designing-with-inheritanceare-you-using-or-abusing">When designing with inheritance,are you using or abusing?</h1>
+
+<p><strong>DO</strong> use inheritance when one class is a more specific type of a superclass.</p>
+
+<p><strong>DO</strong> consider inheritance when you have behavior that should be shared among multiple classes of the same general type. Be aware,however,that while inheritance is one of the key features of object-oriented programming,it’s not necessarily the best way to achieve reuse. It’ll get you started,and often it’s the right design choice,but flexible options.</p>
+
+<p><strong>DO NOT</strong> use inheritance just so that you can reuse code from another class,if the relationship between the superclass and subclass violate either of the above two rules.</p>
+
+<p><strong>DO NOT</strong> use inheritance if the subclass and superclass do not pass the IS-A test. Always ask yourself if the subclass IS-A more specific type of the superclass.</p>
+
+<h1 id="so-what-does-all-this-inheritance-really-buy-you">So what does all this inheritance really buy you?</h1>
+
+<p>You get a lot of OO mileage by designing with inheritance. You can get rid of duplicate code by abstracting out the behavior common to a group of classes,and sticking that code in a superclass. That way,when you need to modify it,you have only one place to update,and <em>the change is magically reflected in all the classes that inherit that behavior.</em> Well,there’s no magic involved,but it is pretty simple: make the change and compile the class again. That’s it. <strong>You don’t have to touch the subclass!</strong></p>
+
+<p><strong>Just deliver the newly-changed superclass,and all classes that extend it will automatically use the new version.</strong></p>
+
+<p>A Java program is nothing but a pile of classes,so the subclasses don’t have to be recompiled in order to use the new version of the superclass. As long as the superclass doesn’t break anything for the subclass,everything’s fine.</p>
+
+<h1 id="inheritance-lets-you-guarantee-that-all-classes-grouped-under-a-certain-supertype-have-all-the-methods-that-the-supertype-has">Inheritance lets you guarantee that all classes grouped under a certain supertype have all the methods that the supertype has.</h1>
+
+<h3 id="in-other-wordsyou-define-a-common-protocol-for-a-set-of-classes-related-through-inheritance">In other words,you define a common protocol for a set of classes related through inheritance.</h3>
+
+<p>When you define methods in a superclass,that can be inherited by subclasses,you’re announcing a kind of protocol to other code that says,”All my subtypes can do these things,with these methods that look like this…”</p>
+
+<p>In other words,you establish a contract.</p>
+
+<p>But we’re not even at the really cool part yet,because we saved the best—<em>polymorphism</em>—for last.</p>
+
+<p>When you define a supertype for a group of classes,<em>any subclass of that supertype can be substituted where the supertype is expected.</em></p>
+
+<h3 id="to-see-how-polymorphism-workswe-have-to-step-back-and-look-at-the-way-we-normally-declare-a-reference-and-create-an-object">To see how polymorphism works,we have to step back and look at the way we normally declare a reference and create an object…</h3>
+
+<h3 id="the-important-point-is-that-the-reference-type-and-the-object-type-are-the-same">The important point is that the reference type AND the object type are the same.</h3>
+
+<p>Dog myDog = new Dog();</p>
+
+<p><img src="../../assets/img/image-20201215172624858.png" alt="image-20201215172624858" /></p>
+
+<h3 id="but-with-polymorphismthe-reference-and-the-object-can-be-different">But with polymorphism,the reference and the object can be different.</h3>
+
+<p><u>Animal</u> myDog = new <u>Dog</u>();</p>
+
+<p><img src="../../assets/img/image-20201215172703549.png" alt="image-20201215172703549" /></p>
+
+<h1 id="with-polymorphismthe-reference-type-can-be-a-superclass-of-the-actual-object-type">With polymorphism,the reference type can be a superclass of the actual object type.</h1>
+
+<p>When you declare a reference variable,any object that passes the IS-A test for the declared type of the reference variable can be assigned to that reference. In other words,anything that extends the declared reference variable type can be <em>assigned</em> to the reference variable.<strong>This lets you do things like make polymorphic arrays.</strong></p>
+
+<h1 id="but-waittheres-more-1">But wait!There’s more!</h1>
+
+<p><strong>You can have polymorphic <u>arguments</u> and <u>return</u> types.</strong></p>
+
+<p>If you can declare a reference variable of a supertype,and assign a subclass object to it,think of how that might work when the reference is an argument to a method…</p>
+
+<h3 id="with-polymorphismyou-can-write-code-that-doesnt-have-to-change-when-you-introduce-new-subclass-types-into-the-program">With polymorphism,you can write code that doesn’t have to change when you introduce new subclass types into the program.</h3>
+
+<h3 id="qare-there-any-practical-limits-on-the-levels-of-subclassinghow-deep-can-you-go"><strong>Q</strong>:Are there any practical limits on the levels of subclassing?How deep can you go?</h3>
+
+<p><strong>A</strong>:If you look in the Java API,you’ll see that most inheritance hierarchies are wide but not deep. Most are no more than one or two levels deep,although there are exceptions. You’ll come to realize that it usually makes more sense to keep your inheritance trees shallow,but there isn’t a hard limit.</p>
+
+<h3 id="qheyi-just-thought-of-somethingif-you-dont-have-access-to-the-source-code-for-a-classbut-you-want-to-change-the-way-a-method-of-the-class-workscould-you-use-subclassing-to-do-that-to-extend-the-bad-class-and-override-the-method-with-your-own-better-code"><strong>Q</strong>:Hey,I just thought of something…if you don’t have access to the source code for a class,but you want to change the way a method of the class works,could you use subclassing to do that? To extend the “bad” class and override the method with your own better code?</h3>
+
+<p><strong>A</strong>:Yep. That’s one cool feature of OO,and sometimes it saves you from having to rewrite the class from scratch,or track down the programmer who hid the source code.</p>
+
+<h3 id="qcan-you-extend-any-class-or-is-it-like-class-members-where-if-the-class-is-private-you-cant-inherit-it"><strong>Q</strong>:Can you extend any class? Or is it like class members where if the class is private you can’t inherit it…</h3>
+
+<p><strong>A</strong>:There’s no such thing as a private class,except in a very special case called an inner class. But there are three things that can prevent a class from being subclassed.</p>
+
+<p>The first is access control. Even though a class don’t be marked <strong>private</strong>,a class can be non-public. A non-public class can be subclassed only by classes in the same package as the class. Classes in a different package won’t be able to subclass the non-public class.</p>
+
+<p>The second thing that stops a class from being subclassed is the keyword modifier <strong>final</strong>. A final class means that it’s the end of the inheritance line. Nobody,ever,can extend a final class.</p>
+
+<p>The third issue is that if a class has only <strong>private</strong> constructors,it can’t be subclassed.</p>
+
+<h3 id="qwhy-would-you-ever-want-to-make-a-final-class-what-advantage-would-there-be-in-preventing-a-class-from-being-subclassed"><strong>Q</strong>:Why would you ever want to make a final class? What advantage would there be in preventing a class from being subclassed?</h3>
+
+<p><strong>A</strong>:Typically,you won’t make your classes final. But if you need security—the security of knowing that the methods will always work the way that you wrote them,a final class will give you that. A lot of classes in the Java API are final for that reason. The String class,image the havoc if somebody came along and changed the way Strings behave!</p>
+
+<h3 id="qcan-you-make-a-method-finalwithout-making-the-whole-class-final"><strong>Q</strong>:Can you make a method final,without making the whole class final?</h3>
+
+<p><strong>A</strong>:If you want to protect a specific method from being overridden,mark the method with the <strong>final</strong> modifier. Mark the whole class as final if you want to guarantee that none of the methods in that class will ever be overridden.</p>
+
+<h1 id="keeping-the-contract-rules-for-overriding">Keeping the contract: rules for overriding</h1>
+
+<p>When you override a method from a superclass,you’re agreeing to fulfill the contract. The contract that says,for example,”I take no arguments and I return a boolean.” In other words,the arguments and return types of your overriding method must look to the outside world <em>exactly</em> like the overridden method in the superclass.</p>
+
+<p><strong>The method are the contract.</strong></p>
+
+<p>If polymorphism is going to work,the Toaster’s version of the overridden method from Appliance has to work at runtime. Remember,the compiler looks at the reference type to decide whether you can call a particular method on that reference. With an Appliance reference to a Toaster,the compiler cares only if class <em>Appliance</em> has the method you’re invoking on an Appliance reference. But at runtime,the JVM looks not at the <em>reference</em> type but at the actual <em>Toaster</em> object on the heap. So if the compiler has already <em>approved</em> the method call,the only way it can work is if the overriding method has the same arguments and return types. Otherwise,someone with an Appliance reference will call turnOn() as a no-arg method,even though there’s a version in Toaster that takes an int. Which one is called at runtime?The one in Appliance. In other words,<strong><em>the turnOn(int level) method in Toaster is not an override!</em></strong></p>
+
+<h3 id="arguments-must-be-the-sameand-return-types-must-be-compatible">Arguments must be the same,and return types must be compatible.</h3>
+
+<h3 id="the-method-cant-be-less-accessible">The method can’t be less accessible.</h3>
+
+<h1 id="overloading-a-method">Over<u>load</u>ing a method</h1>
+
+<p>Method overloading is nothing more than having two methods with the same name but different argument lists. Period. There’s no polymorphism involved with overloaded methods!</p>
+
+<p>Overloading lets you make multiple versions of a method,with different argument lists,for convenience to the callers. For example,if you have a method that takes only an int,the calling code has to convert,say,a double into an int before calling your method. But if you overloaded the method with another version that takes a double,then you’ve made things easier for the caller.</p>
+
+<p>Since an overloading method isn’t trying to fulfill the polymorphism contract defined by its superclass,overloaded methods have much more flexibility.</p>
+
+<h3 id="the-return-types-can-be-different">The return types can be different.</h3>
+
+<h3 id="you-cant-change-only-the-return-type">You can’t change ONLY the return type.</h3>
+
+<h3 id="you-can-vary-the-access-level-in-any-direction">You can vary the access level in any direction.</h3>
+:ET

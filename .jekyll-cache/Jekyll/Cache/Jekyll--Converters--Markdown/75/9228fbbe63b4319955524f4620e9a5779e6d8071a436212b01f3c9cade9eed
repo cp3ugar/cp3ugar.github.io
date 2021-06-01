@@ -1,0 +1,275 @@
+I"kR<h1 id="math-methods-as-close-as-youll-ever-get-to-a-global-method">MATH methods: as close as you’ll ever get to a global method</h1>
+
+<p><strong><em>These methods never use instance variable values.</em></strong> In fact the Math class doesn’t <em>have</em> any instance variables. So there’s nothing to be gained by making an instance of class Math. So guess what? You don’t have to. As a matter of fact,you can’t.</p>
+
+<h3 id="if-you-try-to-make-an-instance-of-class-math">If you try to make an instance of class Math:</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Math mathObject  = new Math();</code></p>
+
+<h3 id="youll-get-this-error">You’ll get this error:</h3>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210104142821838.png" alt="image-20210104142821838" /></p>
+
+<h3 id="methods-in-the-math-class-dont-use-any-instance-variable-values-and-because-the-methods-are-staticyou-dont-need-to-have-an-instance-of-math-all-you-need-is-the-math-class">Methods in the Math class don’t use any instance variable values. And because the methods are “static”,you don’t need to have an <u>instance</u> of Math. All you need is the Math <u>class</u>.</h3>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210104142940787.png" alt="image-20210104142940787" /></p>
+
+<h1 id="the-difference-between-regular-non-static-and-static-methods">The difference between regular (non-static) and static methods</h1>
+
+<p>Java is object-oriented,but once in a while you have a special case,typically a utility method,where there is no need to have an instance of the class. The keyword <strong>static</strong> lets a method run <strong><em>without any instance of the class</em></strong>. A static method means “behavior not dependent on an instance variable,so no instance/object is required. Just the class.”</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210104143428652.png" alt="image-20210104143428652" /></p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210104143451598.png" alt="image-20210104143451598" /></p>
+
+<h1 id="what-it-means-to-have-a-class-with-static-methods">What it means to have a class with static methods.</h1>
+
+<p>Often,a class with static methods is not meant to be instantiated.</p>
+
+<p>But you can restrict other code from instantiating a non-abstract class by marking the constructor <strong>private</strong>. Remember,a <em>method</em> marked private means that only code from within the class can invoke the method. A <em>constructor</em> marked private means essentially the same thing—only code from within the class can invoke the constructor. Nobody can say ‘new’ from <em>outside</em> the class.</p>
+
+<p>This does <em>not</em> mean that a class with one or more static methods should never be instantiated. In fact,every class you put a main() method in is a class with a static method in it!</p>
+
+<p>Typically,you make a main() methods so that you can launch or test another class,nearly always by instantiating a class in main,and the invoking a method on that new instance.</p>
+
+<p>So you’re free to combine static and non-static methods in a class,although even a single non-static method means there must be some way to make an instance of the class. The only ways to get a new object are through ‘new’ or deserialization. No other way.</p>
+
+<h1 id="static-methods-cant-use-non-static-instance-variables">Static methods can’t use non-static (instance) variables!</h1>
+
+<p>Static methods run without knowing about any particular instance of the static method’s class. And as you saw in the previous pages,there might not even be any instances of that class. Since a static method is called using the class as apposed to an instance reference,a static method can’t refer to any instance variables of the class. The static method doesn’t know which instance’s variable value to use.</p>
+
+<h3 id="if-you-try-to-use-an-instance-variable-from-inside-a-static-methodthe-compiler-thinksi-dont-know-which-objects-instance-variable-youre-talking-about-if-you-have-ten-duck-objects-on-the-heapa-static-method-doesnt-know-about-any-of-them">If you try to use an instance variable from inside a static method,the compiler thinks,”I don’t know which object’s instance variable you’re talking about!” If you have ten Duck objects on the heap,a static method doesn’t know about any of them.</h3>
+
+<h1 id="static-methods-cant-use-non-static-methodseither">Static methods can’t use non-static <u>methods</u>,either!</h1>
+
+<p>What do non-static methods do? <strong><em>They usually use instance variable state to affect the behavior of the method.</em></strong> A getName() method returns the value of the name variable. Whose name? The object used to invoke the getName() method.</p>
+
+<h3 id="qwhat-if-you-try-to-call-a-non-static-method-from-a-static-methodbut-the-non-static-method-doesnt-use-any-instance-variables-will-the-compiler-allow-that"><strong>Q</strong>:What if you try to call a non-static method from a static method,but the non-static method doesn’t use any instance variables. Will the compiler allow that?</h3>
+
+<p><strong>A</strong>:No! The compiler knows that whether you do or do not use instance variables in a non-static method,you can. And think about the implications…if you were allowed to compile a scenario like that,then what happens if in the future you want to change the implementation of that non-static method so that one day it does use an instance variable? Or worse,what happen if a subclass overrides the method and uses an instance variable in the overriding version?</p>
+
+<h1 id="static-variable-value-is-the-same-for-all-instances-of-the-class">Static variable: value is the same for ALL instances of the class</h1>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210104150023452.png" alt="image-20210104150023452" /></p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210104150128480.png" alt="image-20210104150128480" /></p>
+
+<h3 id="static-variables-are-shared">Static variables are shared.</h3>
+
+<h3 id="all-instance-of-the-same-class-share-a-single-copy-of-the-static-variables">All instance of the same class share a single copy of the static variables.</h3>
+
+<p>instance variables: 1 per <strong>instance</strong></p>
+
+<p>static variables: 1 per <strong>class</strong></p>
+
+<h1 id="initializing-a-static-variable">Initializing a static variable</h1>
+
+<p>Static variables are initialized when a class is loaded. A class is loaded because the JVM decides it’s time to load it. Typically,the JVM loads a class because somebody’s trying to make a new instance of the class,for the first time,or use a static method or variable of the class. As a programmer,you also have the option of telling the JVM to load a class,but you’re not likely to need to do that. In nearly all cases,you’re better off letting the JVM decide when to load the class.</p>
+
+<p>And there are two guarantees about static initialization:</p>
+
+<p>Static variables in a class are initialized before any object of that class can be created.</p>
+
+<p>Static variables in a class are initialized before any static method of the class runs.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210104151209110.png" alt="image-20210104151209110" /></p>
+
+<h1 id="static-final-variables-are-constants">static <u>final</u> variables are constants</h1>
+
+<p>A variable marked <strong>final</strong> means that—once initialized—it can never change. In other words,the value of the static final variable will stay the same as long as the class is loaded.</p>
+
+<p>There is no other way to designate a variable as a constant,but there’s a naming convention that helps you to recognize one.</p>
+
+<p><strong><em>Constant variable names should be in all caps!</em></strong></p>
+
+<p>A <strong>static initializer</strong> is a block of code that runs when a class is loaded,before any code can use the class,so it’s a great place to initialize a <u>static</u> final variable.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Foo</span><span class="o">{</span>
+	<span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kd">static</span><span class="o">{</span>
+		<span class="n">x</span> <span class="o">=</span> <span class="mi">42</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="initialize-a-final-static-variable">Initialize a final static variable:</h3>
+
+<ul>
+  <li>
+    <p>At the time you declare it:</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210104151951621.png" alt="image-20210104151951621" /></p>
+  </li>
+  <li>
+    <p>In a static initializer:</p>
+
+    <p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210104152017552.png" alt="image-20210104152017552" /></p>
+  </li>
+</ul>
+
+<h1 id="final-isnt-just-for-static-variables">final isn’t just for static variables…</h1>
+
+<p>You can use the keyword <strong>final</strong> to modify non-static variables too,including instance variables,local variables,and even method parameters. In each case,it means the same thing: the value can’t be changed. But you can also use final to stop someone from overriding a method or making a subclass.</p>
+
+<h3 id="a-final-variables-means-you-cant-change-its-value">A final <strong>variables</strong> means you can’t <strong>change</strong> its value.</h3>
+
+<h3 id="a-final-method-means-you-cant-override-the-method">A final <strong>method</strong> means you can’t <strong>override</strong> the method.</h3>
+
+<h3 id="a-final-class-means-you-cant-extend-the-class">A final <strong>class</strong> means you can’t <strong>extend</strong> the class.</h3>
+
+<h3 id="qa-static-method-cant-access-a-non-static-variable-but-can-a-non-static-method-access-a-static-variable"><strong>Q</strong>:A static method can’t access a non-static variable. But can a non-static method access a static variable?</h3>
+
+<p><strong>A</strong>:Of course. A non-static method in a class can always call a static method in the class or access a static variable of the class.</p>
+
+<h1 id="wrapping-a-primitive">Wrapping a primitive</h1>
+
+<p><img src="../../assets/img/image-20210104172833759.png" alt="image-20210104172833759" /></p>
+
+<p>Sometimes you want to treat a primitive like an object. For example,in all versions of Java prior to 5.0,you cannot put a primitive directly into a collection like ArrayList or HashMap:</p>
+
+<p><img src="../../assets/img/image-20210104172158186.png" alt="image-20210104172158186" /></p>
+
+<p>There’s a wrapper class for every primitive type,and since the wrapper classes are in the java.lang package,you don’t need to import them. You can recognize wrapper classes because each one is named after the primitive type it wraps,but with the first capitalized to follow the class naming convention.</p>
+
+<p>For reasons absolutely nobody on the planet is certain of,the API designers decided not to map the names <em>exactly</em> from primitive type to class type. You’ll see what we mean:</p>
+
+<p><img src="../../assets/img/image-20210104172631240.png" alt="image-20210104172631240" /></p>
+
+<p><img src="../../assets/img/image-20210104172742937.png" alt="image-20210104172742937" /></p>
+
+<p><img src="../../assets/img/image-20210104173231997.png" alt="image-20210104173231997" /></p>
+
+<h3 id="qwhy-not-declare-an-arraylist-if-you-want-to-hold-ints"><strong>Q</strong>:Why not declare an ArrayList<int> if you want to hold ints?</int></h3>
+
+<p><strong>A</strong>:Because…you can’t. Remember,the rule for generic types is that you can specify only class or interface types,not primitives. So ArrayList<int> will not compile. But as you can see from the code above,it doesn't really matter,since the compiler lets you put this into the ArrayList<Integer>. In face,there's really no way to prevent you from putting primitives into an ArrayList where the type of the list is the type of that primitive's wrapper,if you're using  a Java 5.0-compliant compiler,since autoboxing will happen automatically. So,you can put boolean primitives in an ArrayList<Boolean> and chars into an ArrayList<Character>.</Character></Boolean></Integer></int></p>
+
+<h1 id="but-wait-theres-more-wrappers-have-static-utility-methods-too">But wait! There’s more! Wrappers have static utility methods too!</h1>
+
+<p>Besides acting like a normal class,the wrappers have a bunch of really useful static methods.</p>
+
+<p>The parse methods take a String and give you back a primitive value.</p>
+
+<h3 id="converting-a-string-to-a-primitive-value-is-easy">Converting a String to a primitive value is easy:</h3>
+
+<p><img src="../../assets/img/image-20210105095617560.png" alt="image-20210105095617560" /></p>
+
+<h1 id="and-now-in-reverseturning-a-primitive-number-into-a-string">And now in reverse…turning a primitive number into a String</h1>
+
+<p>There are several ways to turn a number into a String. The easiest is to simply concatenate the number to an existing String.</p>
+
+<p><img src="../../assets/img/image-20210105095927472.png" alt="image-20210105095927472" /></p>
+
+<h1 id="number-formatting">Number formatting</h1>
+
+<p><strong>Formatting a number to use commas</strong></p>
+
+<p><img src="../../assets/img/image-20210105100801410.png" alt="image-20210105100801410" /></p>
+
+<h1 id="formatting-deconstructed">Formatting deconstructed</h1>
+
+<p>At the most basic level,formatting consists of two main parts:</p>
+
+<ul>
+  <li>
+    <p><strong>Formatting instructions</strong></p>
+
+    <p>You use special format specifiers that describe how the argument should be formatted</p>
+  </li>
+  <li>
+    <p><strong>The argument to be formatted</strong></p>
+
+    <p>Although there can be more than one argument,we’ll start with just one. The argument type can’t be just anything…it has to be something that can be formatted using the format specifiers in the formatting instructions. For example,if your formatting instructions specify a floating point number,you can’t pass in a Dog or even a String that looks like a floating point number</p>
+  </li>
+</ul>
+
+<p><img src="../../assets/img/image-20210105102157867.png" alt="image-20210105102157867" /></p>
+
+<h3 id="what-do-these-instructions-actually-say">What do these instructions actually say?</h3>
+
+<p>“Take the second argument to this method,and format it as a <strong>d</strong>ecimal integer and insert <strong>commas</strong>.”</p>
+
+<h3 id="how-do-they-say-that">How do they say that?</h3>
+
+<p>Any time you see the percent sign (%) in a format String,think of it as representing a variable,and the variable is the other argument to the method. The rest of the characters after the percent sign describe the formatting instructions for the argument.</p>
+
+<h1 id="the-percent-saysinsert-argument-hereand-format-it-using-these-instructions">The percent(%) says,”insert argument here”(and format it using these instructions)</h1>
+
+<p>The first argument to a format() method is called the format String,and it can actually include characters that you just want printed as-is,without extra formatting. When you see the % sign,though,think of the percent sign as a variable that represents the other argument to the method.</p>
+
+<p><img src="../../assets/img/image-20210105102902145.png" alt="image-20210105102902145" /></p>
+
+<h1 id="the-format-string-uses-its-own-little-language-syntax">The format String uses its own little language syntax</h1>
+
+<p>You obviously can’t put just everything after “%” sign. The syntax for what goes after the percent sign follows very specific rules,and describes how to format the argument that gets inserted at that point in the result String.</p>
+
+<p><strong>%,d</strong> means “insert commas and format the number as a decimal integer”</p>
+
+<p><strong>%,2f</strong> means “format the number as a floating point with a precision of two decimal places”</p>
+
+<p><strong>%,.2f</strong> means “insert commas and format the numbers as a floating point with a precision of two decimal places”</p>
+
+<p>The real question is really,”How do I know what to put after the percent sign to get it to do what I want?” And that includes knowing the symbols as well as the order in which the instructions must be placed following the percent sign.</p>
+
+<h1 id="the-format-specifier">The format specifier</h1>
+
+<p>Everything after the percent sign up to and including the type indicator are part of the formatting instructions. After the type indicator,the formatter assumes the next set of characters are meant to be part of the output String,until or unless it hits another percent sign. Hmmmm…is that even possible? Can you have more than one formatted argument variable?</p>
+
+<h3 id="a-format-specifier-can-have-up-to-five-different-parts-not-including-the--everything-in-brackets--below-is-optionalso-only-the-percent--and-the-type-are-required-but-the-order-is-also-mandatoryso-any-parts-you-do-use-must-go-in-this-order">A format specifier can have up to five different parts (not including the “%”). Everything in brackets [] below is optional,so only the percent *(%) and the type are required. But the order is also mandatory,so any parts you DO use must go in this order.</h3>
+
+<p><img src="../../assets/img/image-20210105142707871.png" alt="image-20210105142707871" /></p>
+
+<p><img src="../../assets/img/image-20210105142716255.png" alt="image-20210105142716255" /></p>
+
+<h1 id="the-only-required-specifier-is-for-type">The only required specifier is for TYPE</h1>
+
+<p><img src="../../assets/img/image-20210105143659748.png" alt="image-20210105143659748" /></p>
+
+<p><img src="../../assets/img/image-20210105143728163.png" alt="image-20210105143728163" /></p>
+
+<p><img src="../../assets/img/image-20210105143736044.png" alt="image-20210105143736044" /></p>
+
+<p><img src="../../assets/img/image-20210105143744061.png" alt="image-20210105143744061" /></p>
+
+<h3 id="you-must-include-a-type-in-your-format-instructionsand-if-you-specify-things-besides-typethe-type-must-always-come-last-most-of-the-timeyoull-probably-format-numbers-using-either-d-for-decimal-or-f-for-floating-point">You must include a type in your format instructions,and if you specify things besides type,the type must always come <u>last</u>. Most of the time,you’ll probably format numbers using either “d” for decimal or “f” for floating point.</h3>
+
+<h1 id="what-happen-if-i-have-more-than-one-argument">What happen if I have more than one argument?</h1>
+
+<p>You simply add two arguments after the format String,so that means your call to format() will have three arguments instead two. And inside that first argument,you’ll have two different format specifiers. The first format specifier will insert the second argument to the method,and the second format specifier will insert the third argument to the method. In other words,the variable insertions in the format String use the order in which the other arguments are passed into the format() method.</p>
+
+<p><img src="../../assets/img/image-20210105144151231.png" alt="image-20210105144151231" /></p>
+
+<h1 id="so-much-for-numberswhat-about-dates">So much for numbers,what about dates?</h1>
+
+<p><img src="../../assets/img/image-20210105145606594.png" alt="image-20210105145606594" /></p>
+
+<p><img src="../../assets/img/image-20210105145612105.png" alt="image-20210105145612105" /></p>
+
+<p><img src="../../assets/img/image-20210105145623160.png" alt="image-20210105145623160" /></p>
+
+<p><img src="../../assets/img/image-20210105145631623.png" alt="image-20210105145631623" /></p>
+
+<h1 id="moving-backward-and-forward-in-time">Moving backward and forward in time</h1>
+
+<h3 id="for-a-time-stamp-of-now-use-date-but-for-everything-elseuse-calendar">For a time-stamp of “now” use Date. But for everything else,use Calendar.</h3>
+
+<h1 id="getting-an-object-that-extends-calendar">Getting an object that extends Calendar</h1>
+
+<p>Use the static “getInstance()” method:</p>
+
+<p><img src="../../assets/img/image-20210105150855386.png" alt="image-20210105150855386" /></p>
+
+<h3 id="you-cant-get-an-instance-of-calendarbut-you-can-get-an-instance-of-a-concrete-calendar-subclass">You can’t get an instance of Calendar,but you can get an instance of a concrete Calendar subclass.</h3>
+
+<h1 id="working-with-calendar-objects">Working with Calendar objects</h1>
+
+<p>There are several key concepts you’ll need to understand in order to work with Calendar objects:</p>
+
+<ul>
+  <li><strong>Fields hold state</strong></li>
+  <li><strong>Dates and Times can be incremented</strong></li>
+  <li><strong>Dates and Times can be represented in milliseconds</strong></li>
+</ul>
+
+<p><img src="../../assets/img/image-20210105151322678.png" alt="image-20210105151322678" /></p>
+
+:ET

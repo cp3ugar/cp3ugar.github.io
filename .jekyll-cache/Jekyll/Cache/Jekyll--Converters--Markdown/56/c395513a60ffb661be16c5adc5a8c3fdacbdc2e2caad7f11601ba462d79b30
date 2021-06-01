@@ -1,0 +1,422 @@
+I"�g<h1 id="lets-build-a-battleship-style-gamesink-a-dot-com">Let’s build a Battleship-style game:”Sink a Dot Com”</h1>
+
+<p><strong>You’re going to build the Sink a Dot Come game,with a 7 x 7 grid and three Dot Coms. Each Dot Com takes up three cells.</strong></p>
+
+<h1 id="firsta-high-level-design">First,a high-level design</h1>
+
+<p>We know we’ll need classes and methods,but what should they be?To answer that,we need more information about what the game should go.</p>
+
+<p>First,we need to figure out the general flow of the game. Here’s the basic idea:</p>
+
+<ul>
+  <li>1、Users starts the game
+    <ul>
+      <li>A、Game creates three Dot Coms</li>
+      <li>B、Game places the three Dot Coms onto a virtual grid</li>
+    </ul>
+  </li>
+  <li>2、Game paly begins
+    <ul>
+      <li>Repeat the following until three are no more Dot Coms:
+        <ul>
+          <li>A、Prompt user for a guess</li>
+          <li>B、Check the user guess against all Dot Coms to look for a hit,miss,or kill. Take appropriate action: if a hit,delete cell. If a kill,delete Dot Com.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>3、Game finishes
+    <ul>
+      <li>Give the user a rating based on the number of guesses.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Now we have an idea of the kinds of things the program needs to do. The next step is figuring out what kind of <strong>objects</strong> we’ll need to do the work. Remember,think like Brad rather than Larry;focus first on the <strong>things</strong> in the program rather than the <strong>procedures</strong>.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20201124110246029.png" alt="image-20201124110246029" /></p>
+
+<h1 id="the-simple-dot-com-game-a-gentler-introduction">The “Simple Dot Com Game” a gentler introduction</h1>
+
+<ul>
+  <li>
+    <p><strong>Game starts</strong>,and creates ONE DotCom and gives it a location on three cells in the single row of seven cells.</p>
+
+    <p><img src="../../assets/img/image-20201126112146808.png" alt="image-20201126112146808" /></p>
+  </li>
+  <li>
+    <p><strong>Game play begins.</strong> Prompt user for a guess,then check to see if it hit any of the DotCom’s three cells. If a hit,increment the numOfHits variable.</p>
+  </li>
+  <li>
+    <p><strong>Game finishes</strong> when all three cells have been hit,and tells the user how many guesses it took to sink the DotCom.</p>
+  </li>
+</ul>
+
+<h1 id="developing-a-class">Developing a Class</h1>
+
+<p>When we create a Java class as a “learning experience”,we usually do it like this:</p>
+
+<ul>
+  <li>Figure out what the class is supposed to do.</li>
+  <li>List the <strong>instance variables and methods.</strong></li>
+  <li>Write <strong>prepcode</strong> for the methods.</li>
+  <li>Write <strong>test code</strong> for the methods.</li>
+  <li><strong>Implement</strong> the class.</li>
+  <li><strong>Test</strong> the methods.</li>
+  <li><strong>Debug</strong> and <strong>reimplement</strong> as needed.</li>
+  <li>Express gratitude that we don’t have to test our so-called learning experience app on actual live users.</li>
+</ul>
+
+<h1 id="the-three-things-well-write-for-each-class">The three things we’ll write for each class:</h1>
+
+<p><img src="../../assets/img/image-20201126112718662.png" alt="image-20201126112718662" /></p>
+
+<p>This bar is displayed on the next set of pages to tell you which part you’re working on.</p>
+
+<h3 id="prep-code">prep code</h3>
+
+<p>A form of pseudocode,to help you focus on the logic without stressing about syntax.</p>
+
+<h3 id="test-code">test code</h3>
+
+<p>A class or methods that will test the real code and validate that it’s doing the right thing.</p>
+
+<h3 id="real-code">real code</h3>
+
+<p>The actual implementation of the class.</p>
+
+<h1 id="simpledotcom-class-prep-code">SimpleDotCom class prep code</h1>
+
+<p>You’ll get the idea of how prepcode works as you read through this example. It’s sort of half-way between real Java code and a plain English description of the class. Most prepcode includes three parts: instance variable declarations,method declarations,method logic. The most important part of prepcode is the method logic,because it defines what has to happen,which we later translate into how,when we actually write the method code.</p>
+
+<p><strong>DECLARE</strong> an <strong>int array</strong> to hold the location cells. Call it <strong>locationCells</strong>.</p>
+
+<p><strong>DECLARE</strong> an <strong>int</strong> to hold the number of hits. Call it <strong>numOfHits</strong> and <strong>SET</strong> it to 0.</p>
+
+<hr />
+
+<p><strong>DECLARE</strong> a <strong>checkYourself()</strong> method that takes a <strong>String</strong> for the user’s guess,check it,and returns a result representing a “hit”,or “kill”.</p>
+
+<p><strong>DECLARE</strong> a <strong>setLocationCells()</strong> setter method that takes an <strong>int array</strong>.</p>
+
+<hr />
+
+<p><strong>METHOD</strong>: <strong>String checkYourself(String userGuess)</strong></p>
+
+<p>​	<strong>GET</strong> the user guess as a String parameter</p>
+
+<p>​	<strong>CONVERT</strong> the user guess to an <strong>int</strong></p>
+
+<p>​	<strong>REPEAT</strong> with each of the location cells in the <strong>int</strong> array</p>
+
+<p>​			//<strong>COMPARE</strong> the user guess to the location cell</p>
+
+<p>​			<strong>IF</strong> the user guess matches</p>
+
+<p>​					<strong>INCREMENT</strong> the number of hits</p>
+
+<p>​					//<strong>FIND OUT</strong> if it was the last location cell:</p>
+
+<p>​					<strong>IF</strong> number of hits is 3,<strong>RETURN</strong> “kill” as the return</p>
+
+<p>​					<strong>ELSE</strong> it was not a kill,so <strong>RETURN</strong> “hit”</p>
+
+<p>​					END IF</p>
+
+<p>​					<strong>ELSE</strong> the user guess did not match,so <strong>RETURN</strong> “miss”</p>
+
+<p>​			END IF</p>
+
+<p>​	END REPEAT</p>
+
+<p>END METHOD</p>
+
+<p><strong>METHOD</strong>: <strong>void setLocationCells(int[] cellLocations)</strong></p>
+
+<p>​		<strong>GET</strong> the cell locations as <strong>int array</strong> parameter</p>
+
+<p>​		<strong>ASSIGN</strong> the cell locations parameter to the cell locations instance variable</p>
+
+<p>END METHOD</p>
+
+<h1 id="writing-the-method-implementations">Writing the method implementations</h1>
+
+<h3 id="lets-write-the-real-method-code-nowand-get-this-puppy-working">let’s write the real method code now,and get this puppy working</h3>
+
+<p>Before we start coding the methods,though,let’s back up and write some code to test the methods. That’s right,we’re writing the test code before there’s anything to test!</p>
+
+<p>The concept of writing the test code first is one of the practices of Extreme Programming(XP),and it can make it easier for you to write code. We’re not necessarily saying you should use XP,but we do like the part about writing tests first. And XP just sounds cool.</p>
+
+<h3 id="extreme-programmingxp">Extreme Programming(XP)</h3>
+
+<p>Extreme Programming(XP) is a newcomer to the software development methodology world. Considered by many to be “the way programmers really want to work”,XP emerged in the late 90’s and has been adopted by companies ranging from the two-person garage shop to the Ford Motor Company. The thrust of XP is that the customer gets what he wants,when he wants it,even when the spec changes late in the game.</p>
+
+<p>XP is based on a set of proven practices that are all designed to work together,although many folks do pick and choose,and adopt only a portion of XP’s rules. These practices include things like:</p>
+
+<p>Make small,but frequent,releases.</p>
+
+<p>Develop in iteration cycles.</p>
+
+<p>Don’t put in anything that’s not in the spec.</p>
+
+<p>Write the test code first.</p>
+
+<p>No killer schedules;work regular hours.</p>
+
+<p>Refactor whenever and wherever you notice the opportunity.</p>
+
+<p>Don’t release anything until it passes all the tests.</p>
+
+<p>Set realistic schedules,based around small releases.</p>
+
+<p>Keep it simple.</p>
+
+<p>Program in pairs,and move people around so that everybody knows pretty much everything about the code.</p>
+
+<h1 id="writing-test-code-for-the-simpledotcom-class">Writing test code for the SimpleDotCom class</h1>
+
+<p>We need to write test code that can make a SimpleDotCom object and run its methods. For the SimpleDotCom class,we really care about only the checkYourself() method,although we will have to implement the setLocationCells() method in order to get the checkYourself() method to run correctly.</p>
+
+<p>Take a good look at the prepcode. Then ask yourself,”If the checkYourself() method were implemented,what test code could I write that would prove to me the method is working correctly?”</p>
+
+<h3 id="heres-what-we-should-test">Here’s what we should test:</h3>
+
+<ol>
+  <li>Instantiate a SimpleDotCom object.</li>
+  <li>Assign it a location.</li>
+  <li>Create a String to represent a user guess.</li>
+  <li>Invoke the checkYourself() method passing it the fake user guess.</li>
+  <li>Print out the result to see if it’s corret.</li>
+</ol>
+
+<p><img src="../../assets/img/image-20201127111421348.png" alt="image-20201127111421348" /></p>
+
+<h3 id="qmaybe-im-missing-something-herebut-how-exactly-do-you-run-a-test-on-something-that-doesnt-yet-exist"><strong>Q</strong>:Maybe I’m missing something here,but how exactly do you run a test on something that doesn’t yet exist!?</h3>
+
+<p><strong>A</strong>:You don’t. We never said you start by running the test;you start by writing the test. At the time you write the test code,you won’t have anything to run it against,so you probably won’t be able to compile it until you write ‘stub’ code that can compile,but that will always cause the test to fail.</p>
+
+<h3 id="qthen-i-still-dont-see-the-point-why-not-wait-until-the-code-is-writtenand-then-whip-out-the-test-code"><strong>Q</strong>:Then I still don’t see the point. Why not wait until the code is written,and then whip out the test code?</h3>
+
+<p><strong>A</strong>:The act of thinking through the test code helps clarify your thoughts about what the method itself needs to do. As soon as your implementation code is done,you already have test code just waiting to validate it. Besides,you know if you don’t do it now,you’ll never do it. There’s always something more interesting to do. Ideally,write a little test code ,then write only the implementation code you need in order to pass that test. Then write a little more test code and write only the new implementation code needed to pass that new test. At each test iteration,you run all the previously-written tests,so that you always prove that your latest code additions don’t break previously-tested code.</p>
+
+<h1 id="the-checkyourself-method">The checkYourself() method</h1>
+
+<p>There isn’t a perfect mapping from perpcode to javacode;you’ll see a few adjustments. The prepcode gave us a much better idea of what the code needs to do,and now we have to find the Java code that can do the how.</p>
+
+<p>In back of your mind,be thinking about parts of this code you might want to improve. The numbers are for things you haven’t seen yet. They’re explained on the opposite page.</p>
+
+<p><img src="../../assets/img/image-20201127112945493.png" alt="image-20201127112945493" /></p>
+
+<h1 id="just-the-new-stuff">Just the new stuff</h1>
+
+<p>The things we haven’t seen before are on this page. Stop worrying! The rest of the details are at the end of the chapter. This is just enough to let you keep going.</p>
+
+<p><img src="../../assets/img/image-20201127113232339.png" alt="image-20201127113232339" /></p>
+
+<h3 id="qwhat-happens-in-integerparseint-if-the-thing-you-pass-isnt-a-numberand-does-it-recognize-spelled-out-numberslike-three"><strong>Q</strong>:What happens in Integer.parseInt() if the thing you pass isn’t a number?And does it recognize spelled-out numbers,like “three”?</h3>
+
+<p><strong>A</strong>:Integer.paeseInt() works only on Strings that represent the ascii values for digits (0,1,2,3,4,5,6,7,8,9). If you try to parse something like “two” or “blurp”,the code will blow up at runtime.</p>
+
+<h3 id="qin-the-beginning-of-the-bookthere-was-an-example-of-a-for-loop-that-was-really-different-from-this-oneare-there-two-different-styles-of-for-loops"><strong>Q</strong>:In the beginning of the book,there was an example of a for loop that was really different from this one—are there two different styles of for loops?</h3>
+
+<p><strong>A</strong>:Yes! From the first version of Java there has been a single kind of for loop that looks like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="n">init</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+	<span class="c1">//do something 10 times</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can use this format for any kind of for loop you need. But…beginning with Java 5.0,you can also use enhanced for loop when your loop needs to iterate over the elements in an array. You can always use the plain old for loop to iterate over an array,but the enhanced for loop makes it easier.</p>
+
+<h1 id="prepcode-for-the-simpledotcomgame-class">Prepcode for the SimpleDotComGame class</h1>
+
+<h1 id="evrything-happens-in-main">Evrything happens in main()</h1>
+
+<p>There are some things you’ll have to take on faith. For example,we have one line of prepcode that says,”Get user input from command-line”. Let me tell you,that’s a little more than we want to implement from search right now. But happily,we’re using OO. And that means you get to ask some other class/object to do something for you,without worrying about how it does it. When you write prepcode,you should assume that somehow you’ll be able to do whatever you need to do,so you can put all your brainpower into working out the logic.</p>
+
+<h1 id="bullet-points">Bullet Points</h1>
+
+<ul>
+  <li>Your Java program should start with a high-level design.</li>
+  <li>Typically you’ll write three things when you create a new class:
+    <ul>
+      <li><strong>prepcode</strong></li>
+      <li><strong>testcode</strong></li>
+      <li><strong>real</strong></li>
+    </ul>
+  </li>
+  <li>Prepcode should describe what to do,not how to do it. Implementation comes later.</li>
+  <li>User the prepcode to help design the test code.</li>
+  <li>Write test code before you implement the methods.</li>
+  <li>Choose for loops over while loops when you know many times you want to repeat the loop code.</li>
+  <li>Use the pre/post increment operator to add 1 to a variable(x++)</li>
+  <li>Use the pre/post decrement to subtract 1 from a variable(x–;)</li>
+  <li>Use <strong>Integer.parseInt()</strong> to get the int value of a String.</li>
+  <li><strong>Integer.parseInt()</strong> works only if the String represents a digit.</li>
+  <li>Use break to leave a loop early.</li>
+</ul>
+
+<h1 id="random-and-getuserinput">random() and getUserInput()</h1>
+
+<p><img src="../../assets/img/image-20201127141919869.png" alt="image-20201127141919869" /></p>
+
+<h1 id="one-last-class-gamehelper">One last class: GameHelper</h1>
+
+<p><strong>We made the dot com class.</strong></p>
+
+<p><strong>We made the game class.</strong></p>
+
+<p><strong>All that’s left is the helper class</strong> —the one with the getUserInput() method. The code to get command-line input is more than we want to explain right now. It opens up way too many topics best left for later.</p>
+
+<h1 id="more-about-for-loops">More about <u>for</u> loops</h1>
+
+<p>We’ve covered all the game code for this chapter. We didn’t want to interrupt your work with some of the details and background info,so we put it back here. We’ll start with the details of for loops.</p>
+
+<h3 id="regular-non-enhanced-for-loops">Regular (non-enhanced) for loops</h3>
+
+<p><img src="../../assets/img/image-20201127144234590.png" alt="image-20201127144234590" /></p>
+
+<p><strong>What it means in plain English</strong>: “Repeat 100 times.”</p>
+
+<p><strong>How the compiler sees it:</strong></p>
+
+<ul>
+  <li>create a variable i and set it to 0</li>
+  <li>repeat while i is less than 100</li>
+  <li>at the end of each loop iteration,add 1 to i</li>
+</ul>
+
+<p><strong>Part One: initialization</strong></p>
+
+<p>Use this part to declare and initialize a variable to use within the loop body. You’ll most often use this variable as a counter. You can actually initialize more than one variable here,but we’ll get to that later in the book.</p>
+
+<p><strong>Part Two: boolean test</strong></p>
+
+<p>This is where the conditional test goes. Whatever’s in there,it must resolve to a boolean value. You can have a test,like,or you can even invoke a method that returns a boolean.</p>
+
+<p><strong>Part Three: iteration expression</strong></p>
+
+<p>In this part,put one or more things you want to happen with each trip through the loop. Keep in mind that this stuff happens at the end of each loop.</p>
+
+<h1 id="trip-through-a-loop">Trip through a loop</h1>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"done"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="../../assets/img/image-20201127145352959.png" alt="image-20201127145352959" /></p>
+
+<h1 id="difference-between-for-and-while">Difference between <u>for</u> and <u>while</u></h1>
+
+<p>A while loop has only the boolean test;it doesn’t have a built-in initialization or iteration expression. A while loop is good when you don’t know how many times to loop and just want to keep going while some condition is true. But if you know how many times to loop,a for loop is cleaner. Here’s the loop above rewritten using while:</p>
+
+<p><img src="../../assets/img/image-20201127145711697.png" alt="image-20201127145711697" /></p>
+
+<h3 id="--">++  –</h3>
+
+<p><strong>Pre and Post Increment/Decrement Operator</strong></p>
+
+<p>The shortcut for adding or subtracting 1 from a variable.</p>
+
+<p><strong>x++;</strong></p>
+
+<p>is the same as:</p>
+
+<p><strong>x = x + 1;</strong></p>
+
+<p>They both mean the same thing in this context:”add 1 to the current value of x” or “<em>increment</em> x by 1”</p>
+
+<p>And:</p>
+
+<p><strong>x–;</strong></p>
+
+<p>is the same as:</p>
+
+<p><strong>x = x - 1;</strong></p>
+
+<p>Of course that’s never the whole story. The placement of the operator can affect the result. Putting the operator before the variable,means,”first,increment x by 1,and then use this new value of x.” This only matters when the ++x is part of some larger expression rather than just in a single statement.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="o">++</span><span class="n">x</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>produces: x is 1,z is 1</p>
+
+<p>But putting the ++ after the give you a different result:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="o">++;</span>
+</code></pre></div></div>
+
+<p>produces: x is 1,but z is 0! z gets the value of x and then x is incremented.</p>
+
+<h1 id="the-enhanced-for-loop">The <u>enhanced</u> for loop</h1>
+
+<p>Beginning with Java 5.0,the Java language has a second kind of for loop called the <em>enhanced for</em>,that means it easier to iterate over all the elements in an array or other kinds of collections. That’s really all that the enhanced for gives you—a simpler way to walk through all the elements in the collection,but since it’s the most common use of a for loop,it was worth adding it to the language. We’ll revisit the enhanced for loop in the next chapter,when we talk about collections that aren’t arrays.</p>
+
+<p><img src="../../assets/img/image-20201127150759970.png" alt="image-20201127150759970" /></p>
+
+<p><strong>What it means in plain English</strong>: “For each element in nameArray,assign the element to the ‘name’ variable,and run the body of the loop.”</p>
+
+<h3 id="how-the-compiler-sees-it">How the compiler sees it:</h3>
+
+<ul>
+  <li>Create a String variable called name and set it to null</li>
+  <li>Assign the first value in nameArray to name</li>
+  <li>Run the body of the loop</li>
+  <li>Assign the next value in nameArray to name</li>
+  <li>Repeat while there are still elements in the array</li>
+</ul>
+
+<h3 id="part-one-iteration-variable-declaration">Part One: iteration variable declaration</h3>
+
+<p>Use this part to declare and initialize a variable to use within the loop body. With each iteration of the loop,this variable will hold a different element from the collection. The type of this variable must be compatible with the elements in the array!For example,you can’t declare an int iteration variable to use with a String[] array</p>
+
+<h3 id="part-two-the-actual-collection">Part Two: the actual collection</h3>
+
+<p>This must be a reference to an array or other collection. Again,don’t worry about the other non-array kinds of collections yet—you’ll see them in the next chapter</p>
+
+<h1 id="converting-a-string-to-an-int">Converting a String to an int</h1>
+
+<p><code class="language-plaintext highlighter-rouge">int guess = Integer.parseInt(stringGuess);</code></p>
+
+<p>The user types his guess at the command-line,when the game prompts him. That guess comes in as a String,and the game passes that String into the checkYourself() method.</p>
+
+<p>But the cell locations are simply ints in an array,and you can’t compare an int to a String.</p>
+
+<p>So to get around the whole apples and oranges thing,we have to make the String “2” into the int 2. Built into the Java class library is a class called Integer,and one of its jobs is to take Strings that represent numbers and convert them into actual numbers.</p>
+
+<p><img src="../../assets/img/image-20201127151926377.png" alt="image-20201127151926377" /></p>
+
+<h1 id="casting-primitives">Casting primitives</h1>
+
+<p><img src="../../assets/img/image-20201127151957238.png" alt="image-20201127151957238" /></p>
+
+<p>In chapter 3 we talked about the sizes of the various primitives,and how you can’t shove a big thing directly into a small thing:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">42</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>	<span class="c1">//won't compile</span>
+</code></pre></div></div>
+
+<p>A long is bigger than an int and the compiler can’t be sure where that long has been. It might have been out drinking with other longs,and taking on really big values. To force the compiler to jam the value of a bigger primitive variable into a smaller one,you can use the <strong>cast</strong> operator. It looks like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">42</span><span class="o">;</span>	<span class="c1">//so far so good</span>
+<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">y</span><span class="o">;</span>	<span class="c1">//x = 42 cool!</span>
+</code></pre></div></div>
+
+<p>Putting in the cast tells the compiler to take the value of y,chop it down to int size,and set x equal to whatever is left. If the value of y was bigger than the maximum value of x,then what’s left will be a weird number:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">40002</span><span class="o">;</span> <span class="c1">//40002 exceeds the 16-bit limit of a short</span>
+<span class="kt">short</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">short</span><span class="o">)</span><span class="n">y</span><span class="o">;</span> <span class="c1">//x now equals -25534!</span>
+</code></pre></div></div>
+
+<p>Still,the point is that the compiler lets you do it. And let’s say you have a floating point number,and you just want to get at the whole number part of it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">3.14f</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">f</span><span class="o">;</span>	<span class="c1">//x will equal 3</span>
+</code></pre></div></div>
+
+<p>And don’t even think about casting anything to a boolean or vice versa—just walk away.</p>
+:ET

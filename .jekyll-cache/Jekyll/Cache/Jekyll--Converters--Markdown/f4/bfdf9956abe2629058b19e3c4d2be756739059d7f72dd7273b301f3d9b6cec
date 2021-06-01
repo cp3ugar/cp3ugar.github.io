@@ -1,0 +1,104 @@
+I"<h1 id="bullet-points">BULLET POINTS</h1>
+
+<ul>
+  <li>
+    <p>To make a GUI,start with a window,usually a JFrame</p>
+
+    <p><code class="language-plaintext highlighter-rouge">JFrame frame = new JFrame();</code></p>
+  </li>
+  <li>
+    <p>You can add widgets (buttons,text fields,etc.) to the JFrame using</p>
+
+    <p><code class="language-plaintext highlighter-rouge">frame.getContentPane().add(button);</code></p>
+  </li>
+  <li>
+    <p>Unlike most other components,the JFrame doesn’t let you add to it directly,so you must add to the JFrame’s content pane</p>
+  </li>
+  <li>
+    <p>To make the window display,you must give it a size and tell it be visible</p>
+
+    <p><code class="language-plaintext highlighter-rouge">frame.setSize(300, 300);</code></p>
+
+    <p><code class="language-plaintext highlighter-rouge">frame.setVisible(true);</code></p>
+  </li>
+  <li>
+    <p>To know when the user clicks a button you need to listen for a GUI event</p>
+  </li>
+  <li>
+    <p>To listen for an event,you must register your interest with an event source. An event source is the thing that ‘fires’ an event based on user interaction</p>
+  </li>
+  <li>
+    <p>The listener interface gives the event source a way to call you back,because the interface defines the method(s) the event source will call when an event happens</p>
+  </li>
+  <li>
+    <p>To register for events with a source,call the source’s registration method. Registration methods always take the form of: **add<EventType>Listener**. To register for a button's ActionEvents,for example,call:</EventType></p>
+
+    <p><code class="language-plaintext highlighter-rouge">button.addActionListener(this);</code></p>
+  </li>
+  <li>
+    <p>Implement the listener interface by implementing all of the interface’s event-handing methods. Put your event-handing code in the listener call-back method. For ActionEvents,the method is:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">){</span>
+	<span class="n">button</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"you clicked!"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>The event object passed into the event-handler method carries information about the event,including the source of the event</p>
+  </li>
+  <li>
+    <p>You can draw 2D graphics directly on to a widget</p>
+  </li>
+  <li>
+    <p>You can draw your own graphics,make a subclass of JPanel and override the paintComponent() method</p>
+  </li>
+  <li>
+    <p>The paintComponent() method is called by the GUI system. YOU NEVER CALL IT YOURSELF. The argument to paintComponent() is a Graphics object that gives you a surface to draw on,which will end up on the screen. You cannot construct that object yourself</p>
+  </li>
+  <li>
+    <p>Typical methods to call on a Graphics object are:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">graphics.setColor(Color.blue);</code></p>
+
+    <p><code class="language-plaintext highlighter-rouge">g.fillRect(20, 50, 100, 120);</code></p>
+  </li>
+  <li>
+    <p>To draw a .jpg,construct an Image using:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">Image image = new ImageIcon("catzilla.jpg").getImage();</code></p>
+
+    <p>and draw the imagine using:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">g.drawImage(image, 3, 4, this);</code></p>
+  </li>
+  <li>
+    <p>The object referenced by the Graphics parameter to paintComponent() is actually an instance of the Graphics2D class. The Graphics 2D class has a variety of methods including:</p>
+
+    <p>fill3DRect(),draw3DRect(),rotate(),scale(),shear(),transform()</p>
+  </li>
+  <li>
+    <p>To invoke the Graphics2D methods,you must cast the parameter from a Graphics object to a Graphics2D object:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">Graphics2D g2d = (Graphics2D)g;</code></p>
+  </li>
+</ul>
+
+<h1 id="inner-class">Inner class</h1>
+
+<p>You can have one class nested inside another. It’s easy. Just make sure that the definition for the inner class is inside the curly braces of the outer class.</p>
+
+<h3 id="an-inner-class-can-use-all-the-methods-and-variables-of-the-outer-classeven-the-private-ones-the-inner-class-gets-to-use-those-variables-and-methods-just-as-if-the-methods-and-variables-were-declared-within-the-inner-class">An inner class can use all the methods and variables of the outer class,even the private ones. The inner class gets to use those variables and methods just as if the methods and variables were declared within the inner class.</h3>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210126103248536.png" alt="image-20210126103248536" /></p>
+
+<h1 id="an-inner-class-instance-must-be-tied-to-an-outer-class-instance">An <u>inner</u> class instance must be tied to an <u>outer</u> class instance</h1>
+
+<p>An <strong>inner</strong> object must be tied to a specific <strong>outer</strong> object on the heap.</p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210126103652326.png" alt="image-20210126103652326" /></p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210126103659233.png" alt="image-20210126103659233" /></p>
+
+<p><img src="F:\Nicholas\MyProject\cp3ugar.github.io\assets\img\image-20210126103709250.png" alt="image-20210126103709250" /></p>
+
+:ET
