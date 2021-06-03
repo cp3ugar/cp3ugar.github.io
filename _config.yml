@@ -25,6 +25,11 @@ sass:
   sass_dir:         _sass
   style:            compressed
 
+# search
+algolia:
+    application_id: T0CXCCBGOV
+    index_name: jekyll
+
 # Comments
 disqus_shortname:   taylantatli
 

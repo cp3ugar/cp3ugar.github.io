@@ -5,3 +5,7 @@ gem "jekyll-sitemap"
 gem "jekyll-gist"
 gem 'jekyll-mentions', '~> 1.6'
 gem 'jekyll-feed'
+
+group :jekyll_plugins do
+	gem 'jekyll-algolia'
+end
