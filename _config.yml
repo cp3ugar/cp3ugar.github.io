@@ -25,10 +25,10 @@ sass:
   sass_dir:         _sass
   style:            compressed
 
-# search
-algolia:
-    application_id: T0CXCCBGOV
-    index_name: jekyll
+# # search
+# algolia:
+    # application_id: T0CXCCBGOV
+    # index_name: cp3ugar
 
 # Comments
 disqus_shortname:   taylantatli
